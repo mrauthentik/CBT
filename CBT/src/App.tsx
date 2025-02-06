@@ -1,10 +1,16 @@
 import './App.css'
+import Home from './Components/Home'
+import SignUpPage from './Components/UserAuth/SignUpPage'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 function App() {
 
   return (
-    <>
-     <h1>welcome</h1>
-    </>
+   <Router>
+    <Routes>
+      <Route path='/' element={<Home />} />
+      <Route path='/signup' element={<SignUpPage />} />
+    </Routes>
+   </Router>
   )
 }
 
