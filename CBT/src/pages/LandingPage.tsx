@@ -1,5 +1,6 @@
 // src/pages/LandingPage.tsx
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const LandingPage: React.FC = () => {
   return (
@@ -11,9 +12,11 @@ const LandingPage: React.FC = () => {
           Secure, reliable, and easy-to-use platform for conducting computer-based tests.
         </p>
         <div className="flex space-x-4"> {/* Buttons container */}
-        <button className="bg-white text-blue-500 py-3 px-6 rounded-lg font-semibold hover:bg-blue-100 transition">
-          Get Started
-        </button>
+        <Link to="/signup"> {/* Link to the /signup route */}
+         <button className="bg-white text-blue-500 py-3 px-6 rounded-lg font-semibold hover:bg-blue-100 transition">
+            Get Started  {/* Button text */}
+         </button>
+        </Link>
         <button className="bg-transparent border border-white text-white py-3 px-6 rounded-lg font-semibold hover:bg-white/20 transition">
           Learn More
         </button>
