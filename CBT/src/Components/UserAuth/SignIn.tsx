@@ -5,7 +5,6 @@ import { ToastContainer, toast } from "react-toastify";
 import { UserCredential } from "firebase/auth";
 
 
-
 const auth = getAuth();
 
 const signInUser = async (email: string, password: string): Promise<void> => {
