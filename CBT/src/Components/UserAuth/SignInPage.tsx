@@ -1,8 +1,9 @@
 import React, {useState} from 'react'
 import {auth} from '../firebase'
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import resetPassword from './resetPassword';
 
 const SignInPage: React.FC = () => {
     const [email, setEmail] = useState('')
@@ -22,11 +23,15 @@ const SignInPage: React.FC = () => {
          console.log(error)
         }
     }
+    const handleForgetPassword  = async(e: React.MouseEvent) =>{
+        e.preventDefault()
+        resetPassword(email)
+    }
   return (
     <div>
         <h1>Sign In</h1>
       {error && <p style={{ color: "red" }}>{error}</p>}
-
+      <ToastContainer />
       <form onSubmit={handleSignIn}>
         <input
           type="email"
@@ -43,6 +48,7 @@ const SignInPage: React.FC = () => {
           required
         />
         <button type="submit">Sign In</button>
+        <a href="# " onClick={handleForgetPassword}>Forgot Password?</a>
       </form>
     </div>
   )
