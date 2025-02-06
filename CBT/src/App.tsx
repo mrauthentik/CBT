@@ -5,6 +5,7 @@ import LandingPage from './pages/LandingPage'; // Import your LandingPage compon
 import './App.css'
 import Home from './Components/Home'
 import SignUpPage from './Components/UserAuth/SignUpPage'
+import SignInPage from './Components/UserAuth/SignInPage';
 
 const App: React.FC = () => {
   return (
@@ -13,6 +14,7 @@ const App: React.FC = () => {
         <Route path="/" element={<LandingPage />} /> {/* Route for LandingPage */}
         <Route path="/home" element={<Home />} />
         <Route path="/signup" element={<SignUpPage />} />
+        <Route path="/signin" element={<SignInPage />} />
       </Routes>
     </BrowserRouter>
   );
