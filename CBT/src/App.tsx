@@ -1,19 +1,13 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom'; 
-import LandingPage from './pages/LandingPage';
-import Home from './Components/Home';
-import SignUpPage from './Components/UserAuth/SignUpPage';
+import { RouterProvider } from 'react-router-dom';
 
-const App: React.FC = () => { 
+import './App.css'
+import router from './Routes/Router';
+
+const App: React.FC = () => {
   return (
-    <BrowserRouter> 
-      <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/home" element={<Home />} /> 
-        <Route path="/signup" element={<SignUpPage />} />
-      </Routes>
-    </BrowserRouter>
+    <RouterProvider  router={router}/>
   );
-};
+}
 
 export default App;
