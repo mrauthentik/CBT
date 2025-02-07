@@ -3,7 +3,6 @@ import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { auth } from '../firebase'
 import { toast, ToastContainer } from 'react-toastify'
 import { Link } from 'react-router-dom'
-import SignUp from './SignUp'
 import signInWithGoogle from './GoogleSignUpConfig'
 
 const SignUpPage: React.FC  = () => {
