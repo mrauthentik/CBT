@@ -20,7 +20,7 @@ const SignInForm = styled.div`
   background-color: rgba(255, 255, 255, 0.7);
   padding: 2rem;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 1 4px 8px rgba(0, 0, 0, 0.1);
   width: 350px;
 `;
 
