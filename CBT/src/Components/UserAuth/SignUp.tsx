@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify';
 import {auth} from '../firebase';
 import {createUserWithEmailAndPassword} from 'firebase/auth';
 
@@ -14,5 +15,6 @@ const SignUp = async (email: string, password: string) => {
     }
 }
 
+//function for the Google Sign-in
 
 export default SignUp;

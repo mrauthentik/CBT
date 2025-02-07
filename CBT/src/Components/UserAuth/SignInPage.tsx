@@ -4,6 +4,7 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 import { toast, ToastContainer } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import resetPassword from './resetPassword';
+import signInWithGoogle from './GoogleSignUpConfig';
 
 const SignInPage: React.FC = () => {
     const [email, setEmail] = useState('')
@@ -26,6 +27,16 @@ const SignInPage: React.FC = () => {
     const handleForgetPassword  = async(e: React.MouseEvent) =>{
         e.preventDefault()
         resetPassword(email)
+    }
+    const handleGoogleSignIn = async () =>{
+      try{
+          await signInWithGoogle()
+          toast.success('Google Sign-in Successful')
+          navigate('/dashboard')
+      }catch(err:unknown){
+        toast.error('Google Sign-in failed')
+        console.log(err)
+      }
     }
   return (
     <div>
@@ -50,6 +61,7 @@ const SignInPage: React.FC = () => {
         <button type="submit">Sign In</button>
         <a href="# " onClick={handleForgetPassword}>Forgot Password?</a>
       </form>
+        <button onClick={handleGoogleSignIn}> Sign In with Google</button>
     </div>
   )
 }
