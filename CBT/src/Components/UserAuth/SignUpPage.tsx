@@ -54,11 +54,11 @@ const Button = styled.button`
   }
 `;
 
-const ErrorMessage = styled.p`
-  color: red;
-  margin-top: 0.5rem;
-  text-align: center;
-`;
+// const ErrorMessage = styled.p`
+//   color: red;
+//   margin-top: 0.5rem;
+//   text-align: center;
+// `;
 
 const StyledLink = styled(Link)`
     color: #007bff;
@@ -75,7 +75,7 @@ const SignUpPage: React.FC = () => {
   const [userName, setUserName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  // const [error, setError] = useState('');
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -85,10 +85,10 @@ const SignUpPage: React.FC = () => {
       toast.success('User signed up successfully', { autoClose: 3000, position: "top-center" });
     } catch (error: unknown) {
       if (error instanceof Error) {
-        setError(error.message);
+        // setError(error.message);
         toast.error(error.message, { autoClose: 3000, position: "top-center" }); // Display error with toast
       } else {
-        setError("An unknown error occurred.");
+        // setError("An unknown error occurred.");
         toast.error("An unknown error occurred.", { autoClose: 3000, position: "top-center" });
       }
     }

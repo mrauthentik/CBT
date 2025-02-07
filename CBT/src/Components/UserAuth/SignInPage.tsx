@@ -54,11 +54,11 @@ const Button = styled.button`
   }
 `;
 
-const ErrorMessage = styled.p`
-  color: red;
-  margin-top: 0.5rem;
-  text-align: center;
-`;
+// const ErrorMessage = styled.p`
+//   color: red;
+//   margin-top: 0.5rem;
+//   text-align: center;
+// `;
 
 const ForgotPasswordLink = styled.a`
   color: #007bff; /* Example link color */
@@ -77,7 +77,7 @@ const SignInPage: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
-  const [error, setError] = useState('');
+  // const [error, setError] = useState('');
 
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -86,10 +86,10 @@ const SignInPage: React.FC = () => {
       navigate('/dashboard');
     } catch (error: unknown) {
       if (error instanceof Error) {
-        setError(error.message);
+        // setError(error.message);
         toast.error(error.message);
       } else {
-        setError("An unknown error occurred.");
+        // setError("An unknown error occurred.");
         toast.error("An unknown error occurred.");
       }
     }
