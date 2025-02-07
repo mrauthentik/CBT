@@ -5,6 +5,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import resetPassword from './resetPassword';
 import signInWithGoogle from './GoogleSignUpConfig';
+import { Link } from 'react-router-dom';
 
 const SignInPage: React.FC = () => {
     const [email, setEmail] = useState('')
@@ -60,6 +61,7 @@ const SignInPage: React.FC = () => {
         <a href="# " onClick={handleForgetPassword}>Forgot Password?</a>
       </form>
         <button onClick={handleGoogleSignIn}> Sign In with Google</button>
+       <Link to='/signup'> <a> Don&apos;t have an account ?</a> </Link>
     </div>
   )
 }
