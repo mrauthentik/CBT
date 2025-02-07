@@ -3,6 +3,8 @@ import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { auth } from '../firebase'
 import { toast, ToastContainer } from 'react-toastify'
 import { Link } from 'react-router-dom'
+import SignUp from './SignUp'
+import signInWithGoogle from './GoogleSignUpConfig'
 
 const SignUpPage: React.FC  = () => {
   
@@ -37,8 +39,12 @@ const SignUpPage: React.FC  = () => {
               <input type="email" placeholder="Email" required value={email} onChange={(e)=> setEmail(e.target.value)}/>
               <input type="password" placeholder="Password" required value={password} onChange={(e) => setPassword(e.target.value)} />
               <button type='submit'>Sign Up</button>
-             <Link to={'/signin'}><a>Already have an account? </a></Link> 
        </form>
+       {/* Google signup */}
+       <button onClick={signInWithGoogle}> Sign in with Google</button>
+
+       <Link to={'/signin'}><a>Already have an account? </a></Link> 
+
     </div>
   )
 }
