@@ -40,7 +40,7 @@ const SignUpPage: React.FC  = () => {
               <button type='submit'>Sign Up</button>
        </form>
        {/* Google signup */}
-       <button onClick={signInWithGoogle}> Sign in with Google</button>
+       <button onClick={signInWithGoogle}> Sign up with Google</button>
 
        <Link to={'/signin'}><a>Already have an account? </a></Link> 
 
