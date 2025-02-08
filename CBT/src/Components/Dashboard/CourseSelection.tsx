@@ -1,13 +1,17 @@
 import React, {useEffect, useState} from "react"
 import {collection, getDocs} from "firebase/firestore"
 import {db} from '../firebase'
+import { useNavigate } from "react-router-dom";
 
 const CourseSelection: React.FC = () =>{
     const [courses,setCourses] = useState<{ id:string; CourseName:string;}[]>(
         []
     );
 
-
+   const navigate = useNavigate ()
+   const handleCourseSelect = (courseId:string)=>{
+      navigate(`/exampage/${courseId}`)
+   }
     useEffect(() => {
         const fetchCourses = async()=>{
             console.log("Courses state updated", courses)
@@ -31,17 +35,22 @@ const CourseSelection: React.FC = () =>{
     return (
         <div>
             <h2>Select a Course</h2>
-            <ul>
+            <select>
                 {courses.length == 0 && <p> No courses found</p>}
                 {courses.map((course, index) => {
                     console.log("Rendering:", course.CourseName)
                     return( 
-                    <li key={course.id|| index}> {course.CourseName} </li>
-                   
+                    <option key={course.id|| index} > 
+                    
+                    {course.CourseName}
+                      <button onClick={()=> handleCourseSelect(course.id)}> Start</button>
+                     </option>
+                  
                 );
                 })}
                
-            </ul>
+            </select>
+            {/* <button type="submit" onClick={handleCourseSelect} >Start Exam</button> */}
         </div>
     )
 }
