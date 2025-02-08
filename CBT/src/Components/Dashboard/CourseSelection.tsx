@@ -11,6 +11,7 @@ const CourseSelection: React.FC = () =>{
    const navigate = useNavigate ()
    const handleCourseSelect = (courseId:string)=>{
       navigate(`/exampage/${courseId}`)
+      console.log(`${courseId} has been clicked`)
    }
     useEffect(() => {
         const fetchCourses = async()=>{
@@ -35,21 +36,21 @@ const CourseSelection: React.FC = () =>{
     return (
         <div>
             <h2>Select a Course</h2>
-            <select>
+            <ul>
                 {courses.length == 0 && <p> No courses found</p>}
                 {courses.map((course, index) => {
                     console.log("Rendering:", course.CourseName)
                     return( 
-                    <option key={course.id|| index} > 
+                    <li key={course.id|| index}  onClick={()=> handleCourseSelect(course.id)}> 
                     
                     {course.CourseName}
-                      <button onClick={()=> handleCourseSelect(course.id)}> Start</button>
-                     </option>
+                      {/* <button onClick={()=> handleCourseSelect(course.id)}> Start</button> */}
+                     </li>
                   
                 );
                 })}
                
-            </select>
+            </ul>
             {/* <button type="submit" onClick={handleCourseSelect} >Start Exam</button> */}
         </div>
     )
