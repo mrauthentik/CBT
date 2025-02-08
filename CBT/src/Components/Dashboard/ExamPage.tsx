@@ -36,14 +36,21 @@ const ExamPage: React.FC = () => {
                 }
                 setQuestions(questionsList)
                  console.log('Questions have been fetched', questionsList.length)
-            }catch(err){
+                 console.log("here is the question text: ",questions.map((questions,index) => {
+                    return (
+                        questions.text,index
+                       
+                    )
+                }))
+                }catch(err){
                 console.log("Error fectching Questions",err)
+               
             }finally{
                 setLoading(false)
             }
         }
         fetchQuestions()
-    }, [courseId])
+    }, [])
   return (
     <div>
        <h2>Exam</h2>
