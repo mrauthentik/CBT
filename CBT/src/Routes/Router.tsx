@@ -23,7 +23,7 @@ const router = createBrowserRouter([
         element: <SignUpPage />
     },
     {
-        path: "/exampage:courseId",
+        path: "/exampage/:courseId",
         element: <ExamPage />
     }
 ]);
