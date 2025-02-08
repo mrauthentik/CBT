@@ -5,6 +5,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; // Import the toast CSS
 import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
+import signInWithGoogle from './GoogleSignUpConfig';
 
 const Container = styled.div`
   display: flex;
@@ -94,6 +95,20 @@ const SignUpPage: React.FC = () => {
     }
   };
 
+  const handleSignInWithGoogle = async () =>{
+    try{
+      await signInWithGoogle ()
+      toast.success('Sign up Successful')
+      
+    }
+    catch (error){
+      toast.error('Sign in not successfull')
+      console.log(error)
+    }
+
+  }
+
+
   return (
     <Container>
       <SignUpForm>
@@ -132,6 +147,7 @@ const SignUpPage: React.FC = () => {
           <Button type="submit">Sign Up</Button>
           <StyledLink to="/signin">Already have an account?</StyledLink>
         </form>
+        <a onClick={signInWithGoogle}> Sign in with Google</a>
       </SignUpForm>
     </Container>
   );

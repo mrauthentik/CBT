@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { auth } from '../firebase';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { signInWithEmailAndPassword} from 'firebase/auth';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 import resetPassword from './resetPassword';
 import styled from '@emotion/styled';
+import signInWithGoogle from './GoogleSignUpConfig';
 
 const Container = styled.div`
   display: flex;
@@ -88,6 +89,7 @@ const SignInPage: React.FC = () => {
       if (error instanceof Error) {
         // setError(error.message);
         toast.error(error.message);
+        toast.error('Failed to sign in')
       } else {
         // setError("An unknown error occurred.");
         toast.error("An unknown error occurred.");
@@ -100,6 +102,19 @@ const SignInPage: React.FC = () => {
     resetPassword(email);
     toast.info("Password reset email sent (if email exists)."); // Inform user
   };
+
+  const handleSignInWithGoogle = async ()=>{
+    try{
+      await signInWithGoogle ()
+      toast.success('Sign in with Google Successful')
+      navigate('/dasboard')
+
+    }
+    catch (err){
+      toast.error("Could not sign in with Google Account")
+      console.log(err)
+    }
+  }
 
   return (
     <Container>
@@ -126,6 +141,7 @@ const SignInPage: React.FC = () => {
             Forgot Password?
           </ForgotPasswordLink>
         </form>
+        <a onClick={handleSignInWithGoogle}>Sign in with Google</a>
       </SignInForm>
     </Container>
   );
