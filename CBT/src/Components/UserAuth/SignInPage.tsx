@@ -3,7 +3,7 @@ import { auth } from '../firebase';
 import { signInWithEmailAndPassword} from 'firebase/auth';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import resetPassword from './resetPassword';
 import styled from '@emotion/styled';
 import signInWithGoogle from './GoogleSignUpConfig';
@@ -141,6 +141,7 @@ const SignInPage: React.FC = () => {
             Forgot Password?
           </ForgotPasswordLink>
         </form>
+         <a > <Link to='signup'>Don't have an Account?</Link></a>
         <a onClick={handleSignInWithGoogle}>Sign in with Google</a>
       </SignInForm>
     </Container>
