@@ -1,7 +1,7 @@
 
 import React, { useEffect , useState} from 'react'
 import {useParams } from 'react-router-dom'
-import { collection, doc, getDocs, query, where } from 'firebase/firestore'
+import { collection,  getDocs, query, where } from 'firebase/firestore'
 import {db} from '../firebase'
 
 
@@ -21,17 +21,21 @@ const ExamPage: React.FC = () => {
     useEffect(()=> {
        
         const fetchQuestions = async () =>{
-            
+            console.log("Fetching courses data.......")
             if(!courseId) return
             try{
-                const q = query(collection(db, "questions"), where("courseId", "==", courseId))
-                const querySnapshot = await getDocs(q)
+                const questioncollection = query(collection(db, "questions"), where("courseId", "==", courseId))
+                const querySnapshot = await getDocs(questioncollection)
                 const questionsList = querySnapshot.docs.map((doc)=>({
                     id: doc.id,
                     ...(doc.data() as Question)
+                   
                 }))
+                if(querySnapshot.empty){
+                    console.log( "No courses found in the firestore")
+                }
                 setQuestions(questionsList)
-
+                 console.log('Questions have been fetched', questionsList.length)
             }catch(err){
                 console.log("Error fectching Questions",err)
             }finally{
