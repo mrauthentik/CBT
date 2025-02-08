@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebase';
 import { toast, ToastContainer } from 'react-toastify';
@@ -6,6 +7,7 @@ import 'react-toastify/dist/ReactToastify.css'; // Import the toast CSS
 import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
 import signInWithGoogle from './GoogleSignUpConfig';
+
 
 const Container = styled.div`
   display: flex;
@@ -77,7 +79,7 @@ const SignUpPage: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   // const [error, setError] = useState('');
-
+ const navigate = useNavigate()
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -99,6 +101,7 @@ const SignUpPage: React.FC = () => {
     try{
       await signInWithGoogle ()
       toast.success('Sign up Successful')
+      navigate('/dashboard')
       
     }
     catch (error){
@@ -147,7 +150,7 @@ const SignUpPage: React.FC = () => {
           <Button type="submit">Sign Up</Button>
           <StyledLink to="/signin">Already have an account?</StyledLink>
         </form>
-        <a onClick={signInWithGoogle}> Sign in with Google</a>
+        <a onClick={handleSignInWithGoogle}> Sign in with Google</a>
       </SignUpForm>
     </Container>
   );
