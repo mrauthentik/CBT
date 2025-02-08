@@ -53,7 +53,7 @@ const ExamPage: React.FC = () => {
     }, [])
   return (
     <div>
-       <h2>Exam</h2>
+       <h2>You are about to take {courseId} Course CBT Test </h2>
        {loading ? (
         <p> Loading questions....</p>
        ): questions.length === 0? (
