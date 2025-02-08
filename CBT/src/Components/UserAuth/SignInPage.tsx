@@ -141,7 +141,7 @@ const SignInPage: React.FC = () => {
             Forgot Password?
           </ForgotPasswordLink>
         </form>
-         <a > <Link to='signup'>Don't have an Account?</Link></a>
+         <a > <Link to='/signup'>Don't have an Account?</Link></a>
         <a onClick={handleSignInWithGoogle}>Sign in with Google</a>
       </SignInForm>
     </Container>
