@@ -3,21 +3,24 @@ import {collection, getDocs} from "firebase/firestore"
 import {db} from '../firebase'
 
 const CourseSelection: React.FC = () =>{
-    const [courses,setCourses] = useState<{ id:string; courseName:string;}[]>(
+    const [courses,setCourses] = useState<{ id:string; CourseName:string;}[]>(
         []
     );
 
 
     useEffect(() => {
         const fetchCourses = async()=>{
+            console.log("Courses state updated", courses)
             try{
                 const coursesCollection = collection(db, "courses");
                 const courseSnapshot = await getDocs(coursesCollection);
                 const courseList = courseSnapshot.docs.map((docs)=> ({
                     id: docs.id,
                     ...docs.data(),
-                })) as { id:string; courseName: string;} [];
+                    CourseName: docs.data().CourseName
+                })) as { id:string; CourseName: string;} [];
                 setCourses(courseList)
+                console.log("Course List",courseList)
             }catch (err){
                 console.log("Error fectching courses",err)
             }
@@ -29,15 +32,15 @@ const CourseSelection: React.FC = () =>{
         <div>
             <h2>Select a Course</h2>
             <ul>
-                {courses.map((course) => {
+                {courses.length == 0 && <p> No courses found</p>}
+                {courses.map((course, index) => {
+                    console.log("Rendering:", course.CourseName)
                     return( 
-                    <li key={course.id}>{course.courseName}</li>
+                    <li key={course.id|| index}> {course.CourseName} </li>
                    
                 );
                 })}
-                {courses.map((course)=>{
-                    return <li key={course.id}>{course.courseName}</li>
-                })}
+               
             </ul>
         </div>
     )
