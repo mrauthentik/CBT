@@ -1,28 +1,30 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebase';
 import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css'; // Import the toast CSS
+import 'react-toastify/dist/ReactToastify.css';
 import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
+import signInWithGoogle from './GoogleSignUpConfig';
+import { FcGoogle } from 'react-icons/fc';
 
 const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: linear-gradient(to bottom, #fff, #008080); /* White to teal gradient */
+  background: linear-gradient(to bottom, #fff, #008080);
   background-size: cover;
 `;
 
 const SignUpForm = styled.div`
-  background-color: rgba(255, 255, 255, 0.7); /* Semi-transparent white */
+  background-color: rgba(255, 255, 255, 0.7);
   padding: 2rem;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   width: 350px;
 `;
-
 
 const Title = styled.h2`
   text-align: center;
@@ -54,28 +56,45 @@ const Button = styled.button`
   }
 `;
 
-const ErrorMessage = styled.p`
-  color: red;
-  margin-top: 0.5rem;
-  text-align: center;
+const StyledLink = styled(Link)`
+  color: #007bff;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
 `;
 
-const StyledLink = styled(Link)`
-    color: #007bff;
-    text-decoration: none;
+const GoogleSignInButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 0.8rem;
+  background-color: #fff;
+  color: #000;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 1rem;
 
-    &:hover {
-        text-decoration: underline;
-    }
-`
+  &:hover {
+    background-color: #eee;
+  }
+`;
 
+const GoogleIcon = styled(FcGoogle)`
+  margin-right: 0.5rem;
+  font-size: 1.2rem;
+`;
 
 const SignUpPage: React.FC = () => {
   const [fullName, setFullName] = useState('');
   const [userName, setUserName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -85,12 +104,21 @@ const SignUpPage: React.FC = () => {
       toast.success('User signed up successfully', { autoClose: 3000, position: "top-center" });
     } catch (error: unknown) {
       if (error instanceof Error) {
-        setError(error.message);
-        toast.error(error.message, { autoClose: 3000, position: "top-center" }); // Display error with toast
+        toast.error(error.message, { autoClose: 3000, position: "top-center" });
       } else {
-        setError("An unknown error occurred.");
         toast.error("An unknown error occurred.", { autoClose: 3000, position: "top-center" });
       }
+    }
+  };
+
+  const handleSignInWithGoogle = async () => {
+    try {
+      await signInWithGoogle();
+      toast.success('Sign up Successful');
+      navigate('/dashboard');
+    } catch (error) {
+      toast.error('Sign in not successful');
+      console.log(error);
     }
   };
 
@@ -98,8 +126,7 @@ const SignUpPage: React.FC = () => {
     <Container>
       <SignUpForm>
         <Title>Sign Up</Title>
-        <ToastContainer /> {/* Toast container should be inside the component */}
-        {/* {error && <ErrorMessage>{error}</ErrorMessage>}  No longer needed */}
+        <ToastContainer />
         <form onSubmit={handleSignUp}>
           <Input
             type="text"
@@ -132,6 +159,9 @@ const SignUpPage: React.FC = () => {
           <Button type="submit">Sign Up</Button>
           <StyledLink to="/signin">Already have an account?</StyledLink>
         </form>
+        <GoogleSignInButton onClick={handleSignInWithGoogle}>
+          <GoogleIcon /> Sign in with Google
+        </GoogleSignInButton>
       </SignUpForm>
     </Container>
   );
