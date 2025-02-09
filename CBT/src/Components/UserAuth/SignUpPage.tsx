@@ -252,7 +252,7 @@ const SignUpPage: React.FC = () => {
           <StyledLink to="/signin">Already have an account?</StyledLink>
         </form>
         <GoogleSignInButton onClick={handleSignInWithGoogle}>
-          <GoogleIcon /> Sign in with Google
+          <GoogleIcon /> Sign Up with Google
         </GoogleSignInButton>
       </SignUpForm>
     </Container>

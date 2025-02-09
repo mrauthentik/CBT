@@ -203,9 +203,12 @@ const SignInPage: React.FC = () => {
 
   const handleSignInWithGoogle = async () => {
     try {
-      await signInWithGoogle();
-      toast.success('Sign in with Google Successful');
-      navigate('/dashboard');
+    const user =  await signInWithGoogle();
+       if(user) {
+        
+         toast.success('Sign in with Google Successful');
+         navigate('/dashboard');
+       }
     } catch (error) {
       toast.error("Could not sign in with Google Account");
       console.error(error);
