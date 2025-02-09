@@ -8,6 +8,28 @@ import resetPassword from './resetPassword';
 import styled from '@emotion/styled';
 import signInWithGoogle from './GoogleSignUpConfig';
 import { FcGoogle } from 'react-icons/fc';
+import logoImage from '../logo/NEXA_LOGO-removebg-preview.png'; // Import your logo. Adjust path!
+
+const LogoContainer = styled.div`
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  display: flex;
+  align-items: center;
+`;
+
+const Logo = styled.img`
+  width: 50px;
+  height: auto;
+  margin-right: 10px;
+`;
+
+const LogoText = styled.span`
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333;
+  font-family: 'Poppins', sans-serif;
+`;
 
 const Container = styled.div`
   display: flex;
@@ -15,56 +37,101 @@ const Container = styled.div`
   align-items: center;
   min-height: 100vh;
   background: linear-gradient(to bottom, #fff, #008080);
-  background-size: cover;
+  background-size: 200% 200%;
+  animation: gradientAnimation 10s ease infinite;
+  position: relative;
+
+  @keyframes gradientAnimation {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
 `;
 
 const SignInForm = styled.div`
-  background-color: rgba(255, 255, 255, 0.7);
-  padding: 2rem;
+  background-color: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(5px);
+  padding: 3rem;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  width: 350px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 400px;
+  text-align: left;
 `;
 
 const Title = styled.h2`
-  text-align: center;
-  margin-bottom: 1.5rem;
-  color: #008080;
+  text-align: left;
+  margin-bottom: 2rem;
+  color: #333;
+  font-size: 2rem;
+  font-weight: 700;
+  font-family: 'Poppins', sans-serif;
+  letter-spacing: -0.02em;
+  transition: transform 0.2s ease-in-out;
+
+  &:hover {
+    transform: translateY(-3px);
+  }
 `;
 
 const Input = styled.input`
   width: 100%;
-  padding: 0.8rem;
-  margin-bottom: 1rem;
-  border: 1px solid #ccc;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid #ddd;
   border-radius: 4px;
   box-sizing: border-box;
+  font-size: 1rem;
+  color: #333;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  font-family: 'Open Sans', sans-serif;
+
+  &:focus {
+    border-color: #008080;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 128, 128, 0.2);
+  }
+
+  &::placeholder {
+    color: #999;
+  }
 `;
 
 const Button = styled.button`
   width: 100%;
-  padding: 0.8rem;
+  padding: 1rem;
   background-color: #008080;
   color: #fff;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: transform 0.2s ease-in-out, background-color 0.3s ease;
+  font-size: 1rem;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
 
   &:hover {
+    transform: scale(1.02);
     background-color: #006666;
   }
 `;
 
-const LinkContainer = styled.div`  // New: Container for the links
+const LinkContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-top: 1rem;
+  margin-top: 1.5rem;
 `;
 
 const ForgotPasswordLink = styled.a`
   color: #007bff;
   text-decoration: none;
+  font-size: 1rem;
+  font-family: 'Lato', sans-serif;
 
   &:hover {
     text-decoration: underline;
@@ -76,28 +143,32 @@ const GoogleSignInButton = styled.button`
   align-items: center;
   justify-content: center;
   width: 100%;
-  padding: 0.8rem;
-  background-color: #fff;
-  color: #000;
-  border: 1px solid #ccc;
+  padding: 1rem;
+  background: #fff;
+  color: #333;
+  border: 1px solid #ddd;
   border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
-  margin-top: 1rem;
+  transition: transform 0.2s ease-in-out;
+  margin-top: 1.5rem;
+  font-size: 1rem;
+  font-family: 'Lato', sans-serif;
 
   &:hover {
-    background-color: #eee;
+    transform: scale(1.02);
   }
 `;
 
 const GoogleIcon = styled(FcGoogle)`
-  margin-right: 0.5rem;
+  margin-right: 0.8rem;
   font-size: 1.2rem;
 `;
 
 const SignUpLink = styled(Link)`
   color: #007bff;
   text-decoration: none;
+  font-size: 1rem;
+  font-family: 'Lato', sans-serif;
 
   &:hover {
     text-decoration: underline;
@@ -143,6 +214,10 @@ const SignInPage: React.FC = () => {
 
   return (
     <Container>
+      <LogoContainer> {/* Logo added here */}
+        <Logo src={logoImage} alt="NEXA Logo" />
+        <LogoText>NEXA</LogoText>
+      </LogoContainer>
       <SignInForm>
         <Title>Sign In</Title>
         <ToastContainer />
@@ -163,7 +238,7 @@ const SignInPage: React.FC = () => {
           />
           <Button type="submit">Sign In</Button>
         </form>
-        <LinkContainer> {/* Links are now in the LinkContainer */}
+        <LinkContainer>
           <ForgotPasswordLink href="#" onClick={handleForgetPassword}>
             Forgot Password?
           </ForgotPasswordLink>

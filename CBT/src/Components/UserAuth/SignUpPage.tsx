@@ -8,50 +8,133 @@ import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
 import signInWithGoogle from './GoogleSignUpConfig';
 import { FcGoogle } from 'react-icons/fc';
+import logoImage from '../logo/NEXA_LOGO-removebg-preview.png'; 
+
+// const Container = styled.div`
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   min-height: 100vh;
+//   background-image: url('https://images.unsplash.com/photo-1531315630201-bb15abeb1653?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); // Replace with your image URL
+//   background-size: cover;
+//   background-position: center;
+// `;
+
+const SignUpForm = styled.div`
+  background-color: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(5px);
+  padding: 3rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 400px;
+  text-align: left;
+`;
+
+const LogoContainer = styled.div`
+  position: absolute;  // Position it absolutely
+  top: 20px;           // Adjust top distance
+  left: 20px;          // Adjust left distance
+  display: flex;       // Use flexbox for alignment
+  align-items: center; // Vertically center items
+`;
+
+const Logo = styled.img`
+  width: 50px;       // Adjust size as needed
+  height: auto;      // Maintain aspect ratio
+  margin-right: 10px; // Add some spacing between logo and text
+`;
+
+const LogoText = styled.span`
+  font-size: 1.2rem;   // Adjust size as needed
+  font-weight: bold; // Make it bold
+  color: #333;       // Set color
+  font-family: 'Poppins', sans-serif; // Use your font
+`;
 
 const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: linear-gradient(to bottom, #fff, #008080);
-  background-size: cover;
+  background: linear-gradient(to bottom, #fff, #008080); // Initial gradient
+  background-size: 200% 200%; // Make gradient larger than container
+  animation: gradientAnimation 10s ease infinite; // Animate the gradient
+
+  @keyframes gradientAnimation {
+    0% {
+      background-position: 0% 50%; // Start position
+    }
+    50% {
+      background-position: 100% 50%; // Move to the other side
+    }
+    100% {
+      background-position: 0% 50%; // Back to the start
+    }
+  }
 `;
 
-const SignUpForm = styled.div`
-  background-color: rgba(255, 255, 255, 0.7);
-  padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  width: 350px;
-`;
 
 const Title = styled.h2`
-  text-align: center;
+  text-align: left;
+  margin-bottom: 2rem;
+  color: #333;
+  font-size: 2rem;
+  font-weight: 700;
+  font-family: 'Poppins', sans-serif;
+  letter-spacing: -0.02em;
+  transition: transform 0.2s ease-in-out;
+
+  &:hover {
+    transform: translateY(-3px);
+  }
+`;
+
+const NameInputs = styled.div`
+  display: flex;
+  gap: 1.5rem;
   margin-bottom: 1.5rem;
-  color: #008080;
+  width: 100%;
 `;
 
 const Input = styled.input`
-  width: 100%;
-  padding: 0.8rem;
-  margin-bottom: 1rem;
-  border: 1px solid #ccc;
+  width: 100%; // All inputs are now full width
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid #ddd;
   border-radius: 4px;
   box-sizing: border-box;
+  font-size: 1rem;
+  color: #333;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  font-family: 'Open Sans', sans-serif;
+  background-color: #f8f8f8; // Light gray background for all inputs
+
+  &:focus {
+    border-color: #008080;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 128, 128, 0.2);
+  }
+
+  &::placeholder {
+    color: #999;
+  }
 `;
 
 const Button = styled.button`
   width: 100%;
-  padding: 0.8rem;
+  padding: 1rem;
   background-color: #008080;
   color: #fff;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: transform 0.2s ease-in-out, background-color 0.3s ease;
+  font-size: 1rem;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
 
   &:hover {
+    transform: scale(1.02);
     background-color: #006666;
   }
 `;
@@ -59,6 +142,7 @@ const Button = styled.button`
 const StyledLink = styled(Link)`
   color: #007bff;
   text-decoration: none;
+  font-family: 'Lato', sans-serif;
 
   &:hover {
     text-decoration: underline;
@@ -70,22 +154,24 @@ const GoogleSignInButton = styled.button`
   align-items: center;
   justify-content: center;
   width: 100%;
-  padding: 0.8rem;
-  background-color: #fff;
-  color: #000;
-  border: 1px solid #ccc;
+  padding: 1rem;
+  background: #fff;
+  color: #333;
+  border: 1px solid #ddd;
   border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
-  margin-top: 1rem;
+  transition: transform 0.2s ease-in-out;
+  margin-top: 1.5rem;
+  font-size: 1rem;
+  font-family: 'Lato', sans-serif;
 
   &:hover {
-    background-color: #eee;
+    transform: scale(1.02);
   }
 `;
 
 const GoogleIcon = styled(FcGoogle)`
-  margin-right: 0.5rem;
+  margin-right: 0.8rem;
   font-size: 1.2rem;
 `;
 
@@ -124,24 +210,30 @@ const SignUpPage: React.FC = () => {
 
   return (
     <Container>
+       <LogoContainer>
+        <Logo src={logoImage} alt="NEXA Logo" />
+        <LogoText>NEXA</LogoText>
+      </LogoContainer>
       <SignUpForm>
         <Title>Sign Up</Title>
         <ToastContainer />
         <form onSubmit={handleSignUp}>
-          <Input
-            type="text"
-            placeholder="Full Name"
-            required
-            value={fullName}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFullName(e.target.value)}
-          />
-          <Input
-            type="text"
-            placeholder="Username"
-            required
-            value={userName}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUserName(e.target.value)}
-          />
+          <NameInputs>
+            <Input
+              type="text"
+              placeholder="Full Name"
+              required
+              value={fullName}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFullName(e.target.value)}
+            />
+            <Input
+              type="text"
+              placeholder="Username"
+              required
+              value={userName}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUserName(e.target.value)}
+            />
+          </NameInputs>
           <Input
             type="email"
             placeholder="Email"
