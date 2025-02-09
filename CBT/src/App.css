@@ -43,7 +43,15 @@
   }
   @media (max-width:760px) {
     .hero-img{
-        margin-top: 12rem;
+        margin-top: 8rem;
+    }
+    .herocontent  p{
+        margin-bottom: 3rem;
+        display: none;
+    }
+    .hero-features {
+        width: 90%;
+        margin: auto;
     }
   }
   
