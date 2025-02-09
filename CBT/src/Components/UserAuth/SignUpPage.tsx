@@ -214,7 +214,7 @@ const SignUpPage: React.FC = () => {
         <Logo src={logoImage} alt="NEXA Logo" />
         <LogoText>NEXA</LogoText>
       </LogoContainer>
-      <SignUpForm>
+      <SignUpForm className='signup-container'>
         <Title>Sign Up</Title>
         <ToastContainer />
         <form onSubmit={handleSignUp}>

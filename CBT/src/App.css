@@ -72,6 +72,9 @@
     margin: 10px;
     border-radius: 5px;
     transition: all 0.3s ease;
+    font-weight: 600;
+    border-radius: 20rem;
+    padding: 10px;
   }
   
   .know-more {
@@ -82,7 +85,7 @@
   
   .know-more:hover {
     background: rgb(7, 77, 2);
-    color: rgba(0, 0, 0, 0);
+    color: rgb(255, 255, 255);
   }
   
   .get-started {
@@ -94,3 +97,11 @@
     background: #e68a00;
   }
   
+  .signup-container{
+    text-align: center;
+    background-size: 100% !important;
+    /* background-color: black !important; */
+    background-blend-mode: color;
+    background: url('./Components/logo/NEXA_LOGO-removebg-preview.png') no-repeat;
+
+  }
