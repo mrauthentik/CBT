@@ -222,7 +222,7 @@ const SignInPage: React.FC = () => {
         <Logo src={logoImage} alt="NEXA Logo" />
         <LogoText>NEXA</LogoText>
       </LogoContainer>
-      <SignInForm>
+      <SignInForm className='signin-container'>
         <Title>Sign In</Title>
         <ToastContainer />
         <form onSubmit={handleSignIn}>

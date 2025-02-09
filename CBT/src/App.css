@@ -97,7 +97,7 @@
     background: #e68a00;
   }
   
-  .signup-container{
+  .signup-container,.signin-container{
     text-align: center;
     background-size: 100% !important;
     /* background-color: black !important; */
