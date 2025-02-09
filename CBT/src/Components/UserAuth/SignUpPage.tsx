@@ -55,7 +55,7 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
+  min-height: 69vh;
   background: linear-gradient(to bottom, #fff, #008080); // Initial gradient
   background-size: 200% 200%; // Make gradient larger than container
   animation: gradientAnimation 10s ease infinite; // Animate the gradient
@@ -75,7 +75,7 @@ const Container = styled.div`
 
 
 const Title = styled.h2`
-  text-align: left;
+  text-align: center;
   margin-bottom: 2rem;
   color: #333;
   font-size: 2rem;
@@ -92,7 +92,7 @@ const Title = styled.h2`
 const NameInputs = styled.div`
   display: flex;
   gap: 1.5rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   width: 100%;
 `;
 
@@ -209,7 +209,7 @@ const SignUpPage: React.FC = () => {
   };
 
   return (
-    <Container>
+    <Container className='signup'>
        <LogoContainer>
         <Logo src={logoImage} alt="NEXA Logo" />
         <LogoText>NEXA</LogoText>

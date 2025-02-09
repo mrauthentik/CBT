@@ -1,56 +1,76 @@
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
-import { Link } from 'react-router-dom'; // If you're using React Router
+import Modal from '../pages/Modal'; // Import the modal component
+import SignUpPage from './UserAuth/SignUpPage'; // Import sign-up form
+import SignInPage from './UserAuth/SignInPage'; // Import sign-in form
 
 const NavbarContainer = styled.nav`
   display: flex;
-  justify-content: space-between; // Space logo and buttons
+  justify-content: space-between;
   align-items: center;
-  padding: 1rem; // Adjust padding as needed
-  background-color: #333; // Example background color
+  padding: 1rem;
+  background-color: #333;
   color: #fff;
 `;
 
 const Logo = styled.span`
   font-weight: bold;
   font-size: 1.2rem;
-  margin-left: 1rem; // Add some left margin
+  margin-left: 1rem;
 `;
 
-const CTAButton = styled(Link)` // Use Link for routing (if applicable)
+const CTAButton = styled.button`
   padding: 0.5rem 1rem;
   border-radius: 5px;
-  text-decoration: none; // Remove underlines from links
   color: #fff;
-  transition: background-color 0.3s ease; // Smooth transition
-
+  background: none;
+  border: 1px solid #fff;
+  cursor: pointer;
+  margin-left: 10px;
+  
   &:hover {
-    background-color: #555; // Darker on hover
+    background-color: #555;
   }
 `;
 
-const SignInButton = styled(CTAButton)`
-  background-color: transparent;
-  border: 1px solid #fff;
-
-`;
-
 const RegisterButton = styled(CTAButton)`
-  background-color: #007bff; // Example color
+  background-color: #007bff;
   border: none;
 
   &:hover {
-    background-color: #0056b3; // Darker on hover
+    background-color: #0056b3;
   }
 `;
 
 export const Navbar = () => {
+  const [showModal, setShowModal] = useState(false);
+  const [modalType, setModalType] = useState<'signin' | 'signup' | null>(null);
+
+  const openModal = (type: 'signin' | 'signup') => {
+    setModalType(type);
+    setShowModal(true);
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+    setModalType(null);
+  };
+
   return (
-    <NavbarContainer>
-      <Logo>E-EXAM</Logo>
-      <div>
-        <SignInButton to="/signin">Sign In</SignInButton> {/* Use 'to' for React Router */}
-        <RegisterButton to="/signup">Register</RegisterButton>
-      </div>
-    </NavbarContainer>
+    <>
+      <NavbarContainer>
+        <Logo>E-EXAM</Logo>
+        <div>
+          <CTAButton onClick={() => openModal('signin')}>Sign In</CTAButton>
+          <RegisterButton onClick={() => openModal('signup')}>Register</RegisterButton>
+        </div>
+      </NavbarContainer>
+
+      {showModal && (
+        <Modal onClose={closeModal}>
+          {modalType === 'signin' ? <SignInPage /> : <SignUpPage />}
+        </Modal>
+      )}
+    </>
   );
 };
