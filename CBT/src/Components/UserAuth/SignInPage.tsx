@@ -8,7 +8,7 @@ import resetPassword from './resetPassword';
 import styled from '@emotion/styled';
 import signInWithGoogle from './GoogleSignUpConfig';
 import { FcGoogle } from 'react-icons/fc';
-import logoImage from '../logo/NEXA_LOGO-removebg-preview.png'; // Import your logo. Adjust path!
+import logoImage from '../logo/NEXA_LOGO-removebg-preview.png'; 
 
 const LogoContainer = styled.div`
   position: absolute;
@@ -203,15 +203,16 @@ const SignInPage: React.FC = () => {
 
   const handleSignInWithGoogle = async () => {
     try {
-    const user =  await signInWithGoogle();
-       if(user) {
-        
-         toast.success('Sign in with Google Successful');
-         navigate('/dashboard');
-       }
+      const user = await signInWithGoogle();
+      if (user !== null && user !== undefined) { // Explicitly check for null or undefined
+        toast.success('Sign in with Google Successful');
+        navigate('/dashboard');
+      } else {
+        toast.error("Google sign-in returned no user data.");
+      }
     } catch (error) {
       toast.error("Could not sign in with Google Account");
-      console.error(error);
+      console.error("Google sign-in error:", error); // Include error details
     }
   };
 
