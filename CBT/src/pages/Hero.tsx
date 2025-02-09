@@ -1,4 +1,5 @@
 import React from 'react';
+import { BiBookOpen, BiEdit, BiTimeFive, BiBarChart } from 'react-icons/bi';
 import logo from '../Components/logo/NEXA_LOGO-removebg-preview.png';
 
 const Hero = () => {
@@ -13,10 +14,10 @@ const Hero = () => {
             Access a wide range of courses, take timed tests, and track your progress.
           </p>
           <ul className="hero-features">
-            <li>📚 Access comprehensive study materials</li>
-            <li>📝 Take real-time practice exams</li>
-            <li>⏳ Simulated exam environment with timers</li>
-            <li>📊 Track your progress and improve</li>
+            <li><BiBookOpen className="hero-icon" /> Access comprehensive study materials</li>
+            <li><BiEdit className="hero-icon" /> Take real-time practice exams</li>
+            <li><BiTimeFive className="hero-icon" /> Simulated exam environment with timers</li>
+            <li><BiBarChart className="hero-icon" /> Track your progress and improve</li>
           </ul>
           <div className="hero-btn">
             <button className="know-more">Know More</button>
