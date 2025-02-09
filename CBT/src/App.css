@@ -39,9 +39,10 @@
   
   .hero-img {
     width: 150px;
-    margin-bottom: 20px;
+    margin-top: 8rem;
+    margin-bottom: 50px;
   }
-  @media (max-width:760px) {
+  @media (max-width:414px) {
     .hero-img{
         margin-top: 8rem;
     }
