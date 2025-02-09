@@ -21,7 +21,7 @@ import logoImage from '../logo/NEXA_LOGO-removebg-preview.png';
 // `;
 
 const SignUpForm = styled.div`
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(93, 244, 70, 0.47);
   backdrop-filter: blur(5px);
   padding: 3rem;
   border-radius: 8px;
