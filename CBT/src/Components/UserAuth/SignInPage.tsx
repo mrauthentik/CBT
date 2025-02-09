@@ -35,7 +35,7 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
+  min-height: 69vh;
   background: linear-gradient(to bottom, #fff, #008080);
   background-size: 200% 200%;
   animation: gradientAnimation 10s ease infinite;
@@ -55,7 +55,7 @@ const Container = styled.div`
 `;
 
 const SignInForm = styled.div`
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(93, 244, 70, 0.47);
   backdrop-filter: blur(5px);
   padding: 3rem;
   border-radius: 8px;
@@ -65,7 +65,7 @@ const SignInForm = styled.div`
 `;
 
 const Title = styled.h2`
-  text-align: left;
+  text-align: center;
   margin-bottom: 2rem;
   color: #333;
   font-size: 2rem;
@@ -73,7 +73,7 @@ const Title = styled.h2`
   font-family: 'Poppins', sans-serif;
   letter-spacing: -0.02em;
   transition: transform 0.2s ease-in-out;
-
+  
   &:hover {
     transform: translateY(-3px);
   }
@@ -82,7 +82,7 @@ const Title = styled.h2`
 const Input = styled.input`
   width: 100%;
   padding: 1rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   border: 1px solid #ddd;
   border-radius: 4px;
   box-sizing: border-box;
@@ -217,7 +217,7 @@ const SignInPage: React.FC = () => {
   };
 
   return (
-    <Container>
+    <Container className='sigin'>
       <LogoContainer> {/* Logo added here */}
         <Logo src={logoImage} alt="NEXA Logo" />
         <LogoText>NEXA</LogoText>

@@ -130,10 +130,12 @@
     background: #e68a00;
   }
   
+
   .signup-container,.signin-container{
     text-align: center;
     background-size: 100% !important;
     /* background-color: black !important; */
+    
     background-blend-mode: color;
     background: url('./Components/logo/NEXA_LOGO-removebg-preview.png') no-repeat;
 
