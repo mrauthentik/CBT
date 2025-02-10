@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { auth } from '../firebase';
-import { signInWithEmailAndPassword } from 'firebase/auth';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate, Link } from 'react-router-dom';
+import {loginUser} from './logInUser';
 // import resetPassword from './resetPassword';
 import styled from '@emotion/styled';
 import signInWithGoogle from './GoogleSignUpConfig';
@@ -180,19 +179,10 @@ const SignInPage: React.FC = () => {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
+
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
-    try {
-      await signInWithEmailAndPassword(auth, email, password);
-      navigate('/dashboard');
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        toast.error(error.message);
-        toast.error('Failed to sign in');
-      } else {
-        toast.error("An unknown error occurred.");
-      }
-    }
+    loginUser(email, password);
   };
 
   // const handleForgetPassword = async (e: React.MouseEvent) => {
