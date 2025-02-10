@@ -184,3 +184,15 @@
      color: white;
      transition: 0.3s;
   }
+
+  .user{
+    font-size: 2rem;
+    color: grey;
+    display: block;
+     margin-left: 63rem;
+     p{
+      margin-top: -10px;
+      font-size: 15px;
+     }
+  }
+  

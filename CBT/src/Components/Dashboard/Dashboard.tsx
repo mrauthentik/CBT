@@ -10,6 +10,8 @@ import styled from '@emotion/styled';
 import { NavLink } from 'react-router-dom'; // Import NavLink
 import logoImage from '../logo/NEXA_LOGO-removebg-preview.png'; // Import your logo
 
+import { BiExit } from 'react-icons/bi';
+import {FaUser} from 'react-icons/fa'
 
 const DashboardContainer = styled.div`
   display: flex;
@@ -129,10 +131,14 @@ const Dashboard = () => {
           <StyledNavLink to="/subjects">Subjects</StyledNavLink>
           <StyledNavLink to="/exams">Exams</StyledNavLink>
           <StyledNavLink to="/userinfo">User Info</StyledNavLink>
-      <button onClick={logOutUser} className="logoOut-btn">Log Out</button>
+      <button onClick={logOutUser} className="logoOut-btn">Log Out <BiExit /></button>
         </NavLinks>
       </Sidebar>
       <Content>
+        <div className="user">
+        <FaUser className="user-icon" />
+          <p>{fullName || "User"}</p>
+        </div>
         {/* Your dashboard content goes here */}
         <h2>Welcome to your dashboard! {fullName || 'User'}</h2>
         <h1>Dashboard Content</h1>
@@ -140,7 +146,7 @@ const Dashboard = () => {
       </Content>
     </DashboardContainer>
      
-      <h2>Welcome, {fullName || "User"}!</h2>
+      
     </div>
   );
 };
