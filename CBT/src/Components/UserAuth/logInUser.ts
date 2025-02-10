@@ -9,12 +9,30 @@ import { auth, db } from '../firebase';
 import { FirebaseError } from "firebase/app";
 
 
+
 export const loginUser = async (email: string, password: string): Promise<void> => {
+ 
+ //Error Message
+ const getFriendlyErrorMessage = (errorCode: string) => {
+  const errorMessages: { [key: string]: string } = {
+    "auth/invalid-credential": "Invalid email or password. Please try again.",
+    "auth/user-not-found": "No account found with this email. Sign up instead?",
+    "auth/wrong-password": "Incorrect password. Please try again or reset it.",
+    "auth/network-request-failed": "Network error. Check your connection and try again.",
+    "auth/too-many-requests": "Too many failed attempts. Try again later.",
+    "auth/user-disabled": "This account has been disabled. Contact support for help.",
+    "auth/email-already-in-use": "This email is already registered. Try logging in.",
+  };
+
+  return errorMessages[errorCode] || "An unexpected error occurred. Please try again.";
+};
   try {
     // Sign in the user with Firebase Auth
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
-     router.navigate('/dashboard')
+    if(auth){
+      router.navigate('/dashboard')
+    }
     console.log("Sign in success", user.displayName);
     localStorage.setItem("userdetails",JSON.stringify(user))
 
@@ -32,11 +50,14 @@ export const loginUser = async (email: string, password: string): Promise<void> 
     }
   } catch (error: unknown) {
     if (error instanceof FirebaseError) {
-      toast.error(error.message);
-      toast.error('Failed to sign in');
+      const errorMessage = getFriendlyErrorMessage(error.code)
+  
+      toast.error(errorMessage, {autoClose: 5000, position: "top-center"});
+      
     } else {
       toast.error("An unknown error occurred.");
     }
   }
+ 
 };
 
