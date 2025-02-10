@@ -140,3 +140,32 @@
     background: url('./Components/logo/NEXA_LOGO-removebg-preview.png') no-repeat;
 
   }
+  .forgetpsw{
+    margin: auto;
+    width: 50%;
+    margin-top: 10rem;
+    padding: 3rem;
+    border-radius: 10px;
+    box-shadow: 2px 1px 4rem 1px rgba(0, 0, 0, 0.5);
+    display: block;
+    h2{
+        color: green;
+
+    }
+    p{
+        font-size: 20px;
+        margin-top: 2rem;
+    }
+    button{
+        background-color: green;
+        color: white;
+        border: none;
+        padding: 10px;
+        margin: 1rem;
+        border-radius: 10px;
+    }
+    button:hover{
+        background-color: rgb(88, 234, 88);
+        color: gray;
+    }
+  }

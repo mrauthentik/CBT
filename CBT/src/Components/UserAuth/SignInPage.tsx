@@ -4,7 +4,7 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate, Link } from 'react-router-dom';
-import resetPassword from './resetPassword';
+// import resetPassword from './resetPassword';
 import styled from '@emotion/styled';
 import signInWithGoogle from './GoogleSignUpConfig';
 import { FcGoogle } from 'react-icons/fc';
@@ -195,11 +195,11 @@ const SignInPage: React.FC = () => {
     }
   };
 
-  const handleForgetPassword = async (e: React.MouseEvent) => {
-    e.preventDefault();
-    resetPassword(email);
-    toast.info("Password reset email sent (if email exists).");
-  };
+  // const handleForgetPassword = async (e: React.MouseEvent) => {
+  //   e.preventDefault();
+  //   resetPassword(email);
+  //   toast.info("Password reset email sent (if email exists).");
+  // };
 
   const handleSignInWithGoogle = async () => {
     try {
@@ -243,8 +243,8 @@ const SignInPage: React.FC = () => {
           <Button type="submit">Sign In</Button>
         </form>
         <LinkContainer>
-          <ForgotPasswordLink href="#" onClick={handleForgetPassword}>
-            Forgot Password?
+          <ForgotPasswordLink href="#">
+          <Link to='/forgetpsw'>Forgot Password?</Link>  
           </ForgotPasswordLink>
           <SignUpLink to="/signup">Don't have an account?</SignUpLink>
         </LinkContainer>

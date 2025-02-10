@@ -4,6 +4,7 @@ import Dashboard from "../Components/Dashboard/Dashboard";
 import SignInPage from "../Components/UserAuth/SignInPage";
 import SignUpPage from "../Components/UserAuth/SignUpPage";
 import ExamPage from "../Components/Dashboard/ExamPage";
+import ForgetPsw from "../Components/UserAuth/ForgetPsw";
 
 const router = createBrowserRouter([
     {
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
     {
         path: "/exampage/:courseId",
         element: <ExamPage />
+    },
+    {
+        path: "/forgetpsw",
+        element: <ForgetPsw />
     }
 ]);
 export default router
