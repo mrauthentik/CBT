@@ -114,7 +114,7 @@ const Dashboard = () => {
   }, []);
 
   if (loading) {
-    return <p>Loading...</p>; // Show a loading state while fetching data
+    return <i>Loading...</i>; // Show a loading state while fetching data
   }
 
   return (
@@ -129,13 +129,13 @@ const Dashboard = () => {
           <StyledNavLink to="/subjects">Subjects</StyledNavLink>
           <StyledNavLink to="/exams">Exams</StyledNavLink>
           <StyledNavLink to="/userinfo">User Info</StyledNavLink>
+      <button onClick={logOutUser} className="logoOut-btn">Log Out</button>
         </NavLinks>
       </Sidebar>
       <Content>
         {/* Your dashboard content goes here */}
+        <h2>Welcome to your dashboard! {fullName || 'User'}</h2>
         <h1>Dashboard Content</h1>
-        <p>Welcome to your dashboard! {fullName || 'User'}</p>
-      <button onClick={logOutUser}>Log Out</button>
       <CourseSelection />
       </Content>
     </DashboardContainer>

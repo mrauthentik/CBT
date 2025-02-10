@@ -169,3 +169,18 @@
         color: gray;
     }
   }
+
+  .logoOut-btn{
+    background-color: rgb(114, 13, 8);
+    color: rgb(252, 252, 235);
+    border: none;
+    padding: 5px;
+    width: 60%;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+  .logoOut-btn:hover{
+     background-color: red;
+     color: white;
+     transition: 0.3s;
+  }
