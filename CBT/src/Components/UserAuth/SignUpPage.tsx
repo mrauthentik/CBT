@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../firebase';
+import {createUser} from './createUser';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Link } from 'react-router-dom';
@@ -184,17 +183,7 @@ const SignUpPage: React.FC = () => {
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    try {
-      await createUserWithEmailAndPassword(auth, email, password);
-      toast.success('User signed up successfully', { autoClose: 3000, position: "top-center" });
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        toast.error(error.message, { autoClose: 3000, position: "top-center" });
-      } else {
-        toast.error("An unknown error occurred.", { autoClose: 3000, position: "top-center" });
-      }
-    }
+    createUser(email, password, fullName);
   };
 
   const handleSignInWithGoogle = async () => {
