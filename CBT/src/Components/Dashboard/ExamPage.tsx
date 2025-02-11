@@ -22,12 +22,13 @@ const ExamPage: React.FC = () => {
        
         const fetchQuestions = async () =>{
             console.log("Fetching courses data.......")
+            console.log(courseId)
             if(!courseId) return
             try{
                 const questioncollection = query(collection(db, "questions"), where("courseId", "==", courseId))
                 const querySnapshot = await getDocs(questioncollection)
                 const questionsList = querySnapshot.docs.map((doc)=>({
-                    id: doc.id,
+                    questionId: doc.id,
                     ...(doc.data() as Question)
                    
                 }))
