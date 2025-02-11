@@ -1,8 +1,9 @@
 import logOutUser from "./UserAuth/LogOut";
 import logoImage from './logo/NEXA_LOGO-removebg-preview.png'; // Import your logo
 import { NavLink } from 'react-router-dom'; // Import NavLink
-import { BiExit } from 'react-icons/bi';
+import { BiBook,  BiExit } from 'react-icons/bi';
 import styled from '@emotion/styled';
+import { FaCog, FaHome, FaPen, FaUser } from "react-icons/fa";
 
 const Sidebar = styled.aside`
   width: 250px; // Adjust sidebar width as needed
@@ -57,11 +58,12 @@ const SideBar = () => {
         <LogoContainer>
           <Logo src={logoImage} alt="Logo" />
         </LogoContainer>
-        <NavLinks>
-          <StyledNavLink to="/dashboard">Dashboard</StyledNavLink>
-          <StyledNavLink to="/courses">Courses</StyledNavLink>
-          <StyledNavLink to="/exams">Exams</StyledNavLink>
-          <StyledNavLink to="/userinfo">User Info</StyledNavLink>
+       <NavLinks>
+          <StyledNavLink to="/dashboard">Dashboard <FaHome /> </StyledNavLink>
+          <StyledNavLink to="/courses">Course <BiBook /></StyledNavLink>
+          <StyledNavLink to="/exams">Exams <FaPen /> </StyledNavLink>
+          <StyledNavLink to="/userinfo">User Info <FaUser /> </StyledNavLink>
+          <StyledNavLink to="/userinfo">Settings <FaCog /> </StyledNavLink>
          <button onClick={logOutUser} className="logoOut-btn">Log Out <BiExit /></button>
         </NavLinks>
       </Sidebar>
