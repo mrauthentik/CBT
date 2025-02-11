@@ -222,4 +222,17 @@
     overflow-y: auto;
     flex: 1;
   }
- 
+ fieldset{
+  padding: 2rem;
+  border-radius: 10px;
+  li{
+    margin-top: 10px;
+    cursor: pointer;
+    text-decoration: underline;
+  }
+  li:hover{
+    text-transform: uppercase;
+    font-size: 18px;
+    transition: 0.2s;
+  }
+ }

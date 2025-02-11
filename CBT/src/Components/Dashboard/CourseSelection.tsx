@@ -36,22 +36,25 @@ const CourseSelection: React.FC = () =>{
     return (
         <div className="courses">
             <h2>Select a Course</h2>
+            <fieldset>
+
             <ul>
                 {courses.length == 0 && <p> No courses found</p>}
                 {courses.map((course, index) => {
                     console.log("Rendering:", course.CourseName)
                     return( 
-                    <li key={course.id|| index}  onClick={()=> handleCourseSelect(course.id)}> 
+                    <li title="Click to take Exam" key={course.id|| index}  onClick={()=> handleCourseSelect(course.id)}> 
                     
                     {course.CourseName}
                       {/* <button onClick={()=> handleCourseSelect(course.id)}> Start</button> */}
                      </li>
                   
                 );
-                })}
+            })}
                
             </ul>
             {/* <button type="submit" onClick={handleCourseSelect} >Start Exam</button> */}
+            </fieldset>
         </div>
     )
 }
