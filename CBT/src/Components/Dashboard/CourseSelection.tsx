@@ -34,7 +34,7 @@ const CourseSelection: React.FC = () =>{
     }, [])
 
     return (
-        <div>
+        <div className="courses">
             <h2>Select a Course</h2>
             <ul>
                 {courses.length == 0 && <p> No courses found</p>}

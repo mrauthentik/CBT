@@ -12,6 +12,7 @@ const Sidebar = styled.aside`
   padding: 20px;
   display: flex;
   flex-direction: column; // Vertical layout for links
+  position:fixed;
 `;
 
 const LogoContainer = styled.div`
@@ -58,7 +59,7 @@ const SideBar = () => {
         </LogoContainer>
         <NavLinks>
           <StyledNavLink to="/dashboard">Dashboard</StyledNavLink>
-          <StyledNavLink to="/subjects">Courses</StyledNavLink>
+          <StyledNavLink to="/courses">Courses</StyledNavLink>
           <StyledNavLink to="/exams">Exams</StyledNavLink>
           <StyledNavLink to="/userinfo">User Info</StyledNavLink>
          <button onClick={logOutUser} className="logoOut-btn">Log Out <BiExit /></button>

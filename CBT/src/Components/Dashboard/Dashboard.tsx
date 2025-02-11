@@ -3,9 +3,6 @@ import { useState, useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 import { auth, db } from "../firebase";
-
-import CourseSelection from "./CourseSelection";
-
 import styled from '@emotion/styled';
 
 
@@ -18,7 +15,7 @@ const DashboardContainer = styled.div`
   background: linear-gradient(to bottom, #fff, #008080); // Gradient background
   background-size: 200% 200%; // For animation
   animation: gradientAnimation 10s ease infinite; // Animate the gradient
-
+  
   @keyframes gradientAnimation {
     0% {
       background-position: 0% 50%;
@@ -38,6 +35,7 @@ const Content = styled.main`
   flex: 1; // Takes up remaining space
   padding: 20px;
   overflow-y: auto; // Add scroll if content overflows
+  margin-left:20rem
 `;
 
 
@@ -87,7 +85,6 @@ const Dashboard = () => {
         {/* Your dashboard content goes here */}
         <h2>Welcome to your dashboard! {fullName || 'User'}</h2>
         <h1>Dashboard Content</h1>
-      <CourseSelection />
       </Content>
     </DashboardContainer>
      

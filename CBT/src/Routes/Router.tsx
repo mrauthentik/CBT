@@ -5,6 +5,7 @@ import SignInPage from "../Components/UserAuth/SignInPage";
 import SignUpPage from "../Components/UserAuth/SignUpPage";
 import ExamPage from "../Components/Dashboard/ExamPage";
 import ForgetPsw from "../Components/UserAuth/ForgetPsw";
+import Courses from "../Components/Dashboard/Courses";
 
 const router = createBrowserRouter([
     {
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
     {
         path: "/exampage/:courseId",
         element: <ExamPage />
+    },
+    {
+        path:'/courses',
+        element:  <Courses />
     },
     {
         path: "/forgetpsw",
