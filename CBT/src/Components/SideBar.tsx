@@ -63,7 +63,7 @@ const SideBar = () => {
           <StyledNavLink to="/courses">Course <BiBook /></StyledNavLink>
           <StyledNavLink to="/exams">Exams <FaPen /> </StyledNavLink>
           <StyledNavLink to="/userinfo">User Info <FaUser /> </StyledNavLink>
-          <StyledNavLink to="/userinfo">Settings <FaCog /> </StyledNavLink>
+          <StyledNavLink to="/settings">Settings <FaCog /> </StyledNavLink>
          <button onClick={logOutUser} className="logoOut-btn">Log Out <BiExit /></button>
         </NavLinks>
       </Sidebar>

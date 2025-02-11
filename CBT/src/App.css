@@ -197,7 +197,7 @@
      }
   }
   
-  .courses-container{
+  .courses-container,.settings,.user-info{
     background: linear-gradient(to bottom, #fff, #008080); 
     background-size: 200% 200%;
     min-height: 100vh;
@@ -216,6 +216,10 @@
     }
   
   }
-  .courses{
+  .courses,.settings,.user-info{
     margin-left: 20rem;
+    padding: 20px;
+    overflow-y: auto;
+    flex: 1;
   }
+ 
