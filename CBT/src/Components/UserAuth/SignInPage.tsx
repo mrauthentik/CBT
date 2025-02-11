@@ -3,11 +3,13 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate, Link } from 'react-router-dom';
 import {loginUser} from './logInUser';
-// import resetPassword from './resetPassword';
+// import {getAuth, signInWithPopup, GoogleAuthProvider} from 'firebase/auth'
+
 import styled from '@emotion/styled';
 import signInWithGoogle from './GoogleSignUpConfig';
 import { FcGoogle } from 'react-icons/fc';
 import logoImage from '../logo/NEXA_LOGO-removebg-preview.png'; 
+
 
 const LogoContainer = styled.div`
   position: absolute;
@@ -194,6 +196,7 @@ const SignInPage: React.FC = () => {
   const handleSignInWithGoogle = async () => {
     try {
       const user = await signInWithGoogle();
+     
       if (user !== null && user !== undefined) { // Explicitly check for null or undefined
         toast.success('Sign in with Google Successful');
         navigate('/dashboard');

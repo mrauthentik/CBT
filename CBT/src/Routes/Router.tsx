@@ -5,6 +5,9 @@ import SignInPage from "../Components/UserAuth/SignInPage";
 import SignUpPage from "../Components/UserAuth/SignUpPage";
 import ExamPage from "../Components/Dashboard/ExamPage";
 import ForgetPsw from "../Components/UserAuth/ForgetPsw";
+import Courses from "../Components/Dashboard/Courses";
+import UserInfo from "../Components/Dashboard/UserInfo";
+import Settings from "../Components/Dashboard/Settings";
 
 const router = createBrowserRouter([
     {
@@ -28,8 +31,20 @@ const router = createBrowserRouter([
         element: <ExamPage />
     },
     {
+        path:'/courses',
+        element:  <Courses />
+    },
+    {
         path: "/forgetpsw",
         element: <ForgetPsw />
-    }
+    },
+    {
+        path: "/userinfo",
+        element: <UserInfo />
+    },
+    {
+        path: "/settings",
+        element: <Settings />
+    },
 ]);
 export default router

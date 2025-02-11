@@ -3,7 +3,8 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Poppins';
-}
+  }
+
 
 .dashboard{
     background-color: teal;
@@ -169,3 +170,69 @@
         color: gray;
     }
   }
+
+  .logoOut-btn{
+    background-color: rgb(114, 13, 8);
+    color: rgb(252, 252, 235);
+    border: none;
+    padding: 5px;
+    width: 60%;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+  .logoOut-btn:hover{
+     background-color: red;
+     color: white;
+     transition: 0.3s;
+  }
+
+  .user{
+    font-size: 2rem;
+    color: grey;
+    display: block;
+     margin-left: 50rem;
+     p{
+      margin-top: -10px;
+      font-size: 15px;
+     }
+  }
+  
+  .courses-container,.settings,.user-info{
+    background: linear-gradient(to bottom, #fff, #008080); 
+    background-size: 200% 200%;
+    min-height: 100vh;
+    animation: gradientAnimation 10s ease infinite; 
+  
+    @keyframes gradientAnimation {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+  
+  }
+  .courses,.settings,.user-info{
+    margin-left: 20rem;
+    padding: 20px;
+    overflow-y: auto;
+    flex: 1;
+  }
+ fieldset{
+  padding: 2rem;
+  border-radius: 10px;
+  li{
+    margin-top: 10px;
+    cursor: pointer;
+    text-decoration: underline;
+  }
+  li:hover{
+    text-transform: uppercase;
+    font-size: 18px;
+    transition: 0.2s;
+  }
+ }
