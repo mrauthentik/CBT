@@ -3,7 +3,8 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Poppins';
-}
+  }
+
 
 .dashboard{
     background-color: teal;
@@ -198,7 +199,22 @@
   
   .courses-container{
     background: linear-gradient(to bottom, #fff, #008080); 
-    height: 100vh;
+    background-size: 200% 200%;
+    min-height: 100vh;
+    animation: gradientAnimation 10s ease infinite; 
+  
+    @keyframes gradientAnimation {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+  
   }
   .courses{
     margin-left: 20rem;
