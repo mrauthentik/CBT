@@ -131,7 +131,7 @@ const Dashboard = () => {
           <StyledNavLink to="/subjects">Courses</StyledNavLink>
           <StyledNavLink to="/exams">Exams</StyledNavLink>
           <StyledNavLink to="/userinfo">User Info</StyledNavLink>
-      <button onClick={logOutUser} className="logoOut-btn">Log Out <BiExit /></button>
+         <button onClick={logOutUser} className="logoOut-btn">Log Out <BiExit /></button>
         </NavLinks>
       </Sidebar>
       <Content>
