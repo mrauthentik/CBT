@@ -3,15 +3,14 @@ import { useState, useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 import { auth, db } from "../firebase";
-import logOutUser from "../UserAuth/LogOut";
+
 import CourseSelection from "./CourseSelection";
 
 import styled from '@emotion/styled';
-import { NavLink } from 'react-router-dom'; // Import NavLink
-import logoImage from '../logo/NEXA_LOGO-removebg-preview.png'; // Import your logo
 
-import { BiExit } from 'react-icons/bi';
+
 import {FaUser} from 'react-icons/fa'
+import SideBar from "../SideBar";
 
 const DashboardContainer = styled.div`
   display: flex;
@@ -33,50 +32,7 @@ const DashboardContainer = styled.div`
   }
 `;
 
-const Sidebar = styled.aside`
-  width: 250px; // Adjust sidebar width as needed
-  background-color: rgba(255, 255, 255, 0.7); // Semi-transparent white sidebar
-  backdrop-filter: blur(5px);
-  padding: 20px;
-  display: flex;
-  flex-direction: column; // Vertical layout for links
-`;
 
-const LogoContainer = styled.div`
-  display: flex;
-  align-items: center;
-  margin-bottom: 20px; // Space below the logo
-  justify-content: center;
-`;
-
-const Logo = styled.img`
-  width: 80px;
-  height: auto;
-`;
-
-const NavLinks = styled.nav`
-  display: flex;
-  flex-direction: column;
-`;
-
-
-const StyledNavLink = styled(NavLink)`
-  text-decoration: none;
-  color: #333; // Dark text color
-  padding: 10px;
-  margin-bottom: 10px;
-  border-radius: 5px;
-  transition: background-color 0.3s ease; // Smooth transition on hover
-
-  &:hover {
-    background-color: rgba(0, 128, 128, 0.2); // Light teal on hover
-  }
-
-  &.active { // Style for the active/current link
-    background-color: #008080;
-    color: white;
-  }
-`;
 
 const Content = styled.main`
   flex: 1; // Takes up remaining space
@@ -122,18 +78,7 @@ const Dashboard = () => {
   return (
     <div className="dashboard">
        <DashboardContainer>
-      <Sidebar>
-        <LogoContainer>
-          <Logo src={logoImage} alt="Logo" />
-        </LogoContainer>
-        <NavLinks>
-          <StyledNavLink to="/dashboard">Dashboard</StyledNavLink>
-          <StyledNavLink to="/subjects">Courses</StyledNavLink>
-          <StyledNavLink to="/exams">Exams</StyledNavLink>
-          <StyledNavLink to="/userinfo">User Info</StyledNavLink>
-         <button onClick={logOutUser} className="logoOut-btn">Log Out <BiExit /></button>
-        </NavLinks>
-      </Sidebar>
+      <SideBar />
       <Content>
         <div className="user">
         <FaUser className="user-icon" />
