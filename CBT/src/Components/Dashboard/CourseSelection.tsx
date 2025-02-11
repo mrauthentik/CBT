@@ -35,7 +35,7 @@ const CourseSelection: React.FC = () =>{
 
     return (
         <div className="courses">
-            <h2>Select a Course</h2>
+            <h2>SELECT A COURSE</h2>
             <fieldset>
 
             <ul>
