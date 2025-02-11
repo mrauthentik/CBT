@@ -222,6 +222,13 @@
     overflow-y: auto;
     flex: 1;
   }
+  .courses{
+    padding-top: 5rem;
+    h2{
+      color: teal;
+      padding: 1rem 0rem;
+    }
+  }
  fieldset{
   padding: 2rem;
   border-radius: 10px;
