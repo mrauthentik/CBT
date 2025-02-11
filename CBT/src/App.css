@@ -236,6 +236,9 @@
     margin-top: 10px;
     cursor: pointer;
     text-decoration: underline;
+    span{
+      color: brown;
+    }
   }
   li:hover{
     text-transform: uppercase;

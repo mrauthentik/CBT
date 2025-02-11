@@ -4,7 +4,7 @@ import {db} from '../firebase'
 import { useNavigate } from "react-router-dom";
 
 const CourseSelection: React.FC = () =>{
-    const [courses,setCourses] = useState<{ id:string; CourseName:string;}[]>(
+    const [courses,setCourses] = useState<{ id:string; CourseName:string; CourseCode:string;}[]>(
         []
     );
 
@@ -22,8 +22,9 @@ const CourseSelection: React.FC = () =>{
                 const courseList = courseSnapshot.docs.map((docs)=> ({
                     id: docs.id,
                     ...docs.data(),
-                    CourseName: docs.data().CourseName
-                })) as { id:string; CourseName: string;} [];
+                    CourseName: docs.data().CourseName,
+                    CourseCode: docs.data().CourseCode
+                })) as { id:string; CourseName: string; CourseCode: string;} [];
                 setCourses(courseList)
                 console.log("Course List",courseList)
             }catch (err){
@@ -45,7 +46,7 @@ const CourseSelection: React.FC = () =>{
                     return( 
                     <li title="Click to take Exam" key={course.id|| index}  onClick={()=> handleCourseSelect(course.id)}> 
                     
-                    {course.CourseName}
+                    {course.CourseName} <span>{course.CourseCode}</span> 
                       {/* <button onClick={()=> handleCourseSelect(course.id)}> Start</button> */}
                      </li>
                   
