@@ -128,7 +128,7 @@ const Dashboard = () => {
         </LogoContainer>
         <NavLinks>
           <StyledNavLink to="/dashboard">Dashboard</StyledNavLink>
-          <StyledNavLink to="/subjects">Subjects</StyledNavLink>
+          <StyledNavLink to="/subjects">Courses</StyledNavLink>
           <StyledNavLink to="/exams">Exams</StyledNavLink>
           <StyledNavLink to="/userinfo">User Info</StyledNavLink>
       <button onClick={logOutUser} className="logoOut-btn">Log Out <BiExit /></button>
