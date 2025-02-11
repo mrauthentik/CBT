@@ -1,4 +1,3 @@
-import React from 'react'
 import SideBar from '../SideBar'
 
 
@@ -7,8 +6,8 @@ const UserInfo = () => {
     <div>
         <SideBar />
       <div className='user-info'>
-        <h1>Name:</h1>
-        <h2>Email:</h2>
+        <h3>Name:</h3>
+        <h3>Email:</h3>
       </div>
     </div>
   )
