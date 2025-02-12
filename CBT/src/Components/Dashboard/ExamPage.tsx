@@ -1,87 +1,129 @@
-
-import React, { useEffect , useState} from 'react'
-import {useParams } from 'react-router-dom'
-import { collection,  getDocs, query, where } from 'firebase/firestore'
-import {db} from '../firebase'
-
-
-type Question = {
-    id:string;
-    text: string;
-    type: "single-choice" | "fill-in-the-blank";
-    options?:string[]
-    correctAnswer:string
-}
+import React, { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../firebase";
+import { toast } from "react-toastify";
 
 const ExamPage: React.FC = () => {
-    const {courseId} = useParams();
-    const [questions, setQuestions] = useState<Question[]>([])
-    const [loading, setLoading] = useState(true)
-    
-    useEffect(()=> {
-       
-        const fetchQuestions = async () =>{
-            console.log("Fetching courses data.......")
-            console.log(courseId)
-            if(!courseId) return
-            try{
-                const questioncollection = query(collection(db, "questions"), where("courseId", "==", courseId))
-                const querySnapshot = await getDocs(questioncollection)
-                const questionsList = querySnapshot.docs.map((doc)=>({
-                    questionId: doc.id,
-                    ...(doc.data() as Question)
-                   
-                }))
-                if(querySnapshot.empty){
-                    console.log( "No courses found in the firestore")
-                }
-                setQuestions(questionsList)
-                 console.log('Questions have been fetched', questionsList.length)
-                 console.log("here is the question text: ",questions.map((questions,index) => {
-                    return (
-                        questions.text,index
-                       
-                    )
-                }))
-                }catch(err){
-                console.log("Error fectching Questions",err)
-               
-            }finally{
-                setLoading(false)
-            }
+  const { courseId } = useParams(); // Get courseId from URL
+  const navigate = useNavigate();
+
+  // State management
+  const [questions, setQuestions] = useState<
+    { id: string; question: string; options: string[]; correctAnswer: string }[]
+  >([]);
+  const [answers, setAnswers] = useState<{ [key: string]: string }>({});
+  const [timeLeft, setTimeLeft] = useState(600); // 10 minutes countdown (600s)
+  const [score, setScore] = useState<number | null>(null);
+
+  useEffect(() => {
+    const fetchQuestions = async () => {
+      try {
+        const questionsCollection = collection(db, "questions");
+        const questionSnapshot = await getDocs(questionsCollection);
+        const questionList = questionSnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        })) as {
+          id: string;
+          question: string;
+          options: string[];
+          correctAnswer: string;
+        }[];
+
+        setQuestions(questionList);
+      } catch (err) {
+        console.error("Error fetching questions", err);
+        toast.error("Failed to load questions.");
+      }
+    };
+
+    fetchQuestions();
+
+    // Timer logic
+    const timer = setInterval(() => {
+      setTimeLeft((prev) => {
+        if (prev <= 1) {
+          clearInterval(timer);
+          handleSubmit(); // Auto-submit when time runs out
+          return 0;
         }
-        fetchQuestions()
-    }, [])
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  // Handle selecting an answer
+  const handleOptionSelect = (questionId: string, selectedOption: string) => {
+    setAnswers((prev) => ({
+      ...prev,
+      [questionId]: selectedOption,
+    }));
+  };
+
+  // Handle exam submission
+  const handleSubmit = () => {
+    let correctCount = 0;
+
+    questions.forEach((question) => {
+      if (answers[question.id] === question.correctAnswer) {
+        correctCount++;
+      }
+    });
+
+    setScore(correctCount);
+    toast.success(`Exam submitted! You scored ${correctCount} out of ${questions.length}.`);
+
+    // Navigate to dashboard after 5 seconds
+    setTimeout(() => {
+      navigate("/dashboard");
+    }, 5000);
+  };
+
   return (
-    <div>
-       <h2>You are about to take {courseId} Course CBT Test </h2>
-       {loading ? (
-        <p> Loading questions....</p>
-       ): questions.length === 0? (
-        <p>No questions found for this course.</p>
-       ): (
-        <ul>
-            {questions.map((question, index)=>(
-                <li key={question.id}>
-                    <p> {index + 1}. {question.text} </p>
-                    {question.type === "single-choice" && question.options && (
-                        <ul>
-                            {question.options.map((option,i) =>(
-                                <li key={i}>{option}</li>
-                            ))}
-                        </ul>
-                    )}
-                    {question.type=== "fill-in-the-blank" && (
-                        <input type='text' placeholder='Type your answer here..'/>
-                    )}
-                </li>
-            ))}
-        </ul>
-       )
+    <div className="exam-container">
+      <h2>Exam for {courseId}</h2>
+      <p>Time left: {Math.floor(timeLeft / 60)}:{String(timeLeft % 60).padStart(2, "0")}</p>
+    {questions.length === 0 ? (
+        <p>Don't Fret, loading questions .... </p>
+    ) : (
 
-       }
+
+      <div className="question-list">
+        {questions?.length === 0 && <p>No questions available.</p>}
+        {questions?.map((question) => (
+          <div key={question.id} className="question-item">
+            <h3>{question.question}</h3>
+            <div className="options">
+                
+              {question?.options?.map((option, index) => (
+                <label key={index} className="option">
+                  <input
+                    type="radio"
+                    name={question.id}
+                    value={option}
+                    checked={answers[question.id] === option}
+                    onChange={() => handleOptionSelect(question.id, option)}
+                  />
+                  {option}
+                </label>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    )}
+      {score === null ? (
+        <button onClick={handleSubmit} className="submit-btn">
+          Submit Exam
+        </button>
+      ) : (
+        <h3>Your Score: {score} / {questions.length}</h3>
+      )}
     </div>
-  )
-}
+  );
+};
 
-export default ExamPage
+export default ExamPage;
