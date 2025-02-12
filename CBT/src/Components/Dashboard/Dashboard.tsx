@@ -1,15 +1,10 @@
 import React, { useState, useEffect } from "react";
-
-import { useState, useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 import { auth, db } from "../firebase";
-import logOutUser from "../UserAuth/LogOut";
-import CourseSelection from "./CourseSelection"; // Make sure this component is defined
+import SideBar from "../SideBar";  // Import the SideBar component
+import CourseSelection from "./CourseSelection"; // Import your CourseSelection component
 import styled from '@emotion/styled';
-import { Link } from 'react-router-dom';
-import logoImage from '../logo/NEXA_LOGO-removebg-preview.png';
-import { FaSignOutAlt, FaUser, FaBook, FaChartBar, FaHome } from 'react-icons/fa';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -61,65 +56,12 @@ const UserName = styled.span`
   color: #333;
 `;
 
-const Sidebar = styled.aside`
-  width: 250px;
-  background-color: rgba(93, 244, 70, 0.47);
-  backdrop-filter: blur(5px);
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-`;
-
-const LogoContainer = styled.div`
-  display: flex;
-  align-items: center;
-  margin-bottom: 2rem;
-`;
-
-const Logo = styled.img`
-  width: 50px;
-  height: auto;
-  margin-right: 10px;
-`;
-
-const LogoText = styled.span`
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: #333;
-`;
-
-const NavLinks = styled.nav`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-`;
-
-const NavLink = styled(Link)`
-  display: flex;
-  align-items: center;
-  padding: 1rem;
-  margin-bottom: 1rem;
-  text-decoration: none;
-  color: #333;
-  transition: background-color 0.3s;
-  border-radius: 4px;
-
-  &:hover {
-    background-color: rgba(0, 128, 128, 0.2);
-  }
-`;
-
-const NavIcon = styled.span`
-  margin-right: 0.8rem;
-  font-size: 1.2rem;
-`;
-
 const Content = styled.main`
   flex: 1;
   padding: 2rem;
   overflow-y: auto;
+  margin-left: 250px; // Add margin to account for fixed sidebar
+  transition: margin-left 0.3s ease-in-out; // Smooth transition
 `;
 
 const Title = styled.h2`
@@ -135,24 +77,6 @@ const Welcome = styled.h2`
   color: #333;
 `;
 
-const LogoutButton = styled.button`
-  background-color: #008080;
-  color: #fff;
-  border: none;
-  padding: 0.8rem 1.5rem;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 90%;
-
-  &:hover {
-    background-color: #006666;
-  }
-`;
 
 const Dashboard = () => {
   const [fullName, setFullName] = useState("");
@@ -198,29 +122,7 @@ const Dashboard = () => {
 
   return (
     <Container>
-      <Sidebar>
-        <LogoContainer>
-          <Logo src={logoImage} alt="NEXA Logo" />
-          <LogoText>NEXA</LogoText>
-        </LogoContainer>
-        <NavLinks>
-          <NavLink to="/dashboard">
-            <NavIcon><FaHome /></NavIcon> Dashboard
-          </NavLink>
-          <NavLink to="/exam">
-            <NavIcon><FaBook /></NavIcon> Exam
-          </NavLink>
-          <NavLink to="/subject">
-            <NavIcon><FaChartBar /></NavIcon> Subject
-          </NavLink>
-          <NavLink to="/userinfo">
-            <NavIcon><FaUser /></NavIcon> User Info
-          </NavLink>
-        </NavLinks>
-        <LogoutButton onClick={logOutUser}>
-          <NavIcon><FaSignOutAlt /></NavIcon> Logout
-        </LogoutButton>
-      </Sidebar>
+      <SideBar /> {/* Use the SideBar component here */}
       <Content>
         <Header>
           <UserInfo>
@@ -231,7 +133,7 @@ const Dashboard = () => {
         <ToastContainer />
         <Title>Dashboard</Title>
         <Welcome>Hello 👋, {fullName || "User"}!</Welcome>
-        <CourseSelection /> {/* Render CourseSelection */}
+        <CourseSelection /> {/* Render your CourseSelection component */}
       </Content>
     </Container>
   );
