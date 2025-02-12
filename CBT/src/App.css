@@ -216,8 +216,8 @@
     }
   
   }
-  .courses,.settings,.user-info{
-    margin-left: 20rem;
+  .courses{
+    padding-left: 20rem;
     padding: 20px;
     overflow-y: auto;
     flex: 1;
@@ -228,6 +228,9 @@
       color: teal;
       padding: 1rem 0rem;
     }
+  }
+  .course-container,.settings-container,.user-info-container{
+    margin-left:20rem;
   }
  fieldset{
   padding: 2rem;
@@ -253,3 +256,51 @@
   outline: none;
   caret-color: green;
  }
+
+ .Sidebar{
+  width: 300px;
+  height:100vh;
+  background-color: rgba(255, 255, 255, 0.7); 
+  backdrop-filter: blur(5px);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  position:fixed;
+ }
+
+.logo-container{
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px; 
+  justify-content: center;
+}
+
+.logo{
+  width: 80px;
+  height: auto;
+}
+
+.nav-links{
+  display: flex;
+  flex-direction: column;
+}
+
+
+.style-nav{
+  text-decoration: none;
+  color: #333;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+  display: block;
+
+  &:hover {
+    background-color: rgba(0, 128, 128, 0.2);
+  }
+
+  &.active {
+    background-color: #008080;
+    color: white;
+  }
+}

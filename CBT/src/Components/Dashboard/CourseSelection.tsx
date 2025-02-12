@@ -43,6 +43,8 @@ const CourseSelection: React.FC = () =>{
 
     return (
         <div className="courses">
+            <div className="course-container">
+
             <h2>SELECT A COURSE</h2>
             <fieldset>
                 <input 
@@ -71,6 +73,7 @@ const CourseSelection: React.FC = () =>{
             </ul>
             {/* <button type="submit" onClick={handleCourseSelect} >Start Exam</button> */}
             </fieldset>
+            </div>
         </div>
     )
 }
