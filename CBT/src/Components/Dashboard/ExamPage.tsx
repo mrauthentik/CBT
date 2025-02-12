@@ -15,6 +15,7 @@ const ExamPage: React.FC = () => {
   const [answers, setAnswers] = useState<{ [key: string]: string }>({});
   const [timeLeft, setTimeLeft] = useState(600); // 10 minutes countdown (600s)
   const [score, setScore] = useState<number | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchQuestions = async () => {
@@ -36,6 +37,8 @@ const ExamPage: React.FC = () => {
       } catch (err) {
         console.error("Error fetching questions", err);
         toast.error("Failed to load questions.");
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -87,9 +90,11 @@ const ExamPage: React.FC = () => {
     <div className="exam-container">
       <h2>Exam for {courseId}</h2>
       <p>Time left: {Math.floor(timeLeft / 60)}:{String(timeLeft % 60).padStart(2, "0")}</p>
-    {questions.length === 0 ? (
-        <p>Don't Fret, loading questions .... </p>
-    ) : (
+    {loading ?(
+        <p> loading questions .... </p>
+    ) : questions.length === 0 ? (
+        <p> No questions available for this course</p>
+    ): (
 
 
       <div className="question-list">
