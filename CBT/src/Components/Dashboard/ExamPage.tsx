@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../firebase";
 import { toast } from "react-toastify";
 
@@ -20,7 +20,8 @@ const ExamPage: React.FC = () => {
     const fetchQuestions = async () => {
       try {
         const questionsCollection = collection(db, "questions");
-        const questionSnapshot = await getDocs(questionsCollection);
+        const q = query(questionsCollection, where("courseId", "==", courseId))
+        const questionSnapshot = await getDocs(q);
         const questionList = questionSnapshot.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
@@ -127,3 +128,4 @@ const ExamPage: React.FC = () => {
 };
 
 export default ExamPage;
+
