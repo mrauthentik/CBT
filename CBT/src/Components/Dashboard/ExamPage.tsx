@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { collection, getDocs, query, where } from "firebase/firestore";
+import { collection, getDocs, query, where,doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase";
 import { toast } from "react-toastify";
 
@@ -20,6 +20,17 @@ const ExamPage: React.FC = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    const fetchTimerSettings = async () =>{
+        try{
+            const settingsDoc = await getDoc(doc(db, "settings", 'global'));
+            if(settingsDoc.exists()){
+              setExamTime(settingsDoc.data().duration)
+            }
+        }catch(error){
+          console.log("Error fetching timer settings",error)
+        }
+    }
+
     const fetchQuestions = async () => {
       try {
         const questionsCollection = collection(db, "questions");
@@ -43,7 +54,7 @@ const ExamPage: React.FC = () => {
         setLoading(false);
       }
     };
-
+    fetchTimerSettings()
     fetchQuestions();
 
     // Timer logic

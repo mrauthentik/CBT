@@ -25,10 +25,10 @@ useEffect(()=> {
  const handleSave =async () =>{
     try{
 
-      await setDoc(doc(db, 'settings', 'exam'), {duration:examTime});
+      await setDoc(doc(db, 'settings', 'global'), {duration:examTime});
       toast.success('Timer settings saved!')
     }catch (error){
-      console.log(error)
+      console.log("Failed to save settings",error)
       toast.error('Failed to save settings')
     }
  }
