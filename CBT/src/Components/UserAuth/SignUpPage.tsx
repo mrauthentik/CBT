@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
 import signInWithGoogle from './GoogleSignUpConfig';
 import { FcGoogle } from 'react-icons/fc';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import logoImage from '../logo/NEXA_LOGO-removebg-preview.png'; 
 
 // const Container = styled.div`
@@ -173,16 +174,46 @@ const GoogleIcon = styled(FcGoogle)`
   margin-right: 0.8rem;
   font-size: 1.2rem;
 `;
+const TogglePasswordButton = styled.span`
+  position: absolute;
+  top: 50%;
+  right: 4rem;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #666;
+  font-size: 1.2rem;
+  &:hover {
+    color: #333;
+  }
+`;
+const ToggleConfirmPasswordButton = styled.span`
+  position: absolute;
+  top: 62%;
+  right: 4rem;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #666;
+  font-size: 1.2rem;
+  &:hover {
+    color: #333;
+  }
+`;
 
 const SignUpPage: React.FC<{toggleAuth: ()=> void}> = ({toggleAuth}) => {
   const [fullName, setFullName] = useState('');
   const [userName, setUserName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const navigate = useNavigate();
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
+    if(password !== confirmPassword) {
+      toast.error('Passwords do no match')
+    }
     createUser(email, password, fullName);
   };
 
@@ -230,13 +261,18 @@ const SignUpPage: React.FC<{toggleAuth: ()=> void}> = ({toggleAuth}) => {
             value={email}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
           />
-          <Input
-            type="password"
-            placeholder="Password"
-            required
-            value={password}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
-          />
+           <Input type={showPassword ? "text" : "password"} placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+        <TogglePasswordButton onClick={() => setShowPassword(!showPassword)}>
+          {showPassword ? <FaEyeSlash /> : <FaEye />}
+        </TogglePasswordButton>
+
+          {/* Confirm Password */}
+          <Input type={showConfirmPassword ? "text" : "password"} placeholder="Confirm Password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required />
+        <ToggleConfirmPasswordButton onClick={() => setShowConfirmPassword(!showConfirmPassword)}>
+          {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+        </ToggleConfirmPasswordButton>
+
+
           <Button type="submit">Sign Up</Button>
           <StyledLink to='' type='button' onClick={toggleAuth}>Already have an account?</StyledLink>
         </form>
