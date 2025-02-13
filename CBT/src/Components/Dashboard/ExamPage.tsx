@@ -4,6 +4,8 @@ import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../firebase";
 import { toast } from "react-toastify";
 
+import { Timer } from "./Timer";
+
 const ExamPage: React.FC = () => {
   const { courseId } = useParams(); // Get courseId from URL
   const navigate = useNavigate();
@@ -13,7 +15,7 @@ const ExamPage: React.FC = () => {
     { id: string; question: string; options: string[]; correctAnswer: string }[]
   >([]);
   const [answers, setAnswers] = useState<{ [key: string]: string }>({});
-  const [timeLeft, setTimeLeft] = useState(600); // 10 minutes countdown (600s)
+  const [examTime, setExamTime] = useState(600)
   const [score, setScore] = useState<number | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -45,18 +47,7 @@ const ExamPage: React.FC = () => {
     fetchQuestions();
 
     // Timer logic
-    const timer = setInterval(() => {
-      setTimeLeft((prev) => {
-        if (prev <= 1) {
-          clearInterval(timer);
-          handleSubmit(); // Auto-submit when time runs out
-          return 0;
-        }
-        return prev - 1;
-      });
-    }, 1000);
-
-    return () => clearInterval(timer);
+    
   }, []);
 
   // Handle selecting an answer
@@ -83,13 +74,13 @@ const ExamPage: React.FC = () => {
     // Navigate to dashboard after 5 seconds
     setTimeout(() => {
       navigate("/dashboard");
-    }, 5000);
+    }, 10000);
   };
 
   return (
     <div className="exam-container">
       <h2>Exam for {courseId}</h2>
-      <p>Time left: {Math.floor(timeLeft / 60)}:{String(timeLeft % 60).padStart(2, "0")}</p>
+      <Timer initialTime={examTime} onTimeUp={handleSubmit} />
     {loading ?(
         <p> loading questions .... </p>
     ) : questions.length === 0 ? (
