@@ -176,7 +176,7 @@ const SignUpLink = styled(Link)`
   }
 `;
 
-const SignInPage: React.FC = () => {
+const SignInPage: React.FC<{toggleAuth: () => void}> = ({ toggleAuth}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
@@ -239,7 +239,7 @@ const SignInPage: React.FC = () => {
           <ForgotPasswordLink href="#">
           <Link to='/forgetpsw'>Forgot Password?</Link>  
           </ForgotPasswordLink>
-          <SignUpLink to="/signup">Don't have an account?</SignUpLink>
+          <SignUpLink to="" type='button' onClick={toggleAuth}>Don't have an account?</SignUpLink>
         </LinkContainer>
         <GoogleSignInButton onClick={handleSignInWithGoogle}>
           <GoogleIcon /> Sign in with Google

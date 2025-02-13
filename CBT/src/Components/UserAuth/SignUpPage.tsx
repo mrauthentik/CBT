@@ -174,7 +174,7 @@ const GoogleIcon = styled(FcGoogle)`
   font-size: 1.2rem;
 `;
 
-const SignUpPage: React.FC = () => {
+const SignUpPage: React.FC<{toggleAuth: ()=> void}> = ({toggleAuth}) => {
   const [fullName, setFullName] = useState('');
   const [userName, setUserName] = useState('');
   const [email, setEmail] = useState('');
@@ -238,7 +238,7 @@ const SignUpPage: React.FC = () => {
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
           />
           <Button type="submit">Sign Up</Button>
-          <StyledLink to="/signin">Already have an account?</StyledLink>
+          <StyledLink to='' type='button' onClick={toggleAuth}>Already have an account?</StyledLink>
         </form>
         <GoogleSignInButton onClick={handleSignInWithGoogle}>
           <GoogleIcon /> Sign Up with Google
