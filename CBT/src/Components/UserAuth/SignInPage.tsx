@@ -8,6 +8,7 @@ import {loginUser} from './logInUser';
 import styled from '@emotion/styled';
 import signInWithGoogle from './GoogleSignUpConfig';
 import { FcGoogle } from 'react-icons/fc';
+import { FaEye, FaEyeSlash } from 'react-icons/fa'
 import logoImage from '../logo/NEXA_LOGO-removebg-preview.png'; 
 
 
@@ -103,6 +104,20 @@ const Input = styled.input`
   }
 `;
 
+const TogglePasswordButton = styled.span`
+    position:absolute;
+    top: 44%;
+    right: 4rem;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #666;
+    font-size: 1.2rem;
+
+  &:hover {
+    color: #333;
+  }
+`
+
 const Button = styled.button`
   width: 100%;
   padding: 1rem;
@@ -179,6 +194,7 @@ const SignUpLink = styled(Link)`
 const SignInPage: React.FC<{toggleAuth: () => void}> = ({ toggleAuth}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false)
   const navigate = useNavigate();
 
 
@@ -227,12 +243,15 @@ const SignInPage: React.FC<{toggleAuth: () => void}> = ({ toggleAuth}) => {
             required
           />
           <Input
-            type="password"
+            type={showPassword ? "text":"password"}
             placeholder="Password"
             value={password}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
             required
           />
+          <TogglePasswordButton onClick={() => setShowPassword(!showPassword)}>
+            {showPassword ? <FaEyeSlash /> : <FaEye />}
+          </TogglePasswordButton>
           <Button type="submit">Sign In</Button>
         </form>
         <LinkContainer>
