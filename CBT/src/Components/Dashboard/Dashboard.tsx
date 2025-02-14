@@ -133,7 +133,7 @@ const Dashboard = () => {
         <ToastContainer />
         <Title>Dashboard</Title>
         <Welcome>Hello 👋, {fullName || "User"}!</Welcome>
-        <CourseSelection /> {/* Render your CourseSelection component */}
+        {/* <CourseSelection /> Render your CourseSelection component */}
       </Content>
     </Container>
   );

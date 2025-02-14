@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import logoImage from './logo/NEXA_LOGO-removebg-preview.png';
 import styled from '@emotion/styled';
 import Modal from '../pages/Modal'; // Import the modal component
 import SignUpPage from './UserAuth/SignUpPage'; // Import sign-up form
@@ -76,7 +77,7 @@ export const Navbar = () => {
   return (
     <>
       <NavbarContainer scrolled={scrolled}>
-        <Logo>E-EXAM</Logo>
+        <Logo> <img src={logoImage} alt="Logo" className="logo" /> </Logo>
         <div>
           <CTAButton onClick={() => openModal('signin')}>Sign In</CTAButton>
           <RegisterButton onClick={() => openModal('signup')}>Register</RegisterButton>
