@@ -4,11 +4,17 @@ import { model } from '../firebase'
 
 const UserInfo = () => {
 async function run() {
-  const prompt = 'Write a story about Nigeria'
-  const result = await model.generateContent(prompt)
-  const response = result.response
-  const text = response.text()
-  console.log(text)
+  try{
+
+    const prompt = 'Write a story about Nigeria'
+    const result = await model.generateContent(prompt)
+    const response = result.response
+    const text = response.text()
+    console.log(text)
+  }catch(error)
+  {
+      console.log("Could not generate text :", error)
+  }
 }
   return (
     <div className='user-info'>
