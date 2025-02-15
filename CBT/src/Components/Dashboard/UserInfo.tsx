@@ -3,7 +3,7 @@ import SideBar from '../SideBar'
 // import {genkit} from 'genkit'
 // import generateText from '../../AI';
 import { GoogleGenerativeAI } from "@google/generative-ai"
-import { useEffect, useState } from 'react';
+import {  useState } from 'react';
 
 
 const UserInfo = () => {
@@ -19,21 +19,22 @@ if (!apiKey) {
 const genAI = new GoogleGenerativeAI(apiKey);
 const model = genAI.getGenerativeModel({model: "gemini-1.5-flash"})
 
-useEffect(()=>{
 
+const fetchAIResponse = async ()=>{
+  if(userInput.trim()){
+     try{
 
-const show = async ()=>{
-  try{
-
-    const result = await model.generateContent('About Nigeria')
+    const result = await model.generateContent(userInput)
     console.log(result.response.text())
     setAiResponse(result.response.text())
   }catch (error:unknown){
      console.log(error)
   }
+ }
+ 
 }
-show()
-}, [])
+
+
 
   return (
     <div className='user-info'>
@@ -42,7 +43,14 @@ show()
         <h3>Name:</h3>
         <h3>Email:</h3>
         {/* <button onClick={run}> Run AI</button> */}
-        <h2>Genkit AI response</h2>
+        <input 
+            type="text" 
+            value={userInput}
+            onChange={(e) => setUserInput(e.target.value)}
+            className='input-box'
+            />
+            <button onClick={fetchAIResponse}>Ask AI</button>
+        <h2>NEXA AI response</h2>
         <textarea name="" value={aiResponse} rows={10} cols={70} id=""></textarea>
       </div>
     </div>
