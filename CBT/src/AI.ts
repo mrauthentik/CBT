@@ -9,15 +9,22 @@ const ai  = genkit ({
     model:gemini20Flash,
 })
 
-const generateText = async ()=> {
-   
-    try{
-        const {text} = await ai.generate('Hello, Genini')
-        return text
-        console.log(text)
-    }catch(error){
-        console.log(error)
-        return "Error generatiing response"
+interface GenerateTextResponse {
+    text: string;
+}
+
+// interface GenerateTextError {
+//     message: string;
+// }
+
+const generateText = async (prompt: string): Promise<string> => {
+    try {
+        const { text }: GenerateTextResponse = await ai.generate(prompt);
+        return text;
+        console.log(text);
+    } catch (error:unknown) {
+        console.log(error);
+        return "Error generating response";
     }
 }
 

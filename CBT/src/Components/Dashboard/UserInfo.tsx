@@ -1,9 +1,20 @@
 import SideBar from '../SideBar'
 import { model } from '../firebase'
 // import {genkit} from 'genkit'
+import generateText from '../../AI';
+import { useEffect, useState } from 'react';
 
 
 const UserInfo = () => {
+const [aiResponse, setAiResponse] = useState()
+
+useEffect (()=>{
+  const fetchAiResponse = async () => {
+    const response = await generateText('Hello')
+  }
+},[])
+
+
 async function run() {
   try{
 
