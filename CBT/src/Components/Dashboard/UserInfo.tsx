@@ -6,12 +6,14 @@ import { useEffect, useState } from 'react';
 
 
 const UserInfo = () => {
-const [aiResponse, setAiResponse] = useState()
+const [aiResponse, setAiResponse] = useState<string>('')
 
 useEffect (()=>{
   const fetchAiResponse = async () => {
-    const response = await generateText('Hello')
+    const response = await generateText('Hello, Gemeini!')
+    setAiResponse(response)
   }
+  fetchAiResponse ()
 },[])
 
 
@@ -36,6 +38,8 @@ async function run() {
         <h3>Name:</h3>
         <h3>Email:</h3>
         <button onClick={run}> Run AI</button>
+        <h2>Genkit AI response</h2>
+        <p>{aiResponse}</p>
       </div>
     </div>
   )
