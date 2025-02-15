@@ -18,17 +18,23 @@ A Computer-Based Test (CBT) application with authentication, real-time question 
 ![Firebase](https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=black)
 
 ## 📷 Screenshots
-*(Include some images of your app in action)*
+ ![App Screenshot]('/src/logo/logo.jpeg')
 
 ## 🔧 Installation
 
 1. Clone the repository:
    ```bash
    git clone https://github.com/your-username/cbt-app.git
-   cd cbt-app
-   npm install
-   npm run dev
    ```
+2. Change directory to cbt
+   ```bash
+   cd cbt-app
+3. install dependencies
+   ```bash
+   npm install
+4. Start the development server   
+    ```bash 
+   npm run dev
  📌 Usage
 Sign up or log in to access the exam.
 Choose a course and start the test.
