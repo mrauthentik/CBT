@@ -16,7 +16,7 @@ async function run() {
   {
       console.log("Could not generate text :", error)
   }
-  console.log("this is the Genkit: ",genkit)
+  // console.log("this is the Genkit: ",genkit)
 }
   return (
     <div className='user-info'>
