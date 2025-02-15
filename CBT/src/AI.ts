@@ -3,12 +3,13 @@
 import { gemini20Flash, googleAI} from '@genkit-ai/googleai'
 import {genkit} from 'genkit'
 
+
 const ai  = genkit ({
     plugins: [googleAI()],
     model:gemini20Flash,
 })
 
-const main = async ()=> {
+const generateText = async ()=> {
    
     try{
         const {text} = await ai.generate('Hello, Genini')
@@ -20,4 +21,4 @@ const main = async ()=> {
     }
 }
 
-export default main 
+export default generateText
