@@ -35,9 +35,6 @@ const Hero = () => {
                 <small>Track your progress and improve</small>
 
             </div>
-            
-
-
         </div>
         </div>
 
