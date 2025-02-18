@@ -8,7 +8,7 @@ const Hero = () => {
       <div className="hero-overlay">
         <section className="hero-content">
           <img src={logo} alt="Nexa Logo" className="hero-img" />
-          <h1>Unlock Your Potential with Nexa</h1>
+          <h1>Unlock Your Potential with Nexa with Muna</h1>
           <p>
             Prepare for your exams with our interactive <strong>Computer-Based Testing (CBT)</strong> platform.  
             Access a wide range of courses, take timed tests, and track your progress.
