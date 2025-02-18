@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 
 import { Timer } from "./Timer";
 import SideBar from "../SideBar";
+import User from "./UserName";
 
 const ExamPage: React.FC = () => {
   const { courseId } = useParams(); // Get courseId from URL
@@ -92,6 +93,7 @@ const ExamPage: React.FC = () => {
   return (
     <div>
     <SideBar />
+    <User />
     <div className="exam-container">
       <h2>Exam for {courseId}</h2>
       <Timer initialTime={examTime} onTimeUp={handleSubmit} />
