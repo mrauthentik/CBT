@@ -37,12 +37,16 @@
   border-radius: 4px;
   font-size: 12px;
   font-weight: bold;
-  transition: trasform o.5s linear;
+  transition: trasform o.5s eaes;
 }
 .nav-button{
   transform: scale(1.1);
 }
 
+.nav-button:hover {
+  background-color: white;
+  color: black;
+}
 
 .dashboard{
     background-color: teal;
