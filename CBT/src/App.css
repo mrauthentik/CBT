@@ -27,6 +27,7 @@
   }
   .links li a{
     text-decoration: none;
+    
     color:white;
 }
 .nav-button{
@@ -36,7 +37,7 @@
   padding: 8px;
   border-radius: 4px;
   font-size: 12px;
-  font-weight: bold;
+  /* font-weight: bold; */
 
   transition: transform o.5s eaes;
   cursor: pointer;
@@ -57,6 +58,7 @@
   .logo{
     margin-left: -3rem;
   }
+}
 
 
 .nav-button:hover {
