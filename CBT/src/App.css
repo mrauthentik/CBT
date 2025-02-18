@@ -4,6 +4,9 @@
     box-sizing: border-box;
     font-family: 'Poppins';
   }
+  :root{
+    --footer-color:#041a1a;
+}
 
   /* style for NavBar */
   .navbar{

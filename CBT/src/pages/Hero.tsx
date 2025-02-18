@@ -39,12 +39,7 @@ const Hero = () => {
         </div>
         </div>
 
-   <div className="about">
-    <h1>About NEXA</h1>
-     <div className="about-text">
-        NEXA: NOUN EXAM EXPERIENCE ASSISTANT
-     </div>
-   </div>
+
     </div>
   );
 };
