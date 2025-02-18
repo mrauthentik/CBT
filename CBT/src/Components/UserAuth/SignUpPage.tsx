@@ -10,7 +10,7 @@ import { FcGoogle } from 'react-icons/fc';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import logoImage from '../logo/NEXA_LOGO-removebg-preview.png'; 
 
-// const Container = styled.div`
+// const Container = styled.div`~
 //   display: flex;
 //   justify-content: center;
 //   align-items: center;
