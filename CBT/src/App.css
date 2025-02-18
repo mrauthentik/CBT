@@ -114,6 +114,7 @@
               transform: scale(1.1);
               background-color: teal;
               color: white;
+              transition: 0.8s;
             }
             .box:hover p,
             .box:hover small,
