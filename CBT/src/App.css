@@ -37,7 +37,8 @@
   border-radius: 4px;
   font-size: 12px;
   font-weight: bold;
-  transition: trasform o.5s linear;
+
+  transition: transform o.5s eaes;
   cursor: pointer;
 }
 .nav-button{
@@ -57,6 +58,10 @@
     margin-left: -3rem;
   }
 
+
+.nav-button:hover {
+  background-color: white;
+  color: black;
 }
 
 .dashboard{
