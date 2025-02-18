@@ -42,7 +42,7 @@ const Hero = () => {
    <div className="about">
     <h1>About NEXA</h1>
      <div className="about-text">
-        NEXA: NOUN EXAM EXPERIENCE ASSITANT
+        NEXA: NOUN EXAM EXPERIENCE ASSISTANT
      </div>
    </div>
     </div>
