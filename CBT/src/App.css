@@ -176,6 +176,18 @@
                 color: teal;
                 font-size: 24px;
             }
+
+       .about{
+        padding: 2rem 4rem;
+        background-color: #041a1a;
+       }     
+       .about h1{
+       text-align: center;
+       color: rgb(255, 255, 255);
+       }
+       .about-text{
+        color: white;
+       }
           
   .logoOut-btn{
     background-color: rgb(114, 13, 8);
