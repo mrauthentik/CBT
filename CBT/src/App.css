@@ -71,12 +71,18 @@
   position: absolute;
   z-index: -1;
 }
-@media (max-width:2000) {
+@media (max-width:2000px) {
   .wave{
     margin-top: 15rem;
     position: absolute;
     z-index: -1;
   }
+  
+}
+@media (max-width:720px) {
+     .wave{
+      display: none;
+     }
 }
   .heading{
     text-align: center;
