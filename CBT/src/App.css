@@ -5,6 +5,45 @@
     font-family: 'Poppins';
   }
 
+  /* style for NavBar */
+  .navbar{
+    width: 100%;
+    height: 70px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px;
+    padding-inline: 150px;
+    position: sticky;
+    background-color: green;
+  }
+  .links{
+    display: flex;
+    gap: 16px;
+    align-items: center;
+  }
+  .links li{
+    list-style: none;
+  }
+  .links li a{
+    text-decoration: none;
+    color:white;
+
+}
+.nav-button{
+  border: none;
+  background-color: green;
+  color: white;
+  padding: 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: bold;
+  transition: trasform o.5s linear;
+}
+.nav-button{
+  transform: scale(1.1);
+}
+
 
 .dashboard{
     background-color: teal;
@@ -12,164 +51,77 @@
 }
 /* HERO section styling */
 /* HERO section styling */
-.hero-section {
-    padding-top: 4rem;
-    position: relative;
-    /* background: url('../Components/images/education-bg.jpg') no-repeat center center/cover; */
-    height: 90vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    color: rgb(3, 3, 3);
-    font-family: 'poppins';
-  }
-  
-  .hero-overlay {
-    /* background: rgba(0, 0, 0, 0.6); Dark overlay for better text visibility */
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .hero-content {
-    max-width: 600px;
-  }
-  
-  .hero-img {
-    width: 150px;
-    margin-top: 8rem;
-    margin-bottom: 50px;
-  }
-  @media (max-width:414px) {
-    .hero-img{
-        margin-top: 8rem;
-    }
-    .herocontent  p{
-        margin-bottom: 3rem;
-        display: none;
-    }
-    .hero-features {
-        width: 90%;
-        margin: auto;
-    }
-  }
-  
-  h1 {
-    font-size: 2.5rem;
-    margin-bottom: 15px;
-  }
-  
-  p {
-    font-size: 1.2rem;
-    margin-bottom: 15px;
-  }
-  
-  .hero-features {
-    list-style: none;
-    padding: 0;
-    margin-bottom: 20px;
-
-  }
-  
-  .hero-features li {
-    font-size: 1rem;
-    margin: 5px 0;
-    display: flex;
-    align-items: center;
-    background-color: rgb(1, 1, 1);
-    padding: 10px;
-    border-radius: 10px;
-    margin-top: 10px;
-    color: greenyellow;
-  }
-  .hero-features li:hover{
-    background-color: green;
-    color:white;
-    transition: 0.6s;
+.main{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;  
 }
-  
-  .hero-features .icon {
-    margin-right: 10px;
-    color: #ff9900;
-    font-size: 1.2rem;
+.hero{
+  width: 100%;
+  height: 40vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background-color: green;
+}
+.wave{
+  margin-top: 17rem;
+  position: absolute;
+  z-index: -1;
+}
+  .heading{
+    text-align: center;
+    color: white;
+    font-size: 50px;
   }
-  
-  
-  .hero-btn button {
-    padding: 12px 20px;
-    font-size: 1rem;
-    border: none;
-    cursor: pointer;
-    margin: 10px;
-    border-radius: 5px;
-    transition: all 0.3s ease;
-    font-weight: 600;
-    border-radius: 20rem;
-    padding: 10px;
-  }
-  
-  .know-more {
-    background: grey;
-    border: 2px solid black;
-    color: rgb(140, 255, 101);
-  }
-  
-  .know-more:hover {
-    background: rgb(7, 77, 2);
-    color: rgb(255, 255, 255);
-  }
-  
-  .get-started {
-    background: #ff9900;
+  .para{
+    text-align: center;
     color: white;
   }
-  
-  .get-started:hover {
-    background: #e68a00;
-  }
-  
 
-  .signup-container,.signin-container{
-    text-align: center;
-    background-size: 100% !important;
-    /* background-color: black !important; */
-    
-    background-blend-mode: color;
-    background: url('./Components/logo/NEXA_LOGO-removebg-preview.png') no-repeat;
+  .feat{
+                width: 100%;
+                padding-inline: 150px;
+                display: flex;
+                align-items: center;
+                gap: 16px;
+                justify-content: center;
+                margin-top: 15rem;
 
-  }
-  .forgetpsw{
-    margin: auto;
-    width: 50%;
-    margin-top: 10rem;
-    padding: 3rem;
-    border-radius: 10px;
-    box-shadow: 2px 1px 4rem 1px rgba(0, 0, 0, 0.5);
-    display: block;
-    h2{
-        color: green;
+            }
+            .box{
+                width: 150%;
+                height: 200px;
+                padding: 16px;
+                box-shadow: 0 0 2px 0 rgb(11, 70, 11);
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+                border-radius: 4px;
+                background-color: whitesmoke;
+                transition: trasform o.5s linear;
+            }
+            .box:hover{
+                transform: scale(1.1);
+            }
+            .box p{
+                font-size: 14px;
+                font-weight: bold;
+                color: grey;
+            }
+            .box small{
+                font-size: 11px;
+                color: gray;
 
-    }
-    p{
-        font-size: 20px;
-        margin-top: 2rem;
-    }
-    button{
-        background-color: green;
-        color: white;
-        border: none;
-        padding: 10px;
-        margin: 1rem;
-        border-radius: 10px;
-    }
-    button:hover{
-        background-color: rgb(88, 234, 88);
-        color: gray;
-    }
-  }
+            }
+            .box i{
+                color: green;
+                font-size: 24px;
+            }
+
 
   .logoOut-btn{
     background-color: rgb(114, 13, 8);

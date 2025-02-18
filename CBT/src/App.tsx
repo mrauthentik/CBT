@@ -2,6 +2,7 @@ import React from 'react';
 import { RouterProvider } from 'react-router-dom';
 import { useEffect } from 'react';
 import "react-toastify/dist/ReactToastify.css"
+import "boxicons/css/boxicons.min.css"
 // import addQuestions from './Components/Dashboard/addQuestions';
 
 import './App.css'
