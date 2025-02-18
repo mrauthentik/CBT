@@ -137,9 +137,11 @@
     @media (max-width:760px) {
           .feat{
             display: block;
+            width: 100%;
           } 
           .box{
-            width: 150%;
+            width: 300%;
+            margin-left: -2rem;
           }     
     }
             .box:hover {
