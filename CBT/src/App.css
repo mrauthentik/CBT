@@ -37,11 +37,27 @@
   border-radius: 4px;
   font-size: 12px;
   font-weight: bold;
-  transition: trasform o.5s eaes;
+
+  transition: transform o.5s eaes;
+  cursor: pointer;
 }
 .nav-button{
   transform: scale(1.1);
 }
+@media (max-width:760px) {
+  .navbar{
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+  }
+  .nav-button{
+    width: 100%;
+    margin-left: 2rem;
+  }
+  .logo{
+    margin-left: -3rem;
+  }
+
 
 .nav-button:hover {
   background-color: white;
@@ -75,12 +91,21 @@
   position: absolute;
   z-index: -1;
 }
-@media (max-width:2000) {
+@media (max-width:2000px) {
   .wave{
     margin-top: 15rem;
     position: absolute;
     z-index: -1;
   }
+  
+}
+@media (max-width:720px) {
+     .wave{
+      display: none;
+     }
+     .hero{
+      width: 60vh;
+     }
 }
   .heading{
     text-align: center;
@@ -100,8 +125,7 @@
           gap: 16px;
           justify-content: center;
           margin-top: 15rem;
-
-            }
+        }
             .box{
                 width: 150%;
                 height: 200px;
@@ -113,7 +137,18 @@
                 border-radius: 4px;
                 background-color: whitesmoke;
                 transition: trasform o.5s linear;
+                margin-bottom: 3rem;
             }
+    @media (max-width:760px) {
+          .feat{
+            display: block;
+            width: 100%;
+          } 
+          .box{
+            width: 300%;
+            margin-left: -2rem;
+          }     
+    }
             .box:hover {
               transform: scale(1.1);
               background-color: teal;
@@ -141,7 +176,7 @@
                 color: teal;
                 font-size: 24px;
             }
-
+          
   .logoOut-btn{
     background-color: rgb(114, 13, 8);
     color: rgb(252, 252, 235);
