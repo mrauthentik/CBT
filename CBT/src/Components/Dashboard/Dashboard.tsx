@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
-import { doc, getDoc } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import { auth, db } from "../firebase";
 import SideBar from "../SideBar";  // Import the SideBar component
-import CourseSelection from "./CourseSelection"; // Import your CourseSelection component
 import styled from '@emotion/styled';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import UserProgressChart from "./UserProgressChart";
 
 const Container = styled.div`
   display: flex;
@@ -78,11 +78,12 @@ const Welcome = styled.h2`
 `;
 
 
-const Dashboard = () => {
+const Dashboard: React.FC = () => {
   const [fullName, setFullName] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [loading, setLoading] = useState(true);
+  const [progressData, setProgressData ] = useState<{date: string; score: number;}[]>([])
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -109,6 +110,19 @@ const Dashboard = () => {
     });
 
     return () => unsubscribe();
+
+    const fetchProgressData = async () => {
+      const userId = fullName
+      const querySnapshot = await getDocs(collection(db, `users/${userId}/progress`));
+        
+      const data = querySnapshot.docs.map((doc)=>({
+         date: doc.data().date,
+         score: doc.data().score,
+      }));
+      setProgressData(data)
+    }
+      fetchProgressData()
+
   }, []);
 
   const getInitials = () => {
@@ -134,6 +148,8 @@ const Dashboard = () => {
         <Title>Dashboard</Title>
         <Welcome>Hello 👋, {fullName || "User"}!</Welcome>
         {/* <CourseSelection /> Render your CourseSelection component */}
+       <h2>User Progress</h2>
+       <UserProgressChart data={progressData}/>
       </Content>
     </Container>
   );
