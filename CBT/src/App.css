@@ -27,7 +27,7 @@
   }
   .links li a{
     text-decoration: none;
-    
+
     color:white;
 }
 .nav-button{
@@ -59,7 +59,6 @@
     margin-left: -3rem;
   }
 }
-
 
 .nav-button:hover {
   transition: 0.3s;
@@ -179,6 +178,18 @@
                 color: teal;
                 font-size: 24px;
             }
+
+       .about{
+        padding: 2rem 4rem;
+        background-color: #041a1a;
+       }     
+       .about h1{
+       text-align: center;
+       color: rgb(255, 255, 255);
+       }
+       .about-text{
+        color: white;
+       }
           
   .logoOut-btn{
     background-color: rgb(114, 13, 8);

@@ -35,9 +35,16 @@ const Hero = () => {
                 <small>Track your progress and improve</small>
 
             </div>
+
         </div>
         </div>
 
+   <div className="about">
+    <h1>About NEXA</h1>
+     <div className="about-text">
+        NEXA: NOUN EXAM EXPERIENCE ASSISTANT
+     </div>
+   </div>
     </div>
   );
 };
