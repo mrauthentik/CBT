@@ -15,7 +15,7 @@
     border-bottom: 1px;
     padding-inline: 150px;
     position: sticky;
-    background-color: green;
+    background-color: teal;
   }
   .links{
     display: flex;
@@ -27,12 +27,11 @@
   }
   .links li a{
     text-decoration: none;
-    color:white;
-
+    color:white;~
 }
 .nav-button{
   border: none;
-  background-color: green;
+  background-color: teal;
   color: white;
   padding: 8px;
   border-radius: 4px;
@@ -65,7 +64,7 @@
   align-items: center;
   justify-content: center;
   gap: 12px;
-  background-color: green;
+  background-color: teal;
 }
 .wave{
   margin-top: 17rem;
@@ -104,21 +103,30 @@
                 background-color: whitesmoke;
                 transition: trasform o.5s linear;
             }
-            .box:hover{
-                transform: scale(1.1);
+            .box:hover {
+              transform: scale(1.1);
+              background-color: teal;
+              color: white;
             }
+            .box:hover p,
+            .box:hover small,
+            .box:hover i{
+              color: white;
+            }
+            
             .box p{
-                font-size: 14px;
-                font-weight: bold;
-                color: grey;
-            }
-            .box small{
-                font-size: 11px;
-                color: gray;
+              font-size: 14px;
+              font-weight: bold;
+              color: teal;
+          }
+          
+          .box small {
+            font-size: 11px;
+            color: teal;
+          }
 
-            }
             .box i{
-                color: green;
+                color: teal;
                 font-size: 24px;
             }
 
