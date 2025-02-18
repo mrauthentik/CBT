@@ -18,7 +18,7 @@ A Computer-Based Test (CBT) application with authentication, real-time question 
 ![Firebase](https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=black)
 
 ## 📷 Screenshots
- ![App Screenshot]('/src/logo/logo.jpeg')
+ ![App Screenshot]('/cbt/src/logo/logo.jpeg')
 
 ## 🔧 Installation
 
