@@ -5,6 +5,7 @@ import { db } from "../firebase";
 import { toast } from "react-toastify";
 
 import { Timer } from "./Timer";
+import SideBar from "../SideBar";
 
 const ExamPage: React.FC = () => {
   const { courseId } = useParams(); // Get courseId from URL
@@ -89,6 +90,8 @@ const ExamPage: React.FC = () => {
   };
 
   return (
+    <div>
+    <SideBar />
     <div className="exam-container">
       <h2>Exam for {courseId}</h2>
       <Timer initialTime={examTime} onTimeUp={handleSubmit} />
@@ -130,6 +133,8 @@ const ExamPage: React.FC = () => {
       ) : (
         <h3>Your Score: {score} / {questions.length}</h3>
       )}
+    </div>
+
     </div>
   );
 };
