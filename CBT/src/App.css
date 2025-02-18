@@ -38,6 +38,7 @@
   font-size: 12px;
   font-weight: bold;
   transition: trasform o.5s linear;
+  cursor: pointer;
 }
 .nav-button{
   transform: scale(1.1);
