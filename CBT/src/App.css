@@ -114,6 +114,7 @@
               transform: scale(1.1);
               background-color: teal;
               color: white;
+              transition: 0.8s;
             }
             .box:hover p,
             .box:hover small,
@@ -342,4 +343,8 @@ body.dark-mode .logoOut-btn:hover {
 .exam-container{
   padding-top: 4rem;
   padding-left: 20rem;
+}
+.user-name{
+  padding-left: 70rem;
+  padding-top: 1rem;
 }

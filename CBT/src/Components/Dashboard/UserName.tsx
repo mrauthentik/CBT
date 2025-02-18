@@ -68,7 +68,7 @@ if(loading){
     return <p>Loading</p>
 }
   return (
-    <div>
+    <div className='user-name'>
       
                     <Initials >{getInitials()} </Initials>
                     <UserName> {fullName}</UserName>
