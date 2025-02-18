@@ -7,6 +7,7 @@ import styled from '@emotion/styled';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import UserProgressChart from "./UserProgressChart";
+import User from "./UserName";
 
 const Container = styled.div`
   display: flex;
@@ -37,24 +38,8 @@ const UserInfo = styled.div`
   align-items: center;
 `;
 
-const Initials = styled.div`
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background-color: #008080;
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1rem;
-  font-weight: bold;
-  margin-right: 10px;
-`;
 
-const UserName = styled.span`
-  font-size: 1rem;
-  color: #333;
-`;
+
 
 const Content = styled.main`
   flex: 1;
@@ -125,10 +110,7 @@ const Dashboard: React.FC = () => {
 
   }, []);
 
-  const getInitials = () => {
-    return (firstName ? firstName.charAt(0).toUpperCase() : "") +
-           (lastName ? lastName.charAt(0).toUpperCase() : "");
-  };
+ 
 
   if (loading) {
     return <p>Loading...</p>;
@@ -140,8 +122,7 @@ const Dashboard: React.FC = () => {
       <Content>
         <Header>
           <UserInfo>
-            <Initials>{getInitials()}</Initials>
-            <UserName>{fullName}</UserName>
+            <User />
           </UserInfo>
         </Header>
         <ToastContainer />

@@ -1,7 +1,3 @@
-import React from 'react';
-import { BiBookOpen, BiEdit, BiTimeFive, BiBarChart } from 'react-icons/bi';
-import logo from '../Components/logo/NEXA_LOGO-removebg-preview.png';
-
 
 const Hero = () => {
   return (
@@ -31,7 +27,7 @@ const Hero = () => {
             <div className="box">
                 <i className='bx bxs-hourglass-top' ></i>
                 <p>Timers</p>
-                <small>Simulated exam environment with timers</small>
+                <small>Simulated exam environment with timers</small>
             </div>
             <div className="box">
                 <i className='bx bx-timer'></i>
