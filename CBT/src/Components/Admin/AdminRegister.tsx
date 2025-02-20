@@ -17,7 +17,7 @@ const AdminRegister = ()=>{
         const user = register.user
 
         //this code will add user to the firestore database
-        await setDoc(doc(db,'admins', user.email || ""),{role:"admin"})
+        await setDoc(doc(db,'admin', user.email || ""),{role:"admin"})
 
         toast('Admin Registered Successfully')
         //Navigate User when sign up is done
