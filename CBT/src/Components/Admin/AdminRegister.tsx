@@ -15,7 +15,10 @@ const AdminRegister = ()=>{
         const register = await createUserWithEmailAndPassword (auth, email, password)
         const user = register.user
 
-        
+        //this code will add user to the firestore database
+        await setDoc(doc(db,'admins', user.email || ""),{role:"admin"})
+
+        //
     }catch(err:unknown){
         console.log(err)
     }
