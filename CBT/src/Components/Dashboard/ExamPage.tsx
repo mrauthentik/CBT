@@ -113,6 +113,7 @@ const ExamPage: React.FC = () => {
                 
               {question?.options?.map((option, index) => (
                 <label key={index} className="option">
+                  
                   <input
                     type="radio"
                     name={question.id}
