@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { db } from "../firebase"
 import { addDoc, collection } from 'firebase/firestore';
+import { toast } from "react-toastify";
 
 const AdminDashboard = () => {
     const [question, setQuestion] = useState("")
@@ -10,8 +11,11 @@ const AdminDashboard = () => {
     const [optionD, setOptionD] = useState("")
 
     const handleSubmit = async ()=>{
+        if(!question || !optionA || !optionB || !optionC || optionD){
+            toast.info('Please fill in all fields')
+        }
         try{
-            const 
+           await addDoc(collection(db, "questions"))
 
         }catch(error:unknown){
             console.log(error)
