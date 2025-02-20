@@ -4,7 +4,7 @@ const Hero = () => {
     <div className="cbt">
          <div className="main">
         <div className="hero">
-            <h1 className="heading">Take A Exam<br/>Before The Exam</h1>
+            <h1 className="heading">Take An Exam<br/>Before The Exam</h1>
             <p className="para">
                 Prepare for your exams with our<br/>computer-based training platform
             </p>
