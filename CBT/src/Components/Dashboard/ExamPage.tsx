@@ -90,6 +90,12 @@ const ExamPage: React.FC = () => {
     }, 10000);
   };
 
+  //this code is to caclulate Exam Progress
+  const totalQuestions = questions.length
+  const answeredQuestions = Object.keys(answers).length
+  const unansweredQuestions = totalQuestions - answeredQuestions
+  const progressPercentage = (answeredQuestions / totalQuestions) * 70
+
   return (
     <div>
     <SideBar />
@@ -105,10 +111,20 @@ const ExamPage: React.FC = () => {
 
 
       <div className="question-list">
+        <div className="progress-container">
+          <p>
+            <strong>{answeredQuestions}</strong> answered | <strong>{unansweredQuestions}</strong> 
+          </p>
+          <div className="progress-bar">
+            <div className="progress" style={{width: `{progressPercentage}%`}}></div>
+          </div>
+        </div>
+
+       {/* Questions  */}
         {questions?.length === 0 && <p>No questions available.</p>}
-        {questions?.map((question) => (
+        {questions?.map((question,index) => (
           <div key={question.id} className="question-item">
-            <h3>{question.question}</h3>
+            <h3>{index + 1}.{question.question}</h3>
             <div className="options">
                 
               {question?.options?.map((option, index) => (
