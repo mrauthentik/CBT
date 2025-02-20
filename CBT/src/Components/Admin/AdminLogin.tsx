@@ -30,6 +30,17 @@ const AdminLogin = () => {
          console.log(error)
         }
     }
+
+    return (
+        <div className="admin-login-container">
+            <input 
+                type="email"
+                placeholder="Admin Email"
+                value={email}
+                onChange={(e)=>{setEmail(e.target.value)}}
+                />
+        </div>
+    )
 }
 
 export default AdminLogin
