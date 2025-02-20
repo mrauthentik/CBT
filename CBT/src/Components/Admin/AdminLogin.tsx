@@ -38,7 +38,7 @@ const AdminLogin = () => {
                 placeholder="Admin Email"
                 value={email}
                 onChange={(e)=>{setEmail(e.target.value)}}
-                />
+            />
         </div>
     )
 }
