@@ -27,6 +27,7 @@ const AdminDashboard = () => {
             }, 
             correctAnswer,
            }) 
+           console.log('Question Added succesfully')
            toast.done('Question added successfully')
            setQuestion("")
            setOptionA("")
