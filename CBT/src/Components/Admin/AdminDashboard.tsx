@@ -14,7 +14,9 @@ const AdminDashboard = () => {
 
     const handleSubmit = async ()=>{
         if(!question || !optionA || !optionB || !optionC || optionD || !courseId){
-            toast.info('Please fill in all fields')
+            toast.success('Questions updated sucessfully')
+        }else{
+            toast.success('Questions added succesfuly')
         }
         try{
             //this will push the questions to the firestore db
