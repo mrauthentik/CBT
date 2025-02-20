@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import {auth, db} from '../firebase'
-import {doc, getDoc} from '../firebase/firestore'
+import {doc, getDoc} from 'firebase/firestore'
 import { useNavigate } from "react-router-dom";
 
 
@@ -20,7 +20,7 @@ const AdminLogin = () => {
             const adminRef = doc(db, "admin", user.email || "")
             const adminSnap = await getDoc(adminRef)
 
-            if(adminRef.exists()){
+            if(adminRef){
                 navigate('/admin')
             }else{
                 console.log("Access Denied: You are not an Admin")
