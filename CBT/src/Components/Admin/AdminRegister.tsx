@@ -5,6 +5,9 @@ import {doc, setDoc } from 'firebase/firestore';
 import { useNavigate } from "react-router-dom";
 
 const AdminRegister = ()=>{
-    const [email, setEmail] = useState('')
     
+    const [email, setEmail] = useState('')
+    const [password, setpassword] = useState('')
+    const navigate = useNavigate()
+
 }
