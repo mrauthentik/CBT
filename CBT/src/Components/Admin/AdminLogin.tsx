@@ -20,7 +20,8 @@ const AdminLogin = () => {
             const adminRef = doc(db, "admin", user.email || "")
             const adminSnap = await getDoc(adminRef)
 
-            if(adminRef){
+            if(adminSnap.exists()){
+               
                 navigate('/admin')
             }else{
                 console.log("Access Denied: You are not an Admin")
