@@ -116,7 +116,7 @@ const ExamPage: React.FC = () => {
             <strong>{answeredQuestions}</strong> answered | <strong>{unansweredQuestions}</strong> 
           </p>
           <div className="progress-bar">
-            <div className="progress" style={{width: `{progressPercentage}%`}}></div>
+            <div className="progress" style={{width: `${progressPercentage}%`}}></div>
           </div>
         </div>
 
