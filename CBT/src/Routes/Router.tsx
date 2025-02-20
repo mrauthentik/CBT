@@ -10,6 +10,7 @@ import UserInfo from "../Components/Dashboard/UserInfo";
 import Settings from "../Components/Dashboard/Settings";
 import AdminLogin from "../Components/Admin/AdminLogin";
 import AdminDashboard from "../Components/Admin/AdminDashboard";
+import AdminRegister from "../Components/Admin/AdminRegister";
 
 const router = createBrowserRouter([
     {
@@ -55,6 +56,10 @@ const router = createBrowserRouter([
     {
         path: "/admin",
         element: <AdminDashboard />
+    },
+    {
+        path: "/admin-register",
+        element: <AdminRegister />
     },
     
 ]);
