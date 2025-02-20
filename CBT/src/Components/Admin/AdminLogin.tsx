@@ -39,6 +39,9 @@ const AdminLogin = () => {
                 value={email}
                 onChange={(e)=>{setEmail(e.target.value)}}
             />
+            <input 
+              type="password"
+            />
         </div>
     )
 }
