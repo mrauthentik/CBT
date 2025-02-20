@@ -489,3 +489,7 @@ body.dark-mode .logoOut-btn:hover {
   padding-left: 70rem;
   padding-top: 1rem;
 }
+.option{
+  display: block;
+  
+}
