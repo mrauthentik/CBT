@@ -47,7 +47,7 @@ const ExamPage: React.FC = () => {
           options: string[];
           correctAnswer: string;
         }[];
-
+          
         setQuestions(questionList);
       } catch (err) {
         console.error("Error fetching questions", err);
@@ -69,6 +69,7 @@ const ExamPage: React.FC = () => {
       ...prev,
       [questionId]: selectedOption,
     }));
+   
   };
 
   // Handle exam submission
@@ -76,11 +77,12 @@ const ExamPage: React.FC = () => {
     let correctCount = 0;
 
     questions.forEach((question) => {
-      if (answers[question.id] === question.correctAnswer) {
+      if (answers[question.id]?.toLowerCase().trim() === question.correctAnswer.toLowerCase().trim()) {
         correctCount++;
+        console.log("The Correct Answer is",question.correctAnswer)
       }
     });
-
+     console.log("The correct count is: ",correctCount)
     setScore(correctCount);
     toast.success(`Exam submitted! You scored ${correctCount} out of ${questions.length}.`);
 
