@@ -3,6 +3,7 @@ import logoImage from './logo/logo.jpeg';
 import Modal from '../pages/Modal'; // Import the modal component
 import SignUpPage from './UserAuth/SignUpPage'; // Import sign-up form
 import SignInPage from './UserAuth/SignInPage'; // Import sign-in form
+import { useNavigate } from 'react-router-dom';
 
 // const NavbarContainer = styled.nav<{ scrolled: boolean }>`
 //   position: fixed;
@@ -51,6 +52,7 @@ import SignInPage from './UserAuth/SignInPage'; // Import sign-in form
 export const Navbar = () => {
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState<'signin' | 'signup' | null>(null);
+  const navigate = useNavigate();
   const [scrolled, setScrolled] = useState(false);
 
   // Handle Scroll Effect
@@ -96,6 +98,11 @@ export const Navbar = () => {
                 <li>
                     <button className="nav-button"onClick={()=> openModal('signup')}>Sign up</button>
                 </li>
+                <li>
+                <button className="nav-button" onClick={() => navigate('/admin')}>
+                  Admin
+                </button>
+              </li>
             </ul>
         </div>
    
