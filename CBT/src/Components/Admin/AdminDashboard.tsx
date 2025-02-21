@@ -24,10 +24,10 @@ const AdminDashboard = () => {
             question,
             courseId,
             options: [
-                 optionA,
-                optionB,
-                optionC,
-                 optionD,
+                    optionA,
+                    optionB,
+                    optionC,
+                    optionD,
             ], 
             correctAnswer,
            

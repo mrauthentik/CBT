@@ -77,10 +77,11 @@ const ExamPage: React.FC = () => {
     let correctCount = 0;
 
     questions.forEach((question) => {
-      if (answers[question.id]?.toLowerCase().trim() === question.correctAnswer.toLowerCase().trim()) {
+      if (answers[question.id] === question.correctAnswer) {
         correctCount++;
         console.log("The Correct Answer is",question.correctAnswer)
       }
+      console.log("Correct answer is: ",question.correctAnswer)
     });
      console.log("The correct count is: ",correctCount)
     setScore(correctCount);
