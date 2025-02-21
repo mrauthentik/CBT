@@ -509,3 +509,27 @@ body.dark-mode .logoOut-btn:hover {
   background-color: #4caf50;
   transition: width 0.3s ease-in-out;
 }
+.instruction-container{
+  margin:auto;
+  background-color: teal;
+  width: 50%;
+  padding: 3rem;
+  ul{
+    list-style-type: none;
+  }
+  h2{
+    color: white;
+  }
+  button{
+   padding: 10px;
+   border: none;
+   border-radius: 20rem; 
+   margin-top: 2rem;
+   
+  }
+  button:hover{
+    border:solid 1px white;
+    background-color: transparent;
+    font: 600;
+   }   
+}
