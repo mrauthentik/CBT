@@ -109,7 +109,7 @@ const ExamPage: React.FC = () => {
     <SideBar />
     <User />
     
-    //Show instruction condition
+    {/* Show instruction condition */}
     {showInstructions ? (
       <div className="instruction-container">
         <h2>Exam Instructions</h2>
