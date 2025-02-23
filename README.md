@@ -1,4 +1,5 @@
 # 📝 CBT Web Application
+# Official **NEXA
 
 A Computer-Based Test (CBT) application with authentication, real-time question fetching from Firebase, a timer, dark mode, and AI integration.
 
@@ -28,7 +29,7 @@ A Computer-Based Test (CBT) application with authentication, real-time question 
    ```
 2. Change directory to cbt
    ```bash
-   cd cbt-app
+   cd cbt
 3. install dependencies
    ```bash
    npm install
