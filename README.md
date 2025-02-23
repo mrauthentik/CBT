@@ -1,5 +1,5 @@
 # 📝 CBT Web Application
-# Official **NEXA
+# Official **NEXA**
 
 A Computer-Based Test (CBT) application with authentication, real-time question fetching from Firebase, a timer, dark mode, and AI integration.
 
