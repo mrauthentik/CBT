@@ -49,6 +49,13 @@ const ExamPage: React.FC = () => {
           options: string[];
           correctAnswer: string;
         }[];
+
+        //This Logic is to shuffle questions using Fisher-Yates algorithm
+
+        for(let i = questionList.length - 1; i > 0; i--){
+          const j = Math.floor(Math.random() * (i + 1));
+          [questionList[i], questionList[j]] = [questionList[j], questionList[i]]
+        }
           
         setQuestions(questionList);
       } catch (err) {
