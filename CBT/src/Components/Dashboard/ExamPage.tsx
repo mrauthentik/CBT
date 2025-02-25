@@ -21,6 +21,7 @@ const ExamPage: React.FC = () => {
   const [examTime, setExamTime] = useState(600)
   const [score, setScore] = useState<number | null>(null);
   const [loading, setLoading] = useState(true);
+  const [showAnswers, setShowAnswers] = useState(false)
 
   useEffect(() => {
     const fetchTimerSettings = async () =>{
@@ -77,22 +78,30 @@ const ExamPage: React.FC = () => {
   const handleSubmit = () => {
     let correctCount = 0;
 
+    console.log({questions,answers})
+
     questions.forEach((question) => {
       if (answers[question.id] === question.correctAnswer) {
         correctCount++;
-        console.log("The Correct Answer is",question.correctAnswer)
       }
-      console.log("Correct answer is: ",question.correctAnswer)
+     
     });
-     console.log("The correct count is: ",correctCount)
+    
     setScore(correctCount);
     toast.success(`Exam submitted! You scored ${correctCount} out of ${questions.length}.`);
+    setShowAnswers(true)
 
     // Navigate to dashboard after 5 seconds
-    setTimeout(() => {
-      navigate("/dashboard");
-    }, 10000);
+    // setTimeout(() => {
+    //   navigate("/dashboard");
+    // }, 10000);
   };
+
+  const handleRetakeExam = () =>{
+    setAnswers({})
+    setScore(null)
+    setShowAnswers(false)
+  }
 
   const handleStartExam = ()=> {
     setShowInstructions(false)
@@ -161,26 +170,40 @@ const ExamPage: React.FC = () => {
                      value={option}
                      checked={answers[question.id] === option}
                      onChange={() => handleOptionSelect(question.id, option)}
+                     disabled={showAnswers}
                    />
                    {option}
                  </label>
                ))}
              </div>
+
+              {/* This logic shows correct answers after submission */}
+              {showAnswers && (
+                <p className ="correct-answer">
+                  Correct Answer: <strong>{question.correctAnswer} </strong>
+                   </p>
+                  )
+              }
            </div>
          ))}
        </div>
      )}
+
+
+     {/* This code show score and retake button */}
+
        {score === null ? (
          <button onClick={handleSubmit} className="submit-btn">
            Submit Exam
          </button>
        ) : (
+         <>
          <h3>Your Score: {score} / {questions.length}</h3>
+         <button onClick={handleRetakeExam} className='retake-btn'>Retake Exam </button>
+        </>
        )}
      </div>
-    )
-
-      
+    )     
    
     }
 
