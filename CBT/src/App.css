@@ -4,6 +4,9 @@
     box-sizing: border-box;
     font-family: 'Poppins';
   }
+  :root{
+    --footer-color:#041a1a;
+}
 
   /* style for NavBar */
   .navbar{
@@ -27,6 +30,7 @@
   }
   .links li a{
     text-decoration: none;
+
     color:white;
 }
 .nav-button{
@@ -36,13 +40,34 @@
   padding: 8px;
   border-radius: 4px;
   font-size: 12px;
-  font-weight: bold;
-  transition: trasform o.5s linear;
+  /* font-weight: bold; */
+
+  transition: transform o.5s eaes;
+  cursor: pointer;
 }
 .nav-button{
   transform: scale(1.1);
 }
+@media (max-width:760px) {
+  .navbar{
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+  }
+  .nav-button{
+    width: 100%;
+    margin-left: 2rem;
+  }
+  .logo{
+    margin-left: -3rem;
+  }
+}
 
+.nav-button:hover {
+  transition: 0.3s;
+  background-color: white;
+  color: black;
+}
 
 .dashboard{
     background-color: teal;
@@ -71,12 +96,21 @@
   position: absolute;
   z-index: -1;
 }
-@media (max-width:2000) {
+@media (max-width:2000px) {
   .wave{
     margin-top: 15rem;
     position: absolute;
     z-index: -1;
   }
+  
+}
+@media (max-width:720px) {
+     .wave{
+      display: none;
+     }
+     .hero{
+      width: 60vh;
+     }
 }
   .heading{
     text-align: center;
@@ -96,8 +130,7 @@
           gap: 16px;
           justify-content: center;
           margin-top: 15rem;
-
-            }
+        }
             .box{
                 width: 150%;
                 height: 200px;
@@ -109,11 +142,23 @@
                 border-radius: 4px;
                 background-color: whitesmoke;
                 transition: trasform o.5s linear;
+                margin-bottom: 3rem;
             }
+    @media (max-width:760px) {
+          .feat{
+            display: block;
+            width: 100%;
+          } 
+          .box{
+            width: 300%;
+            margin-left: -2rem;
+          }     
+    }
             .box:hover {
               transform: scale(1.1);
               background-color: teal;
               color: white;
+              transition: 0.8s;
             }
             .box:hover p,
             .box:hover small,
@@ -137,6 +182,103 @@
                 font-size: 24px;
             }
 
+       /* ABOUT CONTAINER */
+.about {
+  margin-top: 15rem;
+  padding: 2rem 5rem;
+  color: teal;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: solid 1px red;
+  height: 100vh;
+  position: relative;
+}
+
+/* IMAGE CONTAINER */
+.img-overlay {
+  position: relative;
+  display: flex;
+  align-items: center;
+  
+}
+
+.img-box {
+  border:  4px solid teal;
+  position: absolute;
+  width: 25rem;
+  height: 8rem;
+  left: 9rem;
+  top: -8em;
+  z-index: -2; /* Moves it behind the image */
+}
+
+.img-container {
+  position: relative;
+  width: 100%;
+  
+}
+
+.img-container::before {
+  content: "";
+  position: absolute;
+  top: -6rem;
+  left: 10rem;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+        rgba(0, 100, 100, 0.8),  /* Darker teal at the top */
+        rgba(0, 100, 100, 0.5)  /* Lighter teal at the bottom */
+  );
+  /* opacity: 0.2; */
+
+}
+
+
+.about-img {
+  width: 400px; /* Adjust based on actual image size */
+  position: relative;
+  left: 10rem;
+  top: -6rem;
+  z-index: -1; /* Keeps the image above the box */
+}
+
+/* TEXT SECTION */
+.about-text {
+  width: 40%;
+  height: 60%;
+  margin-left: 5rem;
+  border: 1px solid black;
+  padding: 2rem;
+  padding-left: 8rem;
+  background: white; /* Ensures contrast with the shadow */
+    border-radius: 15px; /* Rounded corners */
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2); /* Soft shadow */
+    text-align: left;
+    z-index: -2;
+}
+
+.about h2 {
+  text-align: left;
+  font-size: 24px;
+  position: relative;
+}
+
+.underline {
+  display: inline-block;
+  width: 50px;
+  height: 3px;
+  background: teal;
+  margin-left: 10px;
+}
+
+.about p {
+  margin-top: 10px;
+  font-size: 16px;
+  line-height: 1.6;
+}
+      
+          
   .logoOut-btn{
     background-color: rgb(114, 13, 8);
     color: rgb(252, 252, 235);
@@ -346,4 +488,50 @@ body.dark-mode .logoOut-btn:hover {
 .user-name{
   padding-left: 70rem;
   padding-top: 1rem;
+}
+.option{
+  display: block;
+}
+.progress-container {
+  margin: 20px 0;
+  text-align: center;
+}
+.progress-bar {
+  width: 100%;
+  height: 10px;
+  background-color: #ddd;
+  border-radius: 5px;
+  overflow: hidden;
+  margin-top: 5px;
+}
+.progress {
+  height: 100%;
+  background-color: #4caf50;
+  transition: width 0.3s ease-in-out;
+}
+.instruction-container{
+  margin:auto;
+  background-color: rgb(14, 161, 161);
+  width: 50%;
+  padding: 3rem;
+  border-radius:20px ;
+  box-shadow: 10px 20px 20px 1px rgba(0,0,0,0.5);
+  ul{
+    list-style-type: none;
+  }
+  h2{
+    color: white;
+  }
+  button{
+   padding: 10px;
+   border: none;
+   border-radius: 20rem; 
+   margin-top: 2rem;
+   
+  }
+  button:hover{
+    border:solid 1px white;
+    background-color: transparent;
+    font: 600;
+   }   
 }

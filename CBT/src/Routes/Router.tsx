@@ -8,6 +8,9 @@ import ForgetPsw from "../Components/UserAuth/ForgetPsw";
 import Courses from "../Components/Dashboard/Courses";
 import UserInfo from "../Components/Dashboard/UserInfo";
 import Settings from "../Components/Dashboard/Settings";
+import AdminLogin from "../Components/Admin/AdminLogin";
+import AdminDashboard from "../Components/Admin/AdminDashboard";
+import AdminRegister from "../Components/Admin/AdminRegister";
 
 const router = createBrowserRouter([
     {
@@ -20,11 +23,11 @@ const router = createBrowserRouter([
     },
     {
         path: "/signin",
-        element: <SignInPage />
+        element: <SignInPage  toggleAuth={()=>{}}/>
     },
     {
         path: "/signup",
-        element: <SignUpPage />
+        element: <SignUpPage toggleAuth={() => { /* your toggleAuth function implementation */ }} />
     },
     {
         path: "/exampage/:courseId",
@@ -46,5 +49,18 @@ const router = createBrowserRouter([
         path: "/settings",
         element: <Settings />
     },
+    {
+        path: "/admin-login",
+        element: <AdminLogin />
+    },
+    {
+        path: "/admin",
+        element: <AdminDashboard />
+    },
+    {
+        path: "/admin-register",
+        element: <AdminRegister />
+    },
+    
 ]);
 export default router
