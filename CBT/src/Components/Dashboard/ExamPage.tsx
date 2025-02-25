@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { collection, getDocs, query, where,doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase";
 import { toast } from "react-toastify";
@@ -10,7 +10,7 @@ import User from "./UserName";
 
 const ExamPage: React.FC = () => {
   const { courseId } = useParams(); // Get courseId from URL
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   // State management
   const [showInstructions, setShowInstructions] = useState(true)
