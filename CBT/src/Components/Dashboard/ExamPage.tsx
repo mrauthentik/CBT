@@ -4,6 +4,8 @@ import { collection, getDocs, query, where,doc, getDoc } from "firebase/firestor
 import { db } from "../firebase";
 import { toast } from "react-toastify";
 
+import { GoogleGenerativeAI } from "@google/generative-ai"
+
 import { Timer } from "./Timer";
 import SideBar from "../SideBar";
 import User from "./UserName";
@@ -22,6 +24,7 @@ const ExamPage: React.FC = () => {
   const [score, setScore] = useState<number | null>(null);
   const [loading, setLoading] = useState(true);
   const [showAnswers, setShowAnswers] = useState(false)
+ const [explanations, setExplanations] = useState<{[key:string]:string}>({})
 
   useEffect(() => {
     const fetchTimerSettings = async () =>{
@@ -71,6 +74,34 @@ const ExamPage: React.FC = () => {
     // Timer logic
     
   }, []);
+
+  //AI Intetegration
+  const apiKey = import.meta.env.VITE_GOOGLE_AI_API_KEY;
+if (!apiKey) {
+  throw new Error("API key is not defined");
+}
+const genAI = new GoogleGenerativeAI(apiKey);
+const model = genAI.getGenerativeModel({model: "gemini-1.5-flash"})
+
+const getExplanation = async (questions: string, correctAnswer:string) => {
+
+  try{
+     const prompt = `Explain why the is the ${correctAnswer} to the following question ${questions} \n and how can this ${questions} be solved`
+    const result = await model.generateContent(prompt)
+    return result.response.text()
+    }
+  catch (error:unknown){
+    console.log("Could not fetch response",error)
+    return "Could not fetch response"
+  }
+  
+}
+
+const handleExplanation = async (questionId: string, question:string, correctAnswer: string) => {
+
+  const explanation = await getExplanation(question,correctAnswer)
+  setExplanations((prev)=>({...prev, [questionId]:explanation}))
+}
 
   // Handle selecting an answer
   const handleOptionSelect = (questionId: string, selectedOption: string) => {
@@ -186,9 +217,15 @@ const ExamPage: React.FC = () => {
 
               {/* This logic shows correct answers after submission */}
               {showAnswers && (
+                <div>
+
                 <p className ="correct-answer">
                   Correct Answer: <strong>{question.correctAnswer} </strong>
                    </p>
+                   <button onClick={()=> handleExplanation(question.id,question.question, question.correctAnswer)}>Nexa Explain</button>
+                  {explanations[question.id] && 
+                    <p className="explanation"> {explanations[question.id]}</p>}
+                </div>
                   )
               }
            </div>
