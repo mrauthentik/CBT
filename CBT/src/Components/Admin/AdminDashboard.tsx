@@ -10,23 +10,29 @@ const AdminDashboard = () => {
     const [optionC, setOptionC] = useState("")
     const [optionD, setOptionD] = useState("")
     const [correctAnswer, setCorrectAnswer] = useState("")
+    const [courseId, setCourseId] = useState("")
 
     const handleSubmit = async ()=>{
-        if(!question || !optionA || !optionB || !optionC || optionD){
-            toast.info('Please fill in all fields')
+        if(!question || !optionA || !optionB || !optionC || optionD || !courseId){
+            toast.success('Questions updated sucessfully')
+        }else{
+            toast.success('Questions added succesfuly')
         }
         try{
             //this will push the questions to the firestore db
            await addDoc(collection(db, "questions"), {
             question,
-            options: {
-                A: optionA,
-                B: optionB,
-                C: optionC,
-                D: optionD,
-            }, 
+            courseId,
+            options: [
+                    optionA,
+                    optionB,
+                    optionC,
+                    optionD,
+            ], 
             correctAnswer,
+           
            }) 
+           console.log('Question Added succesfully')
            toast.done('Question added successfully')
            setQuestion("")
            setOptionA("")
@@ -34,6 +40,7 @@ const AdminDashboard = () => {
            setOptionC("")
            setOptionD("")
            setCorrectAnswer("")
+           setCourseId('')
 
 
         }catch(error:unknown){
@@ -44,6 +51,7 @@ const AdminDashboard = () => {
     }
   return (
     <div className="admin-dashboard">
+        
     <h2>Admin Dashboard - Add Questions</h2>
     <input
       type="text"
@@ -81,6 +89,12 @@ const AdminDashboard = () => {
       value={correctAnswer}
       onChange={(e) => setCorrectAnswer(e.target.value)}
     />
+    <input 
+        type="text"
+        placeholder="input CourseCode"
+        value={courseId}
+        onChange={(e)=>setCourseId(e.target.value)}
+     />
     <button onClick={handleSubmit}>Add Question</button>
   </div>
   )

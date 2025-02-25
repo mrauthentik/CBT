@@ -18,8 +18,12 @@ const AdminRegister = ()=>{
 
         //this code will add user to the firestore database
         await setDoc(doc(db,'admin', user.email || ""),{role:"admin"})
-
-        toast('Admin Registered Successfully')
+         
+        setTimeout(()=>{
+             toast('Admin Registered Successfully')
+        },3000)
+        console.log('Admin added succefully')
+       
         //Navigate User when sign up is done
         navigate("/admin-login")
     }catch(err:unknown){
