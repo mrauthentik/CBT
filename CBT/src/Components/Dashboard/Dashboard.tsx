@@ -2,12 +2,13 @@ import React, { useState, useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import { auth, db } from "../firebase";
-import SideBar from "../SideBar";  // Import the SideBar component
+import SideBar from "../SideBar";
 import styled from '@emotion/styled';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import UserProgressChart from "./UserProgressChart";
 import User from "./UserName";
+import { ThreeDots } from 'react-loader-spinner';
 
 const Container = styled.div`
   display: flex;
@@ -38,15 +39,12 @@ const UserInfo = styled.div`
   align-items: center;
 `;
 
-
-
-
 const Content = styled.main`
   flex: 1;
   padding: 2rem;
   overflow-y: auto;
-  margin-left: 250px; // Add margin to account for fixed sidebar
-  transition: margin-left 0.3s ease-in-out; // Smooth transition
+  margin-left: 250px;
+  transition: margin-left 0.3s ease-in-out;
 `;
 
 const Title = styled.h2`
@@ -62,13 +60,20 @@ const Welcome = styled.h2`
   color: #333;
 `;
 
+const LoadingContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  width: 100%;
+`;
 
 const Dashboard: React.FC = () => {
   const [fullName, setFullName] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [loading, setLoading] = useState(true);
-  const [progressData, setProgressData ] = useState<{date: string; score: number;}[]>([])
+  const [progressData, setProgressData] = useState<{ date: string; score: number; }[]>([]);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -94,31 +99,40 @@ const Dashboard: React.FC = () => {
       setLoading(false);
     });
 
-    return () => unsubscribe();
-
     const fetchProgressData = async () => {
-      const userId = fullName
+      const userId = fullName;
       const querySnapshot = await getDocs(collection(db, `users/${userId}/progress`));
-        
-      const data = querySnapshot.docs.map((doc)=>({
-         date: doc.data().date,
-         score: doc.data().score,
+
+      const data = querySnapshot.docs.map((doc) => ({
+        date: doc.data().date,
+        score: doc.data().score,
       }));
-      setProgressData(data)
-    }
-      fetchProgressData()
+      setProgressData(data);
+    };
+    fetchProgressData();
 
-  }, []);
-
- 
+    return () => unsubscribe();
+  }, [fullName]); // Added fullName as a dependency.
 
   if (loading) {
-    return <p>Loading...</p>;
+    return (
+      <LoadingContainer>
+        <ThreeDots
+          color="#3B82F6"
+          height={80}
+          width={80}
+          ariaLabel="three-dots-loading"
+          wrapperStyle={{}}
+          wrapperClass=""
+          visible={true}
+        />
+      </LoadingContainer>
+    );
   }
 
   return (
     <Container>
-      <SideBar /> {/* Use the SideBar component here */}
+      <SideBar />
       <Content>
         <Header>
           <UserInfo>
@@ -128,9 +142,8 @@ const Dashboard: React.FC = () => {
         <ToastContainer />
         <Title>Dashboard</Title>
         <Welcome>Hello 👋, {fullName || "User"}!</Welcome>
-        {/* <CourseSelection /> Render your CourseSelection component */}
-       <h2>User Progress</h2>
-       <UserProgressChart data={progressData}/>
+        <h2>User Progress</h2>
+        <UserProgressChart data={progressData} />
       </Content>
     </Container>
   );

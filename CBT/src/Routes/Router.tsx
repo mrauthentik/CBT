@@ -29,6 +29,11 @@ const router = createBrowserRouter([
         path: "/signup",
         element: <SignUpPage toggleAuth={() => { /* your toggleAuth function implementation */ }} />
     },
+
+    {
+        path: "/exampage",
+        element: <ExamPage />
+    },
     {
         path: "/exampage/:courseId",
         element: <ExamPage />
