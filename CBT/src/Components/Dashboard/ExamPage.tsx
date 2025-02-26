@@ -13,6 +13,7 @@ const ExamPage: React.FC = () => {
   const navigate = useNavigate();
 
   // State management
+  const [showInstructions, setShowInstructions] = useState(true)
   const [questions, setQuestions] = useState<
     { id: string; question: string; options: string[]; correctAnswer: string }[]
   >([]);
@@ -20,6 +21,7 @@ const ExamPage: React.FC = () => {
   const [examTime, setExamTime] = useState(600)
   const [score, setScore] = useState<number | null>(null);
   const [loading, setLoading] = useState(true);
+  const [showAnswers, setShowAnswers] = useState(false)
 
   useEffect(() => {
     const fetchTimerSettings = async () =>{
@@ -47,7 +49,7 @@ const ExamPage: React.FC = () => {
           options: string[];
           correctAnswer: string;
         }[];
-
+          
         setQuestions(questionList);
       } catch (err) {
         console.error("Error fetching questions", err);
@@ -69,73 +71,141 @@ const ExamPage: React.FC = () => {
       ...prev,
       [questionId]: selectedOption,
     }));
+   
   };
 
   // Handle exam submission
   const handleSubmit = () => {
     let correctCount = 0;
 
+    console.log({questions,answers})
+
     questions.forEach((question) => {
       if (answers[question.id] === question.correctAnswer) {
         correctCount++;
       }
+     
     });
-
+    
     setScore(correctCount);
     toast.success(`Exam submitted! You scored ${correctCount} out of ${questions.length}.`);
+    setShowAnswers(true)
 
     // Navigate to dashboard after 5 seconds
-    setTimeout(() => {
-      navigate("/dashboard");
-    }, 10000);
+    // setTimeout(() => {
+    //   navigate("/dashboard");
+    // }, 10000);
   };
+
+  const handleRetakeExam = () =>{
+    setAnswers({})
+    setScore(null)
+    setShowAnswers(false)
+  }
+
+  const handleStartExam = ()=> {
+    setShowInstructions(false)
+  }
+
+  //this code is to caclulate Exam Progress
+  const totalQuestions = questions.length
+  const answeredQuestions = Object.keys(answers).length
+  const unansweredQuestions = totalQuestions - answeredQuestions
+  const progressPercentage = (answeredQuestions / totalQuestions) * 70
 
   return (
     <div>
     <SideBar />
     <User />
-    <div className="exam-container">
-      <h2>Exam for {courseId}</h2>
-      <Timer initialTime={examTime} onTimeUp={handleSubmit} />
-    {loading ?(
-        <p> loading questions .... </p>
-    ) : questions.length === 0 ? (
-        <p> No questions available for this course</p>
-    ): (
-
-
-      <div className="question-list">
-        {questions?.length === 0 && <p>No questions available.</p>}
-        {questions?.map((question) => (
-          <div key={question.id} className="question-item">
-            <h3>{question.question}</h3>
-            <div className="options">
-                
-              {question?.options?.map((option, index) => (
-                <label key={index} className="option">
-                  <input
-                    type="radio"
-                    name={question.id}
-                    value={option}
-                    checked={answers[question.id] === option}
-                    onChange={() => handleOptionSelect(question.id, option)}
-                  />
-                  {option}
-                </label>
-              ))}
-            </div>
-          </div>
-        ))}
+    
+    {/* Show instruction condition */}
+    {showInstructions ? (
+      <div className="instruction-container">
+        <h2>Exam Instructions</h2>
+        <ul>
+            <li>Read all questions carefully before answering.</li>
+            <li>Choose the best answer for each question.</li>
+            <li>The exam will be timed. Ensure you manage your time wisely.</li>
+            <li>Once you submit, you cannot change your answers.</li>
+            <li>Your progress will be tracked in real-time.</li>
+          </ul>
+          <button className="start-exam-btn" onClick={handleStartExam}>
+            Start Exam
+          </button>
       </div>
-    )}
-      {score === null ? (
-        <button onClick={handleSubmit} className="submit-btn">
-          Submit Exam
-        </button>
-      ) : (
-        <h3>Your Score: {score} / {questions.length}</h3>
-      )}
-    </div>
+    ):(
+       <div className="exam-container">
+       <h2>Exam for {courseId}</h2>
+       <Timer initialTime={examTime} onTimeUp={handleSubmit} />
+     {loading ?(
+         <p> loading questions .... </p>
+     ) : questions.length === 0 ? (
+         <p> No questions available for this course</p>
+     ): (
+ 
+ 
+       <div className="question-list">
+         <div className="progress-container">
+           <p>
+             <strong>{answeredQuestions}</strong> answered | <strong>{unansweredQuestions}</strong> 
+           </p>
+           <div className="progress-bar">
+             <div className="progress" style={{width: `${progressPercentage}%`}}></div>
+           </div>
+         </div>
+ 
+        {/* Questions  */}
+         {questions?.length === 0 && <p>No questions available.</p>}
+         {questions?.map((question,index) => (
+           <div key={question.id} className="question-item">
+             <h3>{index + 1}.{question.question}</h3>
+             <div className="options">
+                 
+               {question?.options?.map((option, index) => (
+                 <label key={index} className="option">
+                   
+                   <input
+                     type="radio"
+                     name={question.id}
+                     value={option}
+                     checked={answers[question.id] === option}
+                     onChange={() => handleOptionSelect(question.id, option)}
+                     disabled={showAnswers}
+                   />
+                   {option}
+                 </label>
+               ))}
+             </div>
+
+              {/* This logic shows correct answers after submission */}
+              {showAnswers && (
+                <p className ="correct-answer">
+                  Correct Answer: <strong>{question.correctAnswer} </strong>
+                   </p>
+                  )
+              }
+           </div>
+         ))}
+       </div>
+     )}
+
+
+     {/* This code show score and retake button */}
+
+       {score === null ? (
+         <button onClick={handleSubmit} className="submit-btn">
+           Submit Exam
+         </button>
+       ) : (
+         <>
+         <h3>Your Score: {score} / {questions.length}</h3>
+         <button onClick={handleRetakeExam} className='retake-btn'>Retake Exam </button>
+        </>
+       )}
+     </div>
+    )     
+   
+    }
 
     </div>
   );
