@@ -229,7 +229,7 @@ const handleExplanation = async (questionId: string, question:string, correctAns
 
                   {explanations[question.id] ?(
                       <div className="ai-explanation-box">
-
+                        <h4>Nexa Explanation</h4>
                         <p className="explanation"> {explanations[question.id]}</p>
                       </div>
                   ):(
