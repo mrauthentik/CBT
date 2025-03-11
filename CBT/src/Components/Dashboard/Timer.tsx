@@ -27,12 +27,12 @@ export const Timer: React.FC<TimerProps> = ({ initialTime, onTimeUp,  }) => {
   const minutes = Math.floor(timeLeft / 60);
   const seconds = timeLeft % 60;
   
-  // const timerStyle = {
-  //   color: timeLeft < 900/60 ? "red" : "black",
-  // }
+  const timerStyle = {
+    color: timeLeft < 70 ? "red" : "black",
+  }
 
   return (
-    <div className="timer" >
+    <div className="timer" style={timerStyle}>
       Time left: {minutes}:{String(seconds).padStart(2, "0")}
     </div>
   );
