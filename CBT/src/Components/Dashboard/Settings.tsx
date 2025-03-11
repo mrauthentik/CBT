@@ -39,8 +39,8 @@ const Settings: React.FC = () => {
 
   const handleSave = async () => {
     try {
-      await setDoc(doc(db, 'settings', 'global'), { duration: examTime });
-      toast.success('Timer settings saved!');
+      await setDoc(doc(db, 'settings', 'global'), { duration: examTime, darkMode });
+      toast.success('Settings saved 🚀!');
     } catch (error) {
       console.log("Failed to save settings", error);
       toast.error('Failed to save settings');
