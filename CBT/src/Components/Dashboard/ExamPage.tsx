@@ -33,6 +33,7 @@ const ExamPage: React.FC = () => {
             if(settingsDoc.exists()){
               setExamTime(settingsDoc.data().duration)
             }
+            console.log("Timer settings fetched successfully 🚀🚀")
         }catch(error){
           console.log("Error fetching timer settings",error)
         }
