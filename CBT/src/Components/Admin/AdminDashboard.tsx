@@ -85,7 +85,7 @@ const AdminDashboard = () => {
     />
     <input
       type="text"
-      placeholder="Correct Answer (A, B, C, D)"
+      placeholder="4 or Man"
       value={correctAnswer}
       onChange={(e) => setCorrectAnswer(e.target.value)}
     />
