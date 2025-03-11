@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { collection, getDocs, query, where,doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase";
 import { toast } from "react-toastify";
+
+import { GoogleGenerativeAI } from "@google/generative-ai"
 
 import { Timer } from "./Timer";
 import SideBar from "../SideBar";
@@ -10,7 +12,7 @@ import User from "./UserName";
 
 const ExamPage: React.FC = () => {
   const { courseId } = useParams(); // Get courseId from URL
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   // State management
   const [showInstructions, setShowInstructions] = useState(true)
@@ -22,6 +24,8 @@ const ExamPage: React.FC = () => {
   const [score, setScore] = useState<number | null>(null);
   const [loading, setLoading] = useState(true);
   const [showAnswers, setShowAnswers] = useState(false)
+  // const [stopTimer, setStopTimer] = useState(false)
+ const [explanations, setExplanations] = useState<{[key:string]:string}>({})
 
   useEffect(() => {
     const fetchTimerSettings = async () =>{
@@ -30,6 +34,7 @@ const ExamPage: React.FC = () => {
             if(settingsDoc.exists()){
               setExamTime(settingsDoc.data().duration)
             }
+            console.log("Timer settings fetched successfully 🚀🚀")
         }catch(error){
           console.log("Error fetching timer settings",error)
         }
@@ -49,6 +54,13 @@ const ExamPage: React.FC = () => {
           options: string[];
           correctAnswer: string;
         }[];
+
+        //This Logic is to shuffle questions using Fisher-Yates algorithm
+
+        for(let i = questionList.length - 1; i > 0; i--){
+          const j = Math.floor(Math.random() * (i + 1));
+          [questionList[i], questionList[j]] = [questionList[j], questionList[i]]
+        }
           
         setQuestions(questionList);
       } catch (err) {
@@ -64,6 +76,34 @@ const ExamPage: React.FC = () => {
     // Timer logic
     
   }, []);
+
+  //AI Intetegration
+  const apiKey = import.meta.env.VITE_GOOGLE_AI_API_KEY;
+if (!apiKey) {
+  throw new Error("API key is not defined");
+}
+const genAI = new GoogleGenerativeAI(apiKey);
+const model = genAI.getGenerativeModel({model: "gemini-1.5-flash"})
+
+const getExplanation = async (questions: string, correctAnswer:string) => {
+
+  try{
+     const prompt = `Explain why the is the ${correctAnswer} to the following question ${questions} \n and how can this ${questions} be solved`
+    const result = await model.generateContent(prompt)
+    return result.response.text()
+    }
+  catch (error:unknown){
+    console.log("Could not fetch response",error)
+    return "Could not fetch response"
+  }
+  
+}
+
+const handleExplanation = async (questionId: string, question:string, correctAnswer: string) => {
+
+  const explanation = await getExplanation(question,correctAnswer)
+  setExplanations((prev)=>({...prev, [questionId]:explanation}))
+}
 
   // Handle selecting an answer
   const handleOptionSelect = (questionId: string, selectedOption: string) => {
@@ -88,8 +128,9 @@ const ExamPage: React.FC = () => {
     });
     
     setScore(correctCount);
+
     toast.success(`Exam submitted! You scored ${correctCount} out of ${questions.length}.`);
-    setShowAnswers(true)
+     setShowAnswers(true)
 
     // Navigate to dashboard after 5 seconds
     // setTimeout(() => {
@@ -101,6 +142,7 @@ const ExamPage: React.FC = () => {
     setAnswers({})
     setScore(null)
     setShowAnswers(false)
+    setExplanations({})
   }
 
   const handleStartExam = ()=> {
@@ -136,7 +178,7 @@ const ExamPage: React.FC = () => {
     ):(
        <div className="exam-container">
        <h2>Exam for {courseId}</h2>
-       <Timer initialTime={examTime} onTimeUp={handleSubmit} />
+       <Timer stopTimer initialTime={examTime} onTimeUp={handleSubmit} />
      {loading ?(
          <p> loading questions .... </p>
      ) : questions.length === 0 ? (
@@ -179,9 +221,25 @@ const ExamPage: React.FC = () => {
 
               {/* This logic shows correct answers after submission */}
               {showAnswers && (
+                <div className="ai-container">
+
                 <p className ="correct-answer">
                   Correct Answer: <strong>{question.correctAnswer} </strong>
                    </p>
+                   <button className="ai-explain-btn" onClick={()=> handleExplanation(question.id,question.question, question.correctAnswer)}>Nexa Explain 🧠</button>
+                  
+                  {/* AI Explaination Box */}
+
+                  {explanations[question.id] ?(
+                      <div className="ai-explanation-box">
+                        <h4>Nexa Explanation</h4>
+                        <p className="explanation"> {explanations[question.id]}</p>
+                      </div>
+                  ):(
+                      <p className="loading-text">⏳ Waiting for AI response...</p>
+                    )}
+                  
+                </div>
                   )
               }
            </div>
