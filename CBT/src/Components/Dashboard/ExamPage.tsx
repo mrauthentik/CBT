@@ -218,14 +218,24 @@ const handleExplanation = async (questionId: string, question:string, correctAns
 
               {/* This logic shows correct answers after submission */}
               {showAnswers && (
-                <div>
+                <div className="ai-container">
 
                 <p className ="correct-answer">
                   Correct Answer: <strong>{question.correctAnswer} </strong>
                    </p>
-                   <button onClick={()=> handleExplanation(question.id,question.question, question.correctAnswer)}>Nexa Explain</button>
-                  {explanations[question.id] && 
-                    <p className="explanation"> {explanations[question.id]}</p>}
+                   <button className="ai-explain-btn" onClick={()=> handleExplanation(question.id,question.question, question.correctAnswer)}>Nexa Explain 🧠</button>
+                  
+                  {/* AI Explaination Box */}
+
+                  {explanations[question.id] ?(
+                      <div className="ai-explanation-box">
+
+                        <p className="explanation"> {explanations[question.id]}</p>
+                      </div>
+                  ):(
+                      <p className="loading-text">⏳ Waiting for AI response...</p>
+                    )}
+                  
                 </div>
                   )
               }
