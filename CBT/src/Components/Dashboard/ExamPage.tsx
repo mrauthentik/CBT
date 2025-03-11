@@ -24,6 +24,7 @@ const ExamPage: React.FC = () => {
   const [score, setScore] = useState<number | null>(null);
   const [loading, setLoading] = useState(true);
   const [showAnswers, setShowAnswers] = useState(false)
+  // const [stopTimer, setStopTimer] = useState(false)
  const [explanations, setExplanations] = useState<{[key:string]:string}>({})
 
   useEffect(() => {
@@ -127,8 +128,9 @@ const handleExplanation = async (questionId: string, question:string, correctAns
     });
     
     setScore(correctCount);
+
     toast.success(`Exam submitted! You scored ${correctCount} out of ${questions.length}.`);
-    setShowAnswers(true)
+     setShowAnswers(true)
 
     // Navigate to dashboard after 5 seconds
     // setTimeout(() => {
@@ -140,6 +142,7 @@ const handleExplanation = async (questionId: string, question:string, correctAns
     setAnswers({})
     setScore(null)
     setShowAnswers(false)
+    setExplanations({})
   }
 
   const handleStartExam = ()=> {
@@ -175,7 +178,7 @@ const handleExplanation = async (questionId: string, question:string, correctAns
     ):(
        <div className="exam-container">
        <h2>Exam for {courseId}</h2>
-       <Timer initialTime={examTime} onTimeUp={handleSubmit} />
+       <Timer stopTimer initialTime={examTime} onTimeUp={handleSubmit} />
      {loading ?(
          <p> loading questions .... </p>
      ) : questions.length === 0 ? (
