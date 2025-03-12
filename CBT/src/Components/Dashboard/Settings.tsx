@@ -63,15 +63,6 @@ const Settings: React.FC = () => {
           min={1}
         />
         <button onClick={handleSave} className="save-btn">Save Settings</button>
-
-        <div style={{ marginTop: '20px' }}>
-          <label>Dark Mode:</label>
-          <input
-            type="checkbox"
-            checked={darkMode}
-            onChange={(e) => setDarkMode(e.target.checked)}
-          />
-        </div>
       </div>
     </div>
   );
