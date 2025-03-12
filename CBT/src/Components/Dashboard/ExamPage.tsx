@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { collection, getDocs, query, where,doc, getDoc } from "firebase/firestore";
-import { db } from "../firebase";
+import { db , auth} from "../firebase";
 
 //Import to add students progress
 import { addProgressData } from "./addProgressData";
@@ -120,38 +120,96 @@ const handleExplanation = async (questionId: string, question:string, correctAns
   };
 
   // Handle exam submission
-  const handleSubmit = () => {
-   
-    //This Logic adds user Progress
-    const today = new Date().toISOString().split("T")[0];
-    const userScore:number = score || 0;
-    addProgressData(today, userScore);
-    console.log("Progress data added successfully!");
-
-    //To update users progress
-    updateProgressData(today, userScore);
-     
+  const handleSubmit = async () => {
     let correctCount = 0;
-
-    console.log({questions,answers})
-
+  
+    // Calculate the score
     questions.forEach((question) => {
       if (answers[question.id] === question.correctAnswer) {
         correctCount++;
       }
-     
     });
     
-    setScore(correctCount);
-
-    toast.success(`Exam submitted! You scored ${correctCount} out of ${questions.length}.`);
-     setShowAnswers(true)
-
-    // Navigate to dashboard after 5 seconds
-    // setTimeout(() => {
-    //   navigate("/dashboard");
-    // }, 10000);
+    const finalScore = correctCount;
+    setScore(finalScore);
+    const userCourseId: string = courseId || "defaultCourseId";
+  
+    // Save or update progress data in Firestore
+    const today = new Date().toISOString().split("T")[0]; // Format: "2023-10-01"
+    try {
+      console.log("Submitting score:", finalScore, "for date:", today); // Debug log
+  
+      // Check if progress data for today already exists
+      const user = auth.currentUser;
+      if (!user) {
+        throw new Error("No authenticated user found!");
+      }
+  
+      const progressRef = collection(db, `users/${user.uid}/progress`);
+      const q = query(progressRef, where("date", "==", today), where("courseId", "==", courseId));
+      const querySnapshot = await getDocs(q);
+  
+      if (querySnapshot.empty) {
+        // No entry exists, so add a new one
+        await addProgressData(today, finalScore, userCourseId);
+        console.log("Progress data added successfully:", { date: today, score: finalScore });
+      } else {
+        // Entry exists, so update it
+        await updateProgressData(today, finalScore, userCourseId);
+        console.log("Progress data updated successfully:", { date: today, score: finalScore });
+      }
+  
+      toast.success(`Exam submitted! You scored ${finalScore} out of ${questions.length}.`);
+      setShowAnswers(true);
+    } catch (error) {
+      console.error("Error saving progress data:", error);
+      toast.error("Failed to save progress data.");
+    }
   };
+  // Inside ExamPage.tsx
+
+// const handleSubmit = async () => {
+//   let correctCount = 0;
+
+//   // Calculate the score
+//   questions.forEach((question) => {
+//     if (answers[question.id] === question.correctAnswer) {
+//       correctCount++;
+//     }
+//   });
+
+//   const finalScore = correctCount;
+//   setScore(finalScore);
+
+//   // Add or update progress data in Firestore
+//   const today = new Date().toISOString().split("T")[0]; // Format: "2023-10-01"
+//   try {
+//     // Check if progress data for today already exists
+//     const user = auth.currentUser;
+//     if (!user) throw new Error("No authenticated user found!");
+
+//     const progressRef = collection(db, `users/${user.uid}/progress`);
+//     const q = query(progressRef, where("date", "==", today));
+//     const querySnapshot = await getDocs(q);
+
+//     if (querySnapshot.empty) {
+//       // No entry exists, so add a new one
+//       await addProgressData(today, finalScore);
+//       console.log("Progress data added successfully!");
+//     } else {
+//       // Entry exists, so update it
+//       await updateProgressData(today, finalScore);
+//       console.log("Progress data updated successfully!");
+//     }
+
+//     toast.success(`Exam submitted! You scored ${finalScore} out of ${questions.length}.`);
+//     setShowAnswers(true);
+//   } catch (error) {
+//     console.error("Error saving progress data:", error);
+//     toast.error("Failed to save progress data.");
+//   }
+// };
+
 
   const handleRetakeExam = () =>{
     setAnswers({})

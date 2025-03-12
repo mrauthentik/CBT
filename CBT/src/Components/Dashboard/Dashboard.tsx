@@ -74,9 +74,34 @@ const LoadingContainer = styled.div`
   width: 100%;
 `;
 
+const ScoreTable = styled.table`
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 2rem;
+`;
+
+const ScoreRow = styled.tr`
+  border-bottom: 1px solid #ddd;
+`;
+
+const ScoreCell = styled.td`
+  padding: 0.5rem;
+  text-align: center;
+`;
+
+const ScoreValue = styled.span<{ score: number }>`
+  color: ${({ score }) => {
+    if (score >= 80) return "green";
+    if (score >= 50) return "orange";
+    return "red";
+  }};
+  font-weight: bold;
+`;
+
 interface ProgressData {
   date: string;
   score: number;
+  course: string;
 }
 
 const Dashboard: React.FC = () => {
@@ -121,6 +146,7 @@ const Dashboard: React.FC = () => {
           .map((doc) => ({
             date: doc.data().date,
             score: doc.data().score,
+            course: doc.data().courseId
           }))
           .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
         setProgressData(data);
@@ -177,7 +203,29 @@ const Dashboard: React.FC = () => {
             />
           </LoadingContainer>
         ) : progressData.length > 0 ? (
-          <UserProgressChart data={progressData} />
+          <>
+            <UserProgressChart data={progressData} />
+            <ScoreTable>
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Course</th>
+                  <th>Score</th>
+                </tr>
+              </thead>
+              <tbody>
+                {progressData.map((entry, index) => (
+                  <ScoreRow key={index}>
+                    <ScoreCell>{entry.date}</ScoreCell>
+                    <ScoreCell>{entry.course} </ScoreCell>
+                    <ScoreCell>
+                      <ScoreValue score={entry.score}>{entry.score}</ScoreValue>
+                    </ScoreCell>
+                  </ScoreRow>
+                ))} 
+              </tbody>
+            </ScoreTable>
+          </>
         ) : (
           <p>No progress data available.</p>
         )}

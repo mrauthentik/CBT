@@ -22,7 +22,7 @@ const UserProgressChart: React.FC<{ data: ProgressData[] }> = ({ data }) => {
   };
 
   // Custom tooltip for better readability
-  const CustomTooltip = ({ active, payload, label }: any) => {
+  const CustomTooltip = ({ active, payload, label }:any) => {
     if (active && payload && payload.length) {
       return (
         <div
