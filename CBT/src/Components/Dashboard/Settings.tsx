@@ -13,23 +13,25 @@ const Settings: React.FC = () => {
       try {
         const settingDoc = await getDoc(doc(db, "settings", "exam"));
         if (settingDoc.exists()) {
-          setExamTime(settingDoc.data().duration);
+          const data = settingDoc.data();
+          setExamTime(data.duration);
+          setDarkMode(data.darkMode);
+
+          // Apply dark mode setting
+          if (data.darkMode) {
+            document.body.classList.add('dark-mode');
+          } else {
+            document.body.classList.remove('dark-mode');
+          }
         }
       } catch (error: unknown) {
         console.log('Error fetching settings', error);
       }
     };
     fetchSettings();
-
-    const storedDarkMode = localStorage.getItem('darkMode');
-    if (storedDarkMode) {
-      setDarkMode(JSON.parse(storedDarkMode) === true);
-    }
   }, []);
 
   useEffect(() => {
-    localStorage.setItem('darkMode', JSON.stringify(darkMode));
-
     if (darkMode) {
       document.body.classList.add('dark-mode');
     } else {
@@ -39,8 +41,8 @@ const Settings: React.FC = () => {
 
   const handleSave = async () => {
     try {
-      await setDoc(doc(db, 'settings', 'global'), { duration: examTime });
-      toast.success('Timer settings saved!');
+      await setDoc(doc(db, 'settings', 'exam'), { duration: examTime, darkMode });
+      toast.success('Settings saved 🚀!');
     } catch (error) {
       console.log("Failed to save settings", error);
       toast.error('Failed to save settings');

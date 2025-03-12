@@ -1,37 +1,39 @@
-import { useState, useEffect } from 'react';
+import React, { useEffect, useState } from "react";
 
 interface TimerProps {
   initialTime: number;
-  onTimeUp: () => void
+  onTimeUp: () => void;
+  stopTimer: boolean;
 }
 
-
-export const Timer: React.FC<TimerProps> = ({ initialTime, onTimeUp}) => {
+export const Timer: React.FC<TimerProps> = ({ initialTime, onTimeUp,  }) => {
   const [timeLeft, setTimeLeft] = useState(initialTime);
 
+  useEffect(() => {
+    if (timeLeft <= 0) {
+      onTimeUp();
+      return;
+    }
+  
+   
 
-  useEffect (() => {
-    const timer = setInterval(() => {
-      setTimeLeft ((prev) => {
-        if(prev <=1){
-          clearInterval(timer);
-          onTimeUp()
-          return 0
-        }
-        return prev -1
-      });
+    const timerId = setInterval(() => {
+      setTimeLeft((prevTime) => prevTime - 1);
+    }, 1000);
 
-    }, 1000)
-    return () => {
-      clearInterval(timer)
-     }
+    return () => clearInterval(timerId);
+  }, [timeLeft, onTimeUp,]);
 
-  }, [onTimeUp])
+  const minutes = Math.floor(timeLeft / 60);
+  const seconds = timeLeft % 60;
+  
+  const timerStyle = {
+    color: timeLeft < 70 ? "red" : "black",
+  }
 
   return (
-    <p>
-      Time left: {Math.floor(timeLeft / 60)}:
-      {String(timeLeft % 60).padStart(2, '0')}
-    </p>
-  )
-}
+    <div className="timer" style={timerStyle}>
+      Time left: {minutes}:{String(seconds).padStart(2, "0")}
+    </div>
+  );
+};
