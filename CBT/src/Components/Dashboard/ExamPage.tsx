@@ -2,7 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { collection, getDocs, query, where,doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase";
-import { toast } from "react-toastify";
+
+//Import to add students progress
+import { addProgressData } from "./addProgressData";
+import { updateProgressData } from "./updatProgressData";
+
+import { Id, toast } from "react-toastify";
 
 import { GoogleGenerativeAI } from "@google/generative-ai"
 
@@ -116,6 +121,16 @@ const handleExplanation = async (questionId: string, question:string, correctAns
 
   // Handle exam submission
   const handleSubmit = () => {
+   
+    //This Logic adds user Progress
+    const today = new Date().toISOString().split("T")[0];
+    const userScore:number = score || 0;
+    addProgressData(today, userScore);
+    console.log("Progress data added successfully!");
+
+    //To update users progress
+    updateProgressData(today, userScore);
+     
     let correctCount = 0;
 
     console.log({questions,answers})
@@ -270,4 +285,8 @@ const handleExplanation = async (questionId: string, question:string, correctAns
 };
 
 export default ExamPage;
+
+function then(arg0: () => Id) {
+  throw new Error("Function not implemented.");
+}
 

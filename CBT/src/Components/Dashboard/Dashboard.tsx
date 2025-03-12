@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
-import { collection, doc, getDoc, getDocs } from "firebase/firestore";
+import { collection, onSnapshot } from "firebase/firestore";
 import { auth, db } from "../firebase";
 import SideBar from "../SideBar";
 import styled from '@emotion/styled';
@@ -60,6 +60,12 @@ const Welcome = styled.h2`
   color: #333;
 `;
 
+const ErrorMessage = styled.div`
+  color: red;
+  text-align: center;
+  margin: 1rem 0;
+`;
+
 const LoadingContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -68,51 +74,67 @@ const LoadingContainer = styled.div`
   width: 100%;
 `;
 
-const Dashboard: React.FC = () => {
-  const [fullName, setFullName] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [loading, setLoading] = useState(true);
-  const [progressData, setProgressData] = useState<{ date: string; score: number; }[]>([]);
+interface ProgressData {
+  date: string;
+  score: number;
+}
 
+const Dashboard: React.FC = () => {
+  const [fullName, setFullName] = useState<string>("");
+  const [firstName, setFirstName] = useState<string>("");
+  const [lastName, setLastName] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(true);
+  const [progressLoading, setProgressLoading] = useState<boolean>(false);
+  const [progressData, setProgressData] = useState<ProgressData[]>([]);
+  const [error, setError] = useState<string | null>(null);
+  const [userId, setUserId] = useState<string | null>(null);
+
+  // Auth state listener
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
+        setUserId(user.uid);
         setFullName(user.displayName || "User");
         const nameParts = user.displayName?.split(" ") || ["User"];
         setFirstName(nameParts[0] || "");
         setLastName(nameParts.length > 1 ? nameParts[nameParts.length - 1] : "");
-
-        try {
-          const userDoc = await getDoc(doc(db, "users", user.uid));
-          if (userDoc.exists()) {
-            // const userData = userDoc.data();
-          } else {
-            console.error("User document does not exist in Firestore!");
-          }
-        } catch (error) {
-          console.error("Error fetching user data:", error);
-        }
       } else {
-        console.error("No authenticated user found!");
+        setError("Please log in to view your dashboard.");
       }
       setLoading(false);
     });
 
-    const fetchProgressData = async () => {
-      const userId = fullName;
-      const querySnapshot = await getDocs(collection(db, `users/${userId}/progress`));
+    return () => unsubscribe();
+  }, []);
 
-      const data = querySnapshot.docs.map((doc) => ({
-        date: doc.data().date,
-        score: doc.data().score,
-      }));
-      setProgressData(data);
-    };
-    fetchProgressData();
+  // Real-time listener for progress data
+  useEffect(() => {
+    if (!userId) return;
+
+    setProgressLoading(true);
+    const progressRef = collection(db, `users/${userId}/progress`);
+
+    const unsubscribe = onSnapshot(
+      progressRef,
+      (snapshot) => {
+        const data: ProgressData[] = snapshot.docs
+          .map((doc) => ({
+            date: doc.data().date,
+            score: doc.data().score,
+          }))
+          .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+        setProgressData(data);
+        setProgressLoading(false);
+      },
+      (err) => {
+        console.error("Error fetching progress data:", err);
+        setError("Failed to load progress data.");
+        setProgressLoading(false);
+      }
+    );
 
     return () => unsubscribe();
-  }, [fullName]); // Added fullName as a dependency.
+  }, [userId]);
 
   if (loading) {
     return (
@@ -143,7 +165,22 @@ const Dashboard: React.FC = () => {
         <Title>Dashboard</Title>
         <Welcome>Hello 👋, {fullName || "User"}!</Welcome>
         <h2>User Progress</h2>
-        <UserProgressChart data={progressData} />
+        {error && <ErrorMessage>{error}</ErrorMessage>}
+        {progressLoading ? (
+          <LoadingContainer>
+            <ThreeDots
+              color="#3B82F6"
+              height={50}
+              width={50}
+              ariaLabel="three-dots-loading"
+              visible={true}
+            />
+          </LoadingContainer>
+        ) : progressData.length > 0 ? (
+          <UserProgressChart data={progressData} />
+        ) : (
+          <p>No progress data available.</p>
+        )}
       </Content>
     </Container>
   );
