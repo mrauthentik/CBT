@@ -85,6 +85,12 @@ const AdminDashboard = () => {
             value={optionD}
             onChange={(e) => setOptionD(e.target.value)}
           />
+          <input
+          type="text"
+          placeholder="Enter correct answer"
+          value={correctAnswer}
+          onChange={(e) => setCorrectAnswer(e.target.value)}
+        />
         </>
       )}
       {questionType === "fill-in-the-gap" && (
