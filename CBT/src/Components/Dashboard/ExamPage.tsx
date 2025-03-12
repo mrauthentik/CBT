@@ -237,7 +237,7 @@ const handleExplanation = async (questionId: string, question:string, correctAns
            <div key={question.id} className="question-item">
              <h3>{index + 1}.{question.question}</h3>
             
-            {question.type === "multiple-choice" ? (
+            {question.type != "multiple-choice" ? (
 
              <div className="options">
                  
