@@ -129,9 +129,10 @@ const handleExplanation = async (questionId: string, question:string, correctAns
         correctCount++;
       }
     });
-  
+    
     const finalScore = correctCount;
     setScore(finalScore);
+    const userCourseId: string = courseId || "defaultCourseId";
   
     // Save or update progress data in Firestore
     const today = new Date().toISOString().split("T")[0]; // Format: "2023-10-01"
@@ -145,16 +146,16 @@ const handleExplanation = async (questionId: string, question:string, correctAns
       }
   
       const progressRef = collection(db, `users/${user.uid}/progress`);
-      const q = query(progressRef, where("date", "==", today));
+      const q = query(progressRef, where("date", "==", today), where("courseId", "==", courseId));
       const querySnapshot = await getDocs(q);
   
       if (querySnapshot.empty) {
         // No entry exists, so add a new one
-        await addProgressData(today, finalScore);
+        await addProgressData(today, finalScore, userCourseId);
         console.log("Progress data added successfully:", { date: today, score: finalScore });
       } else {
         // Entry exists, so update it
-        await updateProgressData(today, finalScore);
+        await updateProgressData(today, finalScore, userCourseId);
         console.log("Progress data updated successfully:", { date: today, score: finalScore });
       }
   

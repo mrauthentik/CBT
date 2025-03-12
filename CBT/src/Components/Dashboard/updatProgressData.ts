@@ -2,7 +2,7 @@ import { db, auth } from "../firebase";
 import { collection, query, where, getDocs, updateDoc, doc } from "firebase/firestore";
 
 // Update progress data for a specific date
-export const updateProgressData = async (date: string, newScore: number) => {
+export const updateProgressData = async (date: string, newScore: number, courseId: string) => {
   try {
     const user = auth.currentUser;
     if (!user) {
@@ -20,6 +20,7 @@ export const updateProgressData = async (date: string, newScore: number) => {
     const docRef = doc(db, `users/${user.uid}/progress`, querySnapshot.docs[0].id);
     await updateDoc(docRef, {
       score: newScore,
+      courseId,
       updatedAt: new Date().toISOString(), // Optional: for auditing
     });
     console.log("Progress data updated successfully!");

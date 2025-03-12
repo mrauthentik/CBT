@@ -101,6 +101,7 @@ const ScoreValue = styled.span<{ score: number }>`
 interface ProgressData {
   date: string;
   score: number;
+  course: string;
 }
 
 const Dashboard: React.FC = () => {
@@ -145,6 +146,7 @@ const Dashboard: React.FC = () => {
           .map((doc) => ({
             date: doc.data().date,
             score: doc.data().score,
+            course: doc.data().courseId
           }))
           .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
         setProgressData(data);
@@ -207,6 +209,7 @@ const Dashboard: React.FC = () => {
               <thead>
                 <tr>
                   <th>Date</th>
+                  <th>Course</th>
                   <th>Score</th>
                 </tr>
               </thead>
@@ -214,11 +217,12 @@ const Dashboard: React.FC = () => {
                 {progressData.map((entry, index) => (
                   <ScoreRow key={index}>
                     <ScoreCell>{entry.date}</ScoreCell>
+                    <ScoreCell>{entry.course} </ScoreCell>
                     <ScoreCell>
                       <ScoreValue score={entry.score}>{entry.score}</ScoreValue>
                     </ScoreCell>
                   </ScoreRow>
-                ))}
+                ))} 
               </tbody>
             </ScoreTable>
           </>
