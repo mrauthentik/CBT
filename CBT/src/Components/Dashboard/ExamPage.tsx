@@ -7,7 +7,7 @@ import { db , auth} from "../firebase";
 import { addProgressData } from "./addProgressData";
 import { updateProgressData } from "./updatProgressData";
 
-import { Id, toast } from "react-toastify";
+import {  toast } from "react-toastify";
 
 import { GoogleGenerativeAI } from "@google/generative-ai"
 
@@ -22,7 +22,7 @@ const ExamPage: React.FC = () => {
   // State management
   const [showInstructions, setShowInstructions] = useState(true)
   const [questions, setQuestions] = useState<
-    { id: string; question: string; options: string[]; correctAnswer: string }[]
+    { id: string; question: string; options: string[]; correctAnswer: string; type:string;}[]
   >([]);
   const [answers, setAnswers] = useState<{ [key: string]: string }>({});
   const [examTime, setExamTime] = useState(600)
@@ -58,6 +58,8 @@ const ExamPage: React.FC = () => {
           question: string;
           options: string[];
           correctAnswer: string;
+          type: string;
+         
         }[];
 
         //This Logic is to shuffle questions using Fisher-Yates algorithm
@@ -119,13 +121,16 @@ const handleExplanation = async (questionId: string, question:string, correctAns
    
   };
 
+
+
+  
   // Handle exam submission
   const handleSubmit = async () => {
     let correctCount = 0;
   
     // Calculate the score
     questions.forEach((question) => {
-      if (answers[question.id] === question.correctAnswer) {
+      if (answers[question.id]?.trim().toLowerCase() === question.correctAnswer.toLowerCase()) {
         correctCount++;
       }
     });
@@ -231,6 +236,9 @@ const handleExplanation = async (questionId: string, question:string, correctAns
          {questions?.map((question,index) => (
            <div key={question.id} className="question-item">
              <h3>{index + 1}.{question.question}</h3>
+            
+            {question.type === "multiple-choice" ? (
+
              <div className="options">
                  
                {question?.options?.map((option, index) => (
@@ -248,6 +256,16 @@ const handleExplanation = async (questionId: string, question:string, correctAns
                  </label>
                ))}
              </div>
+            ):(
+              <input
+              type="text"
+              name={question.id}
+              placeholder="Type your answer"
+              value={answers[question.id] || ""}
+              onChange={(e) => handleOptionSelect(question.id, e.target.value)}
+              disabled={showAnswers}
+          />
+            )}
 
               {/* This logic shows correct answers after submission */}
               {showAnswers && (
@@ -301,7 +319,7 @@ const handleExplanation = async (questionId: string, question:string, correctAns
 
 export default ExamPage;
 
-function then(arg0: () => Id) {
-  throw new Error("Function not implemented.");
-}
+// function then(arg0: () => Id) {
+//   throw new Error("Function not implemented.");
+// }
 
