@@ -190,7 +190,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  border: solid 1px red;
   height: 100vh;
   position: relative;
 }
@@ -276,9 +275,321 @@
   margin-top: 10px;
   font-size: 16px;
   line-height: 1.6;
+
 }
-      
-          
+ /* Team Section */
+.team {
+  padding: 50px 20px;
+  text-align: center;
+  background-color: #f9f9f9; /* Light background for contrast */
+}
+
+.team-heading {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 40px;
+  position: relative;
+  display: inline-block;
+}
+
+.team-heading .underline {
+  display: block;
+  width: 50px;
+  height: 4px;
+  background-color: teal; /* Matches the wave color */
+  margin: 10px auto 0;
+}
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.team-member {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); /* Subtle shadow for depth */
+  transition: transform 0.3s ease;
+}
+
+.team-member:hover {
+  transform: translateY(-5px); /* Slight lift on hover */
+}
+
+.team-img-container {
+  width: 150px;
+  height: 150px;
+  margin: 0 auto 20px;
+  overflow: hidden;
+  border-radius: 50%; /* Circular image */
+  border: 3px solid teal; /* Teal border to match theme */
+}
+
+.team-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures the image fits nicely */
+}
+
+.team-name {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.team-role {
+  font-size: 1rem;
+  font-weight: 500;
+  color: teal; /* Matches the theme */
+  margin-bottom: 10px;
+}
+
+.team-bio {
+  font-size: 0.9rem;
+  color: #666;
+  line-height: 1.5;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .team-heading {
+    font-size: 2rem;
+  }
+
+  .team-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+  }
+
+  .team-img-container {
+    width: 120px;
+    height: 120px;
+  }
+}         
+/* FAQ Section */
+.faq {
+  padding: 50px 20px;
+  text-align: center;
+  background-color: #f9f9f9; /* Light background for contrast */
+}
+
+.faq-heading {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 40px;
+  position: relative;
+  display: inline-block;
+}
+
+.faq-heading .underline {
+  display: block;
+  width: 50px;
+  height: 4px;
+  background-color: teal; /* Matches the wave color */
+  margin: 10px auto 0;
+}
+
+.faq-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.faq-item {
+  margin-bottom: 15px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+.faq-toggle {
+  display: none;
+}
+
+.faq-question {
+  display: block;
+  padding: 15px 20px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #333;
+  cursor: pointer;
+  position: relative;
+  transition: background-color 0.3s ease;
+}
+
+.faq-question::after {
+  content: '+';
+  position: absolute;
+  right: 20px;
+  font-size: 1.5rem;
+  transition: transform 0.3s ease;
+}
+
+.faq-toggle:checked + .faq-question::after {
+  content: '−';
+  transform: rotate(180deg);
+}
+
+.faq-toggle:checked + .faq-question {
+  background-color: #f1f1f1; /* Slight highlight when open */
+}
+
+.faq-answer {
+  max-height: 0;
+  padding: 0 20px;
+  overflow: hidden;
+  transition: max-height 0.3s ease, padding 0.3s ease;
+}
+
+.faq-toggle:checked ~ .faq-answer {
+  max-height: 200px; /* Adjust based on content length */
+  padding: 15px 20px;
+}
+
+.faq-answer p {
+  font-size: 1rem;
+  color: #666;
+  line-height: 1.6;
+  text-align: left;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .faq-heading {
+    font-size: 2rem;
+  }
+
+  .faq-question {
+    font-size: 1.1rem;
+  }
+
+  .faq-answer p {
+    font-size: 0.9rem;
+  }
+}
+/* Footer Section */
+.footer {
+  background-color: #1a3c34; /* Dark teal for contrast */
+  color: #fff;
+  padding: 40px 20px 20px;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  text-align: center;
+}
+
+.footer-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.footer-logo-img {
+  width: 100px;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+.footer-tagline {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.footer-links h4 {
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.footer-links ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-links li {
+  margin-bottom: 10px;
+}
+
+.footer-links a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1rem;
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
+
+.footer-links a:hover {
+  opacity: 1;
+}
+
+.footer-social h4 {
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.social-icons a {
+  color: #fff;
+  font-size: 1.5rem;
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
+
+.social-icons a:hover {
+  opacity: 1;
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-bottom p {
+  font-size: 0.9rem;
+  opacity: 0.7;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .footer-container {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .footer-logo-img {
+    width: 80px;
+  }
+
+  .footer-links h4,
+  .footer-social h4 {
+    font-size: 1.1rem;
+  }
+
+  .social-icons a {
+    font-size: 1.3rem;
+  }
+}
+
   .logoOut-btn{
     background-color: rgb(114, 13, 8);
     color: rgb(252, 252, 235);
@@ -441,7 +752,6 @@ body.dark-mode .settings-container,
 body.dark-mode .user-info-container {
   margin-left: 20rem; /* Keep existing margin */
 }
-
 body.dark-mode fieldset {
   border: 1px solid #555; /* Darker border */
 }
