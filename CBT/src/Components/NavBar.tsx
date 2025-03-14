@@ -82,8 +82,8 @@ export const Navbar = () => {
             <img src={logoImage} alt="Logo" className="logo" /> 
             </div>
                       
-            <ul className="links">
-                <li>
+            <ul className="links flex gap-4 items-center">
+                <li className=" text-red-500 font-bold text-xl">
                     <a href="#">Home</a>
                 </li>
                 <li>
