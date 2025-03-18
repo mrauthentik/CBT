@@ -30,11 +30,13 @@ const ExamPage: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [showAnswers, setShowAnswers] = useState(false)
   // const [stopTimer, setStopTimer] = useState(false)
+  const [questionLoaded, setQuestionsLoaded] = useState(false)
  const [explanations, setExplanations] = useState<{[key:string]:string}>({})
 
   useEffect(() => {
     const fetchTimerSettings = async () =>{
         try{
+          setLoading(true)
             const settingsDoc = await getDoc(doc(db, "settings", 'global'));
             if(settingsDoc.exists()){
               setExamTime(settingsDoc.data().duration)
@@ -171,6 +173,7 @@ const handleExplanation = async (questionId: string, question:string, correctAns
       toast.error("Failed to save progress data.");
     }
     // setExamTime{[]}
+    setExamTime(0)
   };
   
 
@@ -214,7 +217,7 @@ const handleExplanation = async (questionId: string, question:string, correctAns
     ):(
        <div className="exam-container">
        <h2>Exam for {courseId}</h2>
-       <Timer stopTimer initialTime={examTime} onTimeUp={handleSubmit} />
+       <Timer stopTimer initialTime={questionLoaded ? examTime : 0} onTimeUp={handleSubmit} />
      {loading ?(
          <p> loading questions .... </p>
      ) : questions.length === 0 ? (
