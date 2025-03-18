@@ -170,6 +170,7 @@ const handleExplanation = async (questionId: string, question:string, correctAns
       console.error("Error saving progress data:", error);
       toast.error("Failed to save progress data.");
     }
+    // setExamTime{[]}
   };
   
 
