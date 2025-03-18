@@ -72,6 +72,8 @@ const ExamPage: React.FC = () => {
         }
           
         setQuestions(questionList);
+        setQuestionsLoaded(true)
+
       } catch (err) {
         console.error("Error fetching questions", err);
         toast.error("Failed to load questions.");
@@ -182,6 +184,7 @@ const handleExplanation = async (questionId: string, question:string, correctAns
     setScore(null)
     setShowAnswers(false)
     setExplanations({})
+    // setExamTime()
   }
 
   const handleStartExam = ()=> {
@@ -217,7 +220,7 @@ const handleExplanation = async (questionId: string, question:string, correctAns
     ):(
        <div className="exam-container">
        <h2>Exam for {courseId}</h2>
-       <Timer stopTimer initialTime={questionLoaded ? examTime : 0} onTimeUp={handleSubmit} />
+       <Timer stopTimer initialTime={questionLoaded ? examTime : 600} onTimeUp={handleSubmit} />
      {loading ?(
          <p> loading questions .... </p>
      ) : questions.length === 0 ? (
