@@ -95,7 +95,7 @@ const model = genAI.getGenerativeModel({model: "gemini-1.5-flash"})
 const getExplanation = async (questions: string, correctAnswer:string) => {
 
   try{
-     const prompt = `In summary with clear key points,Explain why the is the ${correctAnswer} to the following question ${questions} \n and briefly explain how can this ${questions} be solved.  Format the response with **bold** or wrap any text with ** with <b> </b> tag key points and larger text where necessary.`
+     const prompt = ` Provide a **short and clear explanation** for why "${correctAnswer}" is the correct answer to "${questions}". Format response in **HTML tags** like <b>bold</b>, <h3>headings</h3>, and <ul><li>lists</li></ul> if necessary.`
     const result = await model.generateContent(prompt)
     return result.response.text()
     }
@@ -103,7 +103,7 @@ const getExplanation = async (questions: string, correctAnswer:string) => {
     console.log("Could not fetch response",error)
     return "Could not fetch response"
   }
-  
+   
 }
 
 const handleExplanation = async (questionId: string, question:string, correctAnswer: string) => {
@@ -281,7 +281,7 @@ const handleExplanation = async (questionId: string, question:string, correctAns
                   {explanations[question.id] ?(
                       <div className="ai-explanation-box">
                         <h4>Nexa Explanation</h4>
-                        <p className="explanation"> {explanations[question.id]}</p>
+                        <p className="explanation" dangerouslySetInnerHTML={{__html:explanations[question.id]}}/> 
                       </div>
                   ):(
                       <p className="loading-text">⏳ Waiting for AI response...</p>
