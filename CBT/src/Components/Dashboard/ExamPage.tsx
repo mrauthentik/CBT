@@ -95,7 +95,7 @@ const model = genAI.getGenerativeModel({model: "gemini-1.5-flash"})
 const getExplanation = async (questions: string, correctAnswer:string) => {
 
   try{
-     const prompt = `Explain why the is the ${correctAnswer} to the following question ${questions} \n and how can this ${questions} be solved`
+     const prompt = `In summary with clear key points,Explain why the is the ${correctAnswer} to the following question ${questions} \n and briefly explain how can this ${questions} be solved.  Format the response with **bold** or wrap any text with ** with <b> </b> tag key points and larger text where necessary.`
     const result = await model.generateContent(prompt)
     return result.response.text()
     }
