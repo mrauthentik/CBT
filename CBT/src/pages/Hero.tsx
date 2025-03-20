@@ -53,6 +53,8 @@ const Hero = () => {
                 <p>CBT</p>
                 <small>Take real-time practice exams</small>
             </div>
+            </div>
+            <div className='features'>
             <div className="box">
                 <i className='bx bxs-hourglass-top' ></i>
                 <p>Timers</p>
