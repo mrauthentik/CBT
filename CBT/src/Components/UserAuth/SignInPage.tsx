@@ -52,7 +52,8 @@ const SignInPage: React.FC<{toggleAuth: () => void}> = ({ toggleAuth}) => {
     <div className='login'>
       
       <div className='signin-container'>
-        <h2>Sign In</h2>
+        <h2>Login In</h2>
+         <p>Welcome back!</p>
         <ToastContainer />
         <form onSubmit={handleSignIn}>
           <input
@@ -72,7 +73,7 @@ const SignInPage: React.FC<{toggleAuth: () => void}> = ({ toggleAuth}) => {
           <div onClick={() => setShowPassword(!showPassword)}>
             {showPassword ? <FaEyeSlash /> : <FaEye />}
           </div>
-          <button type="submit">Sign In</button>
+          <button type="submit" className='sigin-btn'>Sign In</button>
         </form>
         <div className='link-container'>
           <a href="#">
