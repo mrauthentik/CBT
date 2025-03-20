@@ -49,7 +49,7 @@ const SignInPage: React.FC<{toggleAuth: () => void}> = ({ toggleAuth}) => {
   };
 
   return (
-    <div className='sigin'>
+    <div className='login'>
       
       <div className='signin-container'>
         <h2>Sign In</h2>
