@@ -24,22 +24,23 @@ const AdminDashboard = () => {
         question,
         courseId,
         type: questionType,
-        correctAnswer: questionType === "fill-in-the-gap" ? correctAnswer : "",
+        correctAnswer: questionType === "fill-in-the-gap" ? correctAnswer : correctAnswer,
         options: questionType === "multiple-choice" ? [optionA, optionB, optionC, optionD] : [],
       };
 
       // This will push the questions to the Firestore DB
       await addDoc(collection(db, "questions"), newQuestion);
 
-      console.log('Question added successfully');
+      console.log('Question added successfully',correctAnswer);
       toast.success('Question added successfully');
       setQuestion("");
       setOptionA("");
       setOptionB("");
       setOptionC("");
       setOptionD("");
-      setCorrectAnswer("");
+      setCorrectAnswer(correctAnswer);
       setCourseId("");
+      console.log('here is the correct answer: ', correctAnswer)
     } catch (error: unknown) {
       console.log(error);
       toast.error(`Question was not added: ${error}`);
