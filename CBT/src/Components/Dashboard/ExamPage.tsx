@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { collection, getDocs, query, where,doc, getDoc } from "firebase/firestore";
 import { db , auth} from "../firebase";
 
+
 //Import to add students progress
 import { addProgressData } from "./addProgressData";
 import { updateProgressData } from "./updatProgressData";
@@ -14,6 +15,7 @@ import { GoogleGenerativeAI } from "@google/generative-ai"
 import { Timer } from "./Timer";
 import SideBar from "../SideBar";
 import User from "./UserName";
+import { BiCheck } from "react-icons/bi";
 
 const ExamPage: React.FC = () => {
   const { courseId } = useParams(); // Get courseId from URL
@@ -207,11 +209,11 @@ const handleExplanation = async (questionId: string, question:string, correctAns
       <div className="instruction-container">
         <h2>Exam Instructions</h2>
         <ul>
-            <li>Read all questions carefully before answering.</li>
-            <li>Choose the best answer for each question.</li>
-            <li>The exam will be timed. Ensure you manage your time wisely.</li>
-            <li>Once you submit, you cannot change your answers.</li>
-            <li>Your progress will be tracked in real-time.</li>
+            <li > <span className='bx bxs-check-circle'></span>  Read all questions carefully before answering.</li>
+            <li> <span className='bx bxs-check-circle'></span>  Choose the best answer for each question.</li>
+            <li> <span className='bx bxs-check-circle'></span>The exam will be timed. Ensure you manage your time wisely.</li>
+            <li> <span className='bx bxs-check-circle'></span>Once you submit, you cannot change your answers.</li>
+            <li> <span className='bx bxs-check-circle'></span>Your progress will be tracked in real-time.</li>
           </ul>
           <button className="start-exam-btn" onClick={handleStartExam}>
             Start Exam
