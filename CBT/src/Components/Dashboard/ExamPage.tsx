@@ -3,17 +3,19 @@ import { useParams } from "react-router-dom";
 import { collection, getDocs, query, where,doc, getDoc } from "firebase/firestore";
 import { db , auth} from "../firebase";
 
+
 //Import to add students progress
 import { addProgressData } from "./addProgressData";
 import { updateProgressData } from "./updatProgressData";
 
-import { Id, toast } from "react-toastify";
+import {  toast } from "react-toastify";
 
 import { GoogleGenerativeAI } from "@google/generative-ai"
 
 import { Timer } from "./Timer";
 import SideBar from "../SideBar";
 import User from "./UserName";
+import { BiCheck } from "react-icons/bi";
 
 const ExamPage: React.FC = () => {
   const { courseId } = useParams(); // Get courseId from URL
@@ -22,7 +24,7 @@ const ExamPage: React.FC = () => {
   // State management
   const [showInstructions, setShowInstructions] = useState(true)
   const [questions, setQuestions] = useState<
-    { id: string; question: string; options: string[]; correctAnswer: string }[]
+    { id: string; question: string; options: string[]; correctAnswer: string; type:string;}[]
   >([]);
   const [answers, setAnswers] = useState<{ [key: string]: string }>({});
   const [examTime, setExamTime] = useState(600)
@@ -30,11 +32,13 @@ const ExamPage: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [showAnswers, setShowAnswers] = useState(false)
   // const [stopTimer, setStopTimer] = useState(false)
+  const [questionLoaded, setQuestionsLoaded] = useState(false)
  const [explanations, setExplanations] = useState<{[key:string]:string}>({})
 
   useEffect(() => {
     const fetchTimerSettings = async () =>{
         try{
+          setLoading(true)
             const settingsDoc = await getDoc(doc(db, "settings", 'global'));
             if(settingsDoc.exists()){
               setExamTime(settingsDoc.data().duration)
@@ -58,6 +62,8 @@ const ExamPage: React.FC = () => {
           question: string;
           options: string[];
           correctAnswer: string;
+          type: string;
+         
         }[];
 
         //This Logic is to shuffle questions using Fisher-Yates algorithm
@@ -68,6 +74,8 @@ const ExamPage: React.FC = () => {
         }
           
         setQuestions(questionList);
+        setQuestionsLoaded(true)
+
       } catch (err) {
         console.error("Error fetching questions", err);
         toast.error("Failed to load questions.");
@@ -93,7 +101,7 @@ const model = genAI.getGenerativeModel({model: "gemini-1.5-flash"})
 const getExplanation = async (questions: string, correctAnswer:string) => {
 
   try{
-     const prompt = `Explain why the is the ${correctAnswer} to the following question ${questions} \n and how can this ${questions} be solved`
+     const prompt = ` Provide a **short and clear explanation** for why "${correctAnswer}" is the correct answer to "${questions}". Format response in **HTML tags** like <b>bold</b>, <h3>headings</h3>, and <ul><li>lists</li></ul> if necessary.`
     const result = await model.generateContent(prompt)
     return result.response.text()
     }
@@ -101,7 +109,7 @@ const getExplanation = async (questions: string, correctAnswer:string) => {
     console.log("Could not fetch response",error)
     return "Could not fetch response"
   }
-  
+   
 }
 
 const handleExplanation = async (questionId: string, question:string, correctAnswer: string) => {
@@ -119,13 +127,16 @@ const handleExplanation = async (questionId: string, question:string, correctAns
    
   };
 
+
+
+  
   // Handle exam submission
   const handleSubmit = async () => {
     let correctCount = 0;
   
     // Calculate the score
     questions.forEach((question) => {
-      if (answers[question.id] === question.correctAnswer) {
+      if (answers[question.id]?.trim().toLowerCase() === question.correctAnswer.toLowerCase()) {
         correctCount++;
       }
     });
@@ -165,6 +176,8 @@ const handleExplanation = async (questionId: string, question:string, correctAns
       console.error("Error saving progress data:", error);
       toast.error("Failed to save progress data.");
     }
+    // setExamTime{[]}
+    setExamTime(0)
   };
   
 
@@ -173,6 +186,7 @@ const handleExplanation = async (questionId: string, question:string, correctAns
     setScore(null)
     setShowAnswers(false)
     setExplanations({})
+    // setExamTime()
   }
 
   const handleStartExam = ()=> {
@@ -195,11 +209,11 @@ const handleExplanation = async (questionId: string, question:string, correctAns
       <div className="instruction-container">
         <h2>Exam Instructions</h2>
         <ul>
-            <li>Read all questions carefully before answering.</li>
-            <li>Choose the best answer for each question.</li>
-            <li>The exam will be timed. Ensure you manage your time wisely.</li>
-            <li>Once you submit, you cannot change your answers.</li>
-            <li>Your progress will be tracked in real-time.</li>
+            <li > <span className='bx bxs-check-circle'></span>  Read all questions carefully before answering.</li>
+            <li> <span className='bx bxs-check-circle'></span>  Choose the best answer for each question.</li>
+            <li> <span className='bx bxs-check-circle'></span>The exam will be timed. Ensure you manage your time wisely.</li>
+            <li> <span className='bx bxs-check-circle'></span>Once you submit, you cannot change your answers.</li>
+            <li> <span className='bx bxs-check-circle'></span>Your progress will be tracked in real-time.</li>
           </ul>
           <button className="start-exam-btn" onClick={handleStartExam}>
             Start Exam
@@ -208,7 +222,7 @@ const handleExplanation = async (questionId: string, question:string, correctAns
     ):(
        <div className="exam-container">
        <h2>Exam for {courseId}</h2>
-       <Timer stopTimer initialTime={examTime} onTimeUp={handleSubmit} />
+       <Timer stopTimer initialTime={questionLoaded ? examTime : 600} onTimeUp={handleSubmit} />
      {loading ?(
          <p> loading questions .... </p>
      ) : questions.length === 0 ? (
@@ -231,6 +245,9 @@ const handleExplanation = async (questionId: string, question:string, correctAns
          {questions?.map((question,index) => (
            <div key={question.id} className="question-item">
              <h3>{index + 1}.{question.question}</h3>
+            
+            {question.type === "multiple-choice"  ? (
+
              <div className="options">
                  
                {question?.options?.map((option, index) => (
@@ -248,6 +265,16 @@ const handleExplanation = async (questionId: string, question:string, correctAns
                  </label>
                ))}
              </div>
+            ):(
+              <input
+              type="text"
+              name={question.id}
+              placeholder="Type your answer"
+              value={answers[question.id] || ""}
+              onChange={(e) => handleOptionSelect(question.id, e.target.value)}
+              disabled={showAnswers}
+          />
+            )}
 
               {/* This logic shows correct answers after submission */}
               {showAnswers && (
@@ -263,7 +290,7 @@ const handleExplanation = async (questionId: string, question:string, correctAns
                   {explanations[question.id] ?(
                       <div className="ai-explanation-box">
                         <h4>Nexa Explanation</h4>
-                        <p className="explanation"> {explanations[question.id]}</p>
+                        <p className="explanation" dangerouslySetInnerHTML={{__html:explanations[question.id]}}/> 
                       </div>
                   ):(
                       <p className="loading-text">⏳ Waiting for AI response...</p>
@@ -300,8 +327,4 @@ const handleExplanation = async (questionId: string, question:string, correctAns
 };
 
 export default ExamPage;
-
-function then(arg0: () => Id) {
-  throw new Error("Function not implemented.");
-}
 
