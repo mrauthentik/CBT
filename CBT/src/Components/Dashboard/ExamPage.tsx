@@ -193,6 +193,9 @@ const handleExplanation = async (questionId: string, question:string, correctAns
     setShowInstructions(false)
   }
 
+  //This logic gives students remark
+  
+
   //this code is to caclulate Exam Progress
   const totalQuestions = questions.length
   const answeredQuestions = Object.keys(answers).length
