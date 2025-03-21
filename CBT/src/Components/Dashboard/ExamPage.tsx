@@ -194,6 +194,19 @@ const handleExplanation = async (questionId: string, question:string, correctAns
   }
 
   //This logic gives students remark
+  const getRemark = (percentage: number): string => {
+    if (percentage >= 100) {
+      return "Outstanding! You aced it! 🎉";
+    } else if (percentage >= 70) {
+      return "Great job! Keep up the good work! 💪";
+    } else if (percentage >= 50) {
+      return "Good effort! You can do even better next time! 😊";
+    } else if (percentage >= 20) {
+      return "Don't give up! Keep practicing and you'll improve! 🌟";
+    } else {
+      return "Keep trying! Practice makes perfect! 💡";
+    }
+  };
   
 
   //this code is to caclulate Exam Progress
