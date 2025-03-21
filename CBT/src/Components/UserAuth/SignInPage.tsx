@@ -39,17 +39,14 @@ const SignInPage: React.FC<{ toggleAuth: () => void }> = ({ toggleAuth }) => {
   };
 
   return (
-<<<<<<< HEAD
     <div className="sigin">
       <div className="signin-container">
         <h2>Sign In</h2>
-=======
     <div className='login'>
       
       <div className='signin-container'>
         <h2>Login In</h2>
          <p>Welcome back!</p>
->>>>>>> e0c62ca514479d0d18448fa6c675470d927c1db7
         <ToastContainer />
         <form onSubmit={handleSignIn}>
           <input
@@ -66,14 +63,13 @@ const SignInPage: React.FC<{ toggleAuth: () => void }> = ({ toggleAuth }) => {
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
             required
           />
-<<<<<<< HEAD
           <button type="submit">Sign In</button>
-=======
+
           <div onClick={() => setShowPassword(!showPassword)}>
             {showPassword ? <FaEyeSlash /> : <FaEye />}
           </div>
           <button type="submit" className='sigin-btn'>Sign In</button>
->>>>>>> e0c62ca514479d0d18448fa6c675470d927c1db7
+
         </form>
         <div className="google-signin" onClick={handleSignInWithGoogle}>
           <FcGoogle /> Sign in with Google
