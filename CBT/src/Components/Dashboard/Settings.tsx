@@ -15,7 +15,7 @@ const Settings: React.FC = () => {
         if (settingDoc.exists()) {
           const data = settingDoc.data();
           setExamTime(data.duration);
-          setDarkMode(data.darkMode);
+
 
           // Apply dark mode setting
           if (data.darkMode) {
@@ -63,6 +63,7 @@ const Settings: React.FC = () => {
           min={1}
         />
         <button onClick={handleSave} className="save-btn">Save Settings</button>
+
       </div>
     </div>
   );
