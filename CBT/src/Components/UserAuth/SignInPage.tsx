@@ -68,8 +68,8 @@ const SignInPage: React.FC<{ toggleAuth: () => void }> = ({ toggleAuth }) => {
           />
           <button type="submit">Sign In</button>
 
-          <div onClick={() => setShowPassword(!showPassword)}>
-            {showPassword ? <FaEyeSlash /> : <FaEye />}
+          <div onClick={() => setShowPassword(!showPassword)} className='mb-2'>
+            {showPassword ? <FaEye /> : <FaEyeSlash />}
           </div>
           <button type="submit" className='sigin-btn'>Sign In</button>
 
