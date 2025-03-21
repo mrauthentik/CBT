@@ -169,7 +169,10 @@ const handleExplanation = async (questionId: string, question:string, correctAns
         await updateProgressData(today, finalScore, userCourseId);
         console.log("Progress data updated successfully:", { date: today, score: finalScore });
       }
-  
+
+      const percentage = (finalScore / totalQuestions) * 100; // Calculate percentage
+      const remark = getRemark(percentage);
+      
       toast.success(`Exam submitted! You scored ${finalScore} out of ${questions.length}.`);
       setShowAnswers(true);
     } catch (error) {
@@ -207,7 +210,7 @@ const handleExplanation = async (questionId: string, question:string, correctAns
       return "Keep trying! Practice makes perfect! 💡";
     }
   };
-  
+
 
   //this code is to caclulate Exam Progress
   const totalQuestions = questions.length
