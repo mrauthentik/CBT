@@ -5,10 +5,13 @@ import { useNavigate, Link } from 'react-router-dom';
 import { loginUser } from './logInUser';
 import signInWithGoogle from './GoogleSignUpConfig';
 import { FcGoogle } from 'react-icons/fc';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
+
 
 const SignInPage: React.FC<{ toggleAuth: () => void }> = ({ toggleAuth }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
   const handleSignIn = async (e: React.FormEvent) => {
