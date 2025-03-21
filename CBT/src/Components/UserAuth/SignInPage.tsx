@@ -82,7 +82,10 @@ const SignInPage: React.FC<{ toggleAuth: () => void }> = ({ toggleAuth }) => {
         </div>
       </div>
     </div>
-  );
-};
+  </div>
+</div>
+
+    )
+  }
 
 export default SignInPage;
