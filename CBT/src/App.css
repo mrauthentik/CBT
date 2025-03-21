@@ -938,6 +938,13 @@
   color: green;
 }
 
+.remark{
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-top: 10px;
+  color: #4caf50;
+}
+
 /* Nexa Explain Button */
 .ai-explain-btn {
   display: inline-block;
