@@ -172,7 +172,7 @@ const handleExplanation = async (questionId: string, question:string, correctAns
 
       const percentage = (finalScore / totalQuestions) * 100; // Calculate percentage
       const remark = getRemark(percentage);
-      
+
       toast.success(`Exam submitted! You scored ${finalScore} out of ${questions.length}.`);
       setShowAnswers(true);
     } catch (error) {
@@ -349,6 +349,9 @@ const handleExplanation = async (questionId: string, question:string, correctAns
        ) : (
          <>
          <h3>Your Score: {score} / {questions.length}</h3>
+         <p className="remark">
+          {getRemark((score/totalQuestions) * questions.length)}
+         </p>
          <button onClick={handleRetakeExam} className='retake-btn'>Retake Exam </button>
         </>
        )}
