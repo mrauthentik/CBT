@@ -60,7 +60,7 @@ const SignInPage: React.FC<{ toggleAuth: () => void }> = ({ toggleAuth }) => {
             required
           />
           <input
-            type="password"
+            type={showPassword ? "text" : "password"}
             placeholder="Password"
             value={password}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
