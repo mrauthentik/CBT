@@ -276,6 +276,22 @@ const handleExplanation = async (questionId: string, question:string, correctAns
           />
             )}
 
+            {/* Show Correct/incorrect icons after submission */}
+            {showAnswers && (
+              <div className="answer-feedback">
+                    {answers[question.id]?.trim().toLowerCase() === question.correctAnswer.toLowerCase() ? (
+                      <span className="correct-icon">
+                        <BiCheck size={24} color="green" /> Correct
+                      </span>
+                    
+                    ) : (
+                      <span className="incorrect-icon">
+                     ❌ Incorrect
+                    </span>
+                )} 
+              </div>
+            )}
+
               {/* This logic shows correct answers after submission */}
               {showAnswers && (
                 <div className="ai-container">
