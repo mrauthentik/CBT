@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { collection, getDocs, query, where,doc, getDoc } from "firebase/firestore";
 import { db , auth} from "../firebase";
 
+
 //Import to add students progress
 import { addProgressData } from "./addProgressData";
 import { updateProgressData } from "./updatProgressData";
@@ -14,6 +15,7 @@ import { GoogleGenerativeAI } from "@google/generative-ai"
 import { Timer } from "./Timer";
 import SideBar from "../SideBar";
 import User from "./UserName";
+import { BiCheck } from "react-icons/bi";
 
 const ExamPage: React.FC = () => {
   const { courseId } = useParams(); // Get courseId from URL
@@ -30,11 +32,13 @@ const ExamPage: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [showAnswers, setShowAnswers] = useState(false)
   // const [stopTimer, setStopTimer] = useState(false)
+  const [questionLoaded, setQuestionsLoaded] = useState(false)
  const [explanations, setExplanations] = useState<{[key:string]:string}>({})
 
   useEffect(() => {
     const fetchTimerSettings = async () =>{
         try{
+          setLoading(true)
             const settingsDoc = await getDoc(doc(db, "settings", 'global'));
             if(settingsDoc.exists()){
               setExamTime(settingsDoc.data().duration)
@@ -70,6 +74,8 @@ const ExamPage: React.FC = () => {
         }
           
         setQuestions(questionList);
+        setQuestionsLoaded(true)
+
       } catch (err) {
         console.error("Error fetching questions", err);
         toast.error("Failed to load questions.");
@@ -95,7 +101,7 @@ const model = genAI.getGenerativeModel({model: "gemini-1.5-flash"})
 const getExplanation = async (questions: string, correctAnswer:string) => {
 
   try{
-     const prompt = `Explain why the is the ${correctAnswer} to the following question ${questions} \n and how can this ${questions} be solved`
+     const prompt = ` Provide a **short and clear explanation** for why "${correctAnswer}" is the correct answer to "${questions}". Format response in **HTML tags** like <b>bold</b>, <h3>headings</h3>, and <ul><li>lists</li></ul> if necessary.`
     const result = await model.generateContent(prompt)
     return result.response.text()
     }
@@ -103,7 +109,7 @@ const getExplanation = async (questions: string, correctAnswer:string) => {
     console.log("Could not fetch response",error)
     return "Could not fetch response"
   }
-  
+   
 }
 
 const handleExplanation = async (questionId: string, question:string, correctAnswer: string) => {
@@ -163,13 +169,18 @@ const handleExplanation = async (questionId: string, question:string, correctAns
         await updateProgressData(today, finalScore, userCourseId);
         console.log("Progress data updated successfully:", { date: today, score: finalScore });
       }
-  
+
+      const percentage = (finalScore / totalQuestions) * 100; // Calculate percentage
+      const remark = getRemark(percentage);
+
       toast.success(`Exam submitted! You scored ${finalScore} out of ${questions.length}.`);
       setShowAnswers(true);
     } catch (error) {
       console.error("Error saving progress data:", error);
       toast.error("Failed to save progress data.");
     }
+    // setExamTime{[]}
+    setExamTime(0)
   };
   
 
@@ -178,11 +189,28 @@ const handleExplanation = async (questionId: string, question:string, correctAns
     setScore(null)
     setShowAnswers(false)
     setExplanations({})
+    // setExamTime()
   }
 
   const handleStartExam = ()=> {
     setShowInstructions(false)
   }
+
+  //This logic gives students remark
+  const getRemark = (percentage: number): string => {
+    if (percentage >= 100) {
+      return "Outstanding! You aced it! 🎉";
+    } else if (percentage >= 70) {
+      return "Great job! Keep up the good work! 💪";
+    } else if (percentage >= 50) {
+      return "Good effort! You can do even better next time! 😊";
+    } else if (percentage >= 20) {
+      return "Don't give up! Keep practicing and you'll improve! 🌟";
+    } else {
+      return "Keep trying! Practice makes perfect! 💡";
+    }
+  };
+
 
   //this code is to caclulate Exam Progress
   const totalQuestions = questions.length
@@ -200,11 +228,11 @@ const handleExplanation = async (questionId: string, question:string, correctAns
       <div className="instruction-container">
         <h2>Exam Instructions</h2>
         <ul>
-            <li>Read all questions carefully before answering.</li>
-            <li>Choose the best answer for each question.</li>
-            <li>The exam will be timed. Ensure you manage your time wisely.</li>
-            <li>Once you submit, you cannot change your answers.</li>
-            <li>Your progress will be tracked in real-time.</li>
+            <li > <span className='bx bxs-check-circle'></span>  Read all questions carefully before answering.</li>
+            <li> <span className='bx bxs-check-circle'></span>  Choose the best answer for each question.</li>
+            <li> <span className='bx bxs-check-circle'></span>The exam will be timed. Ensure you manage your time wisely.</li>
+            <li> <span className='bx bxs-check-circle'></span>Once you submit, you cannot change your answers.</li>
+            <li> <span className='bx bxs-check-circle'></span>Your progress will be tracked in real-time.</li>
           </ul>
           <button className="start-exam-btn" onClick={handleStartExam}>
             Start Exam
@@ -213,7 +241,7 @@ const handleExplanation = async (questionId: string, question:string, correctAns
     ):(
        <div className="exam-container">
        <h2>Exam for {courseId}</h2>
-       <Timer stopTimer initialTime={examTime} onTimeUp={handleSubmit} />
+       <Timer stopTimer initialTime={questionLoaded ? examTime : 600} onTimeUp={handleSubmit} />
      {loading ?(
          <p> loading questions .... </p>
      ) : questions.length === 0 ? (
@@ -237,7 +265,7 @@ const handleExplanation = async (questionId: string, question:string, correctAns
            <div key={question.id} className="question-item">
              <h3>{index + 1}.{question.question}</h3>
             
-            {question.type != "multiple-choice" ? (
+            {question.type === "multiple-choice"  ? (
 
              <div className="options">
                  
@@ -267,6 +295,22 @@ const handleExplanation = async (questionId: string, question:string, correctAns
           />
             )}
 
+            {/* Show Correct/incorrect icons after submission */}
+            {showAnswers && (
+              <div className="answer-feedback">
+                    {answers[question.id]?.trim().toLowerCase() === question.correctAnswer.toLowerCase() ? (
+                      <span className="correct-icon">
+                        <BiCheck size={24} color="green" /> Correct
+                      </span>
+                    
+                    ) : (
+                      <span className="incorrect-icon">
+                     ❌ Incorrect
+                    </span>
+                )} 
+              </div>
+            )}
+
               {/* This logic shows correct answers after submission */}
               {showAnswers && (
                 <div className="ai-container">
@@ -281,7 +325,7 @@ const handleExplanation = async (questionId: string, question:string, correctAns
                   {explanations[question.id] ?(
                       <div className="ai-explanation-box">
                         <h4>Nexa Explanation</h4>
-                        <p className="explanation"> {explanations[question.id]}</p>
+                        <p className="explanation" dangerouslySetInnerHTML={{__html:explanations[question.id]}}/> 
                       </div>
                   ):(
                       <p className="loading-text">⏳ Waiting for AI response...</p>
@@ -305,6 +349,9 @@ const handleExplanation = async (questionId: string, question:string, correctAns
        ) : (
          <>
          <h3>Your Score: {score} / {questions.length}</h3>
+         <p className="remark">
+          {getRemark((score/totalQuestions) * questions.length)}
+         </p>
          <button onClick={handleRetakeExam} className='retake-btn'>Retake Exam </button>
         </>
        )}
@@ -318,8 +365,4 @@ const handleExplanation = async (questionId: string, question:string, correctAns
 };
 
 export default ExamPage;
-
-// function then(arg0: () => Id) {
-//   throw new Error("Function not implemented.");
-// }
 

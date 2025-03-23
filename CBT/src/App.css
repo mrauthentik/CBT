@@ -1,7 +1,6 @@
 @tailwind utilities;
 
 
-
 *{
     margin: 0;
     padding: 0;
@@ -133,23 +132,36 @@
           padding-inline: 150px;
           display: flex;
           align-items: center;
-          gap: 16px;
+          gap: 50px;
           justify-content: center;
-          margin-top: 15rem;
+          margin-bottom: 0;
+        }
+        .features{
+          width: 100%;
+          padding-inline: 150px;
+          display: flex;
+          align-items: center;
+          gap: 50px;
+          justify-content: center;
+          margin-top: 0;
         }
             .box{
-                width: 150%;
+                width: 400px;
                 height: 200px;
                 padding: 16px;
                 box-shadow: 0 0 2px 0 rgb(11, 70, 11);
                 display: flex;
                 flex-direction: column;
-                gap: 12px;
+                gap: 20px;
                 border-radius: 4px;
                 background-color: whitesmoke;
                 transition: trasform o.5s linear;
-                margin-bottom: 3rem;
+                margin-top: 30px;
             }
+            
+                
+                
+            
     @media (max-width:760px) {
           .feat{
             display: block;
@@ -173,19 +185,19 @@
             }
             
             .box p{
-              font-size: 14px;
+              font-size: 20px;
               font-weight: bold;
               color: teal;
           }
           
           .box small {
-            font-size: 11px;
+            font-size: 15px;
             color: teal;
           }
 
             .box i{
                 color: teal;
-                font-size: 24px;
+                font-size: 15px;
             }
 
        /* ABOUT CONTAINER */
@@ -283,6 +295,95 @@
   line-height: 1.6;
 
 }
+
+
+.sigin {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f5f5f5;
+}
+
+.signin-container {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+}
+
+.signin-container h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #333;
+}
+
+.signin-container input {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 1rem;
+}
+
+.signin-container button {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.signin-container button:hover {
+  background-color: #0056b3;
+}
+
+.google-signin {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 0.75rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  background-color: white;
+  color: #333;
+}
+
+.google-signin svg {
+  margin-right: 0.5rem;
+}
+
+.google-signin:hover {
+  background-color: #f8f8f8;
+}
+
+.link-container {
+  text-align: center;
+}
+
+.link-container a {
+  color: #007bff;
+  text-decoration: none;
+  display: block;
+  margin: 0.5rem 0;
+}
+
+.link-container a:hover {
+  text-decoration: underline;
+}
+
  /* Team Section */
 .team {
   padding: 50px 20px;
@@ -657,6 +758,20 @@
   .course-container,.settings-container,.user-info-container{
     margin-left:20rem;
   }
+  .courses-container {
+    display: flex;
+    min-height: 100vh;
+    /* Add any additional styling you want for the container */
+  }
+  
+  .loading-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    width: 100%;
+  }
+
  fieldset{
   padding: 2rem;
   border-radius: 10px;
@@ -761,29 +876,48 @@
 }
 .instruction-container{
   margin:auto;
-  background-color: rgb(14, 161, 161);
+  background-color: white;
   width: 50%;
   padding: 3rem;
   border-radius:20px ;
-  box-shadow: 10px 20px 20px 1px rgba(0,0,0,0.5);
+  box-shadow: 10px 2px 182px -73px rgba(0,0,0,0.97);
+
   ul{
     list-style-type: none;
+    font-size: 13px;
+    
+    
+
+    
   }
   h2{
-    color: white;
+    color: teal;
+    margin-bottom: 20px;
+    
   }
   button{
-   padding: 10px;
+   padding: 8px;
    border: none;
-   border-radius: 20rem; 
+   border-radius: 4px; 
    margin-top: 2rem;
+   background-color: teal;
+   color: white;
    
   }
   button:hover{
-    border:solid 1px white;
+    border:solid 1px teal;
     background-color: transparent;
-    font: 600;
-   }   
+  font-weight: bold;
+    color: teal;
+   }  
+   span{
+    color: teal;
+    font-size: 15px;
+   }
+  li{
+    margin-bottom: 10px;
+  }
+  
 }
 
 
@@ -801,6 +935,13 @@
   font-size: 16px;
   font-weight: bold;
   color: green;
+}
+
+.remark{
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-top: 10px;
+  color: #4caf50;
 }
 
 /* Nexa Explain Button */
@@ -856,7 +997,7 @@
   top: 0;
   left: 0;
   height: 100vh;
-  background-color: #1a1a1a;
+  background-color: teal;
   padding: 10px;
   transition: width 0.3s ease-in-out;
   overflow-x: hidden;
@@ -883,6 +1024,8 @@
   margin: 10px;
   align-self: flex-start;
 }
+
+
 
 .logo-container {
   text-align: center;

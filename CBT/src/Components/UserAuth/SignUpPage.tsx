@@ -1,286 +1,138 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {createUser} from './createUser';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { Link } from 'react-router-dom';
-import styled from '@emotion/styled';
-import signInWithGoogle from './GoogleSignUpConfig';
-import { FcGoogle } from 'react-icons/fc';
-import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import logoImage from '../logo/NEXA_LOGO-removebg-preview.png'; 
+import { ThreeDots } from 'react-loader-spinner'; // Import loader component
 
-// const Container = styled.div`~
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   min-height: 100vh;
-//   background-image: url('https://images.unsplash.com/photo-1531315630201-bb15abeb1653?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); // Replace with your image URL
-//   background-size: cover;
-//   background-position: center;
-// `;
-
-const SignUpForm = styled.div`
-  background-color: rgba(93, 244, 70, 0.47);
-  backdrop-filter: blur(5px);
-  padding: 3rem;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  width: 400px;
-  text-align: left;
-`;
-
-const LogoContainer = styled.div`
-  position: absolute;  // Position it absolutely
-  top: 20px;           // Adjust top distance
-  left: 20px;          // Adjust left distance
-  display: flex;       // Use flexbox for alignment
-  align-items: center; // Vertically center items
-`;
-
-const Logo = styled.img`
-  width: 50px;       // Adjust size as needed
-  height: auto;      // Maintain aspect ratio
-  margin-right: 10px; // Add some spacing between logo and text
-`;
-
-const LogoText = styled.span`
-  font-size: 1.2rem;   // Adjust size as needed
-  font-weight: bold; // Make it bold
-  color: #333;       // Set color
-  font-family: 'Poppins', sans-serif; // Use your font
-`;
-
-const Container = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 69vh;
-  background: linear-gradient(to bottom, #fff, #008080); // Initial gradient
-  background-size: 200% 200%; // Make gradient larger than container
-  animation: gradientAnimation 10s ease infinite; // Animate the gradient
-
-  @keyframes gradientAnimation {
-    0% {
-      background-position: 0% 50%; // Start position
-    }
-    50% {
-      background-position: 100% 50%; // Move to the other side
-    }
-    100% {
-      background-position: 0% 50%; // Back to the start
-    }
-  }
-`;
-
-
-const Title = styled.h2`
-  text-align: center;
-  margin-bottom: 2rem;
-  color: #333;
-  font-size: 2rem;
-  font-weight: 700;
-  font-family: 'Poppins', sans-serif;
-  letter-spacing: -0.02em;
-  transition: transform 0.2s ease-in-out;
-
-  &:hover {
-    transform: translateY(-3px);
-  }
-`;
-
-const NameInputs = styled.div`
-  display: flex;
-  gap: 1.5rem;
-  margin-bottom: 1rem;
-  width: 100%;
-`;
-
-const Input = styled.input`
-  width: 100%; // All inputs are now full width
-  padding: 1rem;
-  margin-bottom: 1.5rem;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  box-sizing: border-box;
-  font-size: 1rem;
-  color: #333;
-  transition: border-color 0.3s, box-shadow 0.3s;
-  font-family: 'Open Sans', sans-serif;
-  background-color: #f8f8f8; // Light gray background for all inputs
-
-  &:focus {
-    border-color: #008080;
-    outline: none;
-    box-shadow: 0 0 5px rgba(0, 128, 128, 0.2);
-  }
-
-  &::placeholder {
-    color: #999;
-  }
-`;
-
-const Button = styled.button`
-  width: 100%;
-  padding: 1rem;
-  background-color: #008080;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: transform 0.2s ease-in-out, background-color 0.3s ease;
-  font-size: 1rem;
-  font-family: 'Roboto', sans-serif;
-  font-weight: 500;
-
-  &:hover {
-    transform: scale(1.02);
-    background-color: #006666;
-  }
-`;
-
-const StyledLink = styled(Link)`
-  color: #007bff;
-  text-decoration: none;
-  font-family: 'Lato', sans-serif;
-
-  &:hover {
-    text-decoration: underline;
-  }
-`;
-
-const GoogleSignInButton = styled.button`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  padding: 1rem;
-  background: #fff;
-  color: #333;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: transform 0.2s ease-in-out;
-  margin-top: 1.5rem;
-  font-size: 1rem;
-  font-family: 'Lato', sans-serif;
-
-  &:hover {
-    transform: scale(1.02);
-  }
-`;
-
-const GoogleIcon = styled(FcGoogle)`
-  margin-right: 0.8rem;
-  font-size: 1.2rem;
-`;
-const TogglePasswordButton = styled.span`
-  position: absolute;
-  top: 50%;
-  right: 4rem;
-  transform: translateY(-50%);
-  cursor: pointer;
-  color: #666;
-  font-size: 1.2rem;
-  &:hover {
-    color: #333;
-  }
-`;
-const ToggleConfirmPasswordButton = styled.span`
-  position: absolute;
-  top: 62%;
-  right: 4rem;
-  transform: translateY(-50%);
-  cursor: pointer;
-  color: #666;
-  font-size: 1.2rem;
-  &:hover {
-    color: #333;
-  }
-`;
-
-const SignUpPage: React.FC<{toggleAuth: ()=> void}> = ({toggleAuth}) => {
-  const [fullName, setFullName] = useState('');
-  const [userName, setUserName] = useState('');
+const SignUpPage: React.FC = () => {
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
+  const [department, setDepartment] = useState('');
   const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [agreedToTerms, setAgreedToTerms] = useState(false);
+  const [loading, setLoading] = useState(false); // Add loading state
+  const [isModalOpen, setIsModalOpen] = useState(true); // Modal state
   const navigate = useNavigate();
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
-    if(password !== confirmPassword) {
-      toast.error('Passwords do no match')
+    if (!agreedToTerms) {
+      alert('Please agree to the Terms of Service and Privacy Policy');
+      return;
     }
-    createUser(email, password, fullName);
-  };
 
-  const handleSignInWithGoogle = async () => {
+    setLoading(true); // Start loading
     try {
-      await signInWithGoogle();
-      toast.success('Sign up Successful');
+      // Simulate signup logic (replace with actual signup logic)
+      await new Promise((resolve) => setTimeout(resolve, 2000)); // Simulate a delay
+      console.log({ firstName, lastName, email, department, password });
+      alert('Sign up successful!');
       navigate('/dashboard');
     } catch (error) {
-      toast.error('Sign in not successful');
-      console.log(error);
+      console.error('Sign up failed:', error);
+      alert('Sign up failed. Please try again.');
+    } finally {
+      setLoading(false); // Stop loading
     }
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    navigate('/'); // Redirect to home or another page
   };
 
   return (
-    <Container className='signup'>
-       <LogoContainer>
-        <Logo src={logoImage} alt="NEXA Logo" />
-        <LogoText>NEXA</LogoText>
-      </LogoContainer>
-      <SignUpForm className='signup-container'>
-        <Title>Sign Up</Title>
-        <ToastContainer />
-        <form onSubmit={handleSignUp}>
-          <NameInputs>
-            <Input
-              type="text"
-              placeholder="Full Name"
-              required
-              value={fullName}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFullName(e.target.value)}
-            />
-            <Input
-              type="text"
-              placeholder="Username"
-              required
-              value={userName}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUserName(e.target.value)}
-            />
-          </NameInputs>
-          <Input
-            type="email"
-            placeholder="Email"
-            required
-            value={email}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
-          />
-           <Input type={showPassword ? "text" : "password"} placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-        <TogglePasswordButton onClick={() => setShowPassword(!showPassword)}>
-          {showPassword ? <FaEyeSlash /> : <FaEye />}
-        </TogglePasswordButton>
-
-          {/* Confirm Password */}
-          <Input type={showConfirmPassword ? "text" : "password"} placeholder="Confirm Password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required />
-        <ToggleConfirmPasswordButton onClick={() => setShowConfirmPassword(!showConfirmPassword)}>
-          {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
-        </ToggleConfirmPasswordButton>
-
-
-          <Button type="submit">Sign Up</Button>
-          <StyledLink to='' type='button' onClick={toggleAuth}>Already have an account?</StyledLink>
-        </form>
-        <GoogleSignInButton onClick={handleSignInWithGoogle}>
-          <GoogleIcon /> Sign Up with Google
-        </GoogleSignInButton>
-      </SignUpForm>
-    </Container>
+    <>
+      {isModalOpen && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
+          onClick={closeModal} // Close modal when clicking outside
+        >
+          <div
+            className="bg-white p-8 rounded-lg shadow-md w-full max-w-md relative"
+            onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside the modal
+          >
+            <button
+              className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
+              onClick={closeModal}
+            >
+              ✖
+            </button>
+            <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">Sign Up</h2>
+            <form onSubmit={handleSignUp} className="space-y-4">
+              <input
+                type="text"
+                placeholder="First Name"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+                required
+                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
+              />
+              <input
+                type="text"
+                placeholder="Last Name"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+                required
+                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
+              />
+              <input
+                type="email"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
+              />
+              <select
+                value={department}
+                onChange={(e) => setDepartment(e.target.value)}
+                required
+                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
+              >
+                <option value="">Select Department</option>
+                <option value="engineering">Computer Science</option>
+              </select>
+              <input
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
+              />
+              <div className="flex items-center space-x-2">
+                <input
+                  type="checkbox"
+                  checked={agreedToTerms}
+                  onChange={(e) => setAgreedToTerms(e.target.checked)}
+                  className="w-4 h-4 text-teal-500 border-gray-300 rounded focus:ring-teal-500"
+                />
+                <label className="text-sm text-gray-600">
+                  I agree to the Terms of Service and Privacy Policy
+                </label>
+              </div>
+              <button
+                type="submit"
+                className="w-full bg-teal-600 text-white py-2 px-4 rounded-md hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500 flex justify-center items-center"
+                disabled={loading}
+              >
+                {loading ? (
+                  <ThreeDots color="#fff" height={20} width={20} />
+                ) : (
+                  'Sign Up'
+                )}
+              </button>
+              <p
+                onClick={() => navigate('/login')}
+                className="text-center text-sm text-teal-600 hover:underline cursor-pointer"
+              >
+                ALREADY A MEMBER?
+              </p>
+            </form>
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 
