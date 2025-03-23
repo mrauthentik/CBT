@@ -34,6 +34,7 @@ const ExamPage: React.FC = () => {
   // const [stopTimer, setStopTimer] = useState(false)
   const [questionLoaded, setQuestionsLoaded] = useState(false)
  const [explanations, setExplanations] = useState<{[key:string]:string}>({})
+ const [loadingExplanation, setLoadingExplanation] = useState<string | null>(null)
 
   useEffect(() => {
     const fetchTimerSettings = async () =>{
@@ -113,9 +114,10 @@ const getExplanation = async (questions: string, correctAnswer:string) => {
 }
 
 const handleExplanation = async (questionId: string, question:string, correctAnswer: string) => {
-
+  setLoadingExplanation(questionId) // this is to set the loading state for the nexa button
   const explanation = await getExplanation(question,correctAnswer)
   setExplanations((prev)=>({...prev, [questionId]:explanation}))
+  setLoadingExplanation(null)
 }
 
   // Handle selecting an answer
@@ -318,7 +320,11 @@ const handleExplanation = async (questionId: string, question:string, correctAns
                 <p className ="correct-answer">
                   Correct Answer: <strong>{question.correctAnswer} </strong>
                    </p>
-                   <button className="ai-explain-btn" onClick={()=> handleExplanation(question.id,question.question, question.correctAnswer)}>Nexa Explain 🧠</button>
+                   <button className="ai-explain-btn" onClick={()=> handleExplanation(question.id,question.question, question.correctAnswer)}
+                    disabled={loadingExplanation === question.id}
+                    >
+                     {loadingExplanation === question.id ? "Nexa is explaining..." : "Nexa Explain 🧠"}
+                      </button>
                   
                   {/* AI Explaination Box */}
 
@@ -328,7 +334,10 @@ const handleExplanation = async (questionId: string, question:string, correctAns
                         <p className="explanation" dangerouslySetInnerHTML={{__html:explanations[question.id]}}/> 
                       </div>
                   ):(
+                    loadingExplanation === question.id && (
+
                       <p className="loading-text">⏳ Waiting for AI response...</p>
+                    )
                     )}
                   
                 </div>
