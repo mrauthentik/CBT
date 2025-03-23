@@ -1,44 +1,50 @@
-# 📝 CBT Web Application
-# Official **NEXA**
+# React + TypeScript + Vite
 
-A Computer-Based Test (CBT) application with authentication, real-time question fetching from Firebase, a timer, dark mode, and AI integration.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-## 🚀 Features
-- 🔐 **Authentication** (Sign up, Sign in, Logout)
-- 📚 **Fetch Questions** from Firebase
-- ⏳ **Exam Timer** to track test duration
-- 🌙 **Dark Mode** for better user experience
-- 🤖 **AI Integration** to enhance user interactions
+Currently, two official plugins are available:
 
-## 🛠️ Technologies Used
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
-![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
-![CSS](https://img.shields.io/badge/CSS-1572B6?style=for-the-badge&logo=css3&logoColor=white)
-![Emotion Styled](https://img.shields.io/badge/Emotion%20Styled-DB7093?style=for-the-badge&logo=styled-components&logoColor=white)
-![Firebase](https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=black)
+## Expanding the ESLint configuration
 
-## 📷 Screenshots
- ![App Screenshot]('/cbt/src/logo/logo.jpeg')
+If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
 
-## 🔧 Installation
+- Configure the top-level `parserOptions` property like this:
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/your-username/cbt-app.git
-   ```
-2. Change directory to cbt
-   ```bash
-   cd cbt
-3. install dependencies
-   ```bash
-   npm install
-4. Start the development server   
-    ```bash 
-   npm run dev
- 📌 Usage
-Sign up or log in to access the exam.
-Choose a course and start the test.
-The timer will count down as you answer questions.
-Enable dark mode for a better viewing experience.
-AI integration provides additional insights.  
+```js
+export default tseslint.config({
+  languageOptions: {
+    // other options...
+    parserOptions: {
+      project: ['./tsconfig.node.json', './tsconfig.app.json'],
+      tsconfigRootDir: import.meta.dirname,
+    },
+  },
+})
+```
+
+- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
+- Optionally add `...tseslint.configs.stylisticTypeChecked`
+- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+
+```js
+// eslint.config.js
+import react from 'eslint-plugin-react'
+
+export default tseslint.config({
+  // Set the react version
+  settings: { react: { version: '18.3' } },
+  plugins: {
+    // Add the react plugin
+    react,
+  },
+  rules: {
+    // other rules...
+    // Enable its recommended rules
+    ...react.configs.recommended.rules,
+    ...react.configs['jsx-runtime'].rules,
+  },
+})
+```
