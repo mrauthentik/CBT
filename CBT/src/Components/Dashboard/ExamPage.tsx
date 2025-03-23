@@ -235,6 +235,7 @@ const handleExplanation = async (questionId: string, question:string, correctAns
             <li> <span className='bx bxs-check-circle'></span>The exam will be timed. Ensure you manage your time wisely.</li>
             <li> <span className='bx bxs-check-circle'></span>Once you submit, you cannot change your answers.</li>
             <li> <span className='bx bxs-check-circle'></span>Your progress will be tracked in real-time.</li>
+            <li> <span className='bx bxs-check-circle'></span>You can view your answers once you submit.</li>
           </ul>
           <button className="start-exam-btn" onClick={handleStartExam}>
             Start Exam
