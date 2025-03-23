@@ -243,8 +243,10 @@ const handleExplanation = async (questionId: string, question:string, correctAns
       </div>
     ):(
        <div className="exam-container">
-       <h2>Exam for {courseId}</h2>
-       <Timer stopTimer initialTime={questionLoaded ? examTime : 600} onTimeUp={handleSubmit} />
+        <div className="flex justify-between items-center bg-white py-5 px-5 center rounded-lg">
+          <h2>Exam for {courseId}</h2>
+          <Timer stopTimer initialTime={questionLoaded ? examTime : 600} onTimeUp={handleSubmit} />
+        </div>
      {loading ?(
          <p> loading questions .... </p>
      ) : questions.length === 0 ? (
@@ -252,7 +254,7 @@ const handleExplanation = async (questionId: string, question:string, correctAns
      ): (
  
  
-       <div className="question-list">
+       <div className="question-list py-5 px-5 mt-5 center rounded-lg bg-white">
          <div className="progress-container">
            <p>
              <strong>{answeredQuestions}</strong> answered | <strong>{unansweredQuestions}</strong> 
@@ -265,7 +267,7 @@ const handleExplanation = async (questionId: string, question:string, correctAns
         {/* Questions  */}
          {questions?.length === 0 && <p>No questions available.</p>}
          {questions?.map((question,index) => (
-           <div key={question.id} className="question-item">
+           <div key={question.id} className="question-item mb-6 space-y-2">
              <h3>{index + 1}.{question.question}</h3>
             
             {question.type === "multiple-choice"  ? (
@@ -273,12 +275,13 @@ const handleExplanation = async (questionId: string, question:string, correctAns
              <div className="options">
                  
                {question?.options?.map((option, index) => (
-                 <label key={index} className="option">
+                 <label key={index} className="option mb-3">
                    
                    <input
                      type="radio"
                      name={question.id}
                      value={option}
+                     className="mr-4"
                      checked={answers[question.id] === option}
                      onChange={() => handleOptionSelect(question.id, option)}
                      disabled={showAnswers}
@@ -292,6 +295,7 @@ const handleExplanation = async (questionId: string, question:string, correctAns
               type="text"
               name={question.id}
               placeholder="Type your answer"
+              className="bg-[#eee]  h-9 rounded-md px-3 py-1 text-sm"
               value={answers[question.id] || ""}
               onChange={(e) => handleOptionSelect(question.id, e.target.value)}
               disabled={showAnswers}
@@ -353,7 +357,7 @@ const handleExplanation = async (questionId: string, question:string, correctAns
      {/* This code show score and retake button */}
 
        {score === null ? (
-         <button onClick={handleSubmit} className="submit-btn">
+         <button onClick={handleSubmit} className="submit-btn max-h-fit bg-[#008080] text-white px-4 py-2 rounded-md hover:bg-[#006666] cursor-pointer mt-5 mb-5">
            Submit Exam
          </button>
        ) : (
@@ -362,7 +366,9 @@ const handleExplanation = async (questionId: string, question:string, correctAns
          <p className="remark">
           {getRemark((score/totalQuestions) * questions.length)}
          </p>
-         <button onClick={handleRetakeExam} className='retake-btn'>Retake Exam </button>
+         <button onClick={handleRetakeExam} className='retake-btn bg-[#008080] text-white p-4 py-2 px-4 rounded-md hover:bg-[#006666] transition duration-300 mt-5 mb-5 cursor-pointer'>
+          Retake Exam
+           </button>
         </>
        )}
      </div>
