@@ -212,7 +212,7 @@ const handleExplanation = async (questionId: string, question:string, correctAns
       </div>
     ):(
        <div className="exam-container">
-        <div className="flex justify-between items-center bg-white py-5 px-5 center rounded-lg ">
+        <div className="flex justify-between items-center bg-white py-5 px-5 center rounded-lg">
         <h2>Exam for {courseId}</h2>
         <Timer stopTimer initialTime={examTime} onTimeUp={handleSubmit} />
         
