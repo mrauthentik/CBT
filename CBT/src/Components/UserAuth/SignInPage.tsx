@@ -12,6 +12,7 @@ const SignInPage: React.FC<{ toggleAuth: () => void }> = ({ toggleAuth }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSignIn = async (e: React.FormEvent) => {
@@ -66,12 +67,11 @@ const SignInPage: React.FC<{ toggleAuth: () => void }> = ({ toggleAuth }) => {
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
             required
           />
-          <button type="submit">Sign In</button>
 
           <div onClick={() => setShowPassword(!showPassword)} className='mb-2'>
             {showPassword ? <FaEye /> : <FaEyeSlash />}
           </div>
-          <button type="submit" className='sigin-btn'>Sign In</button>
+          <button type="submit" className='sigin-btn bg-teal-600' >Sign In</button>
 
         </form>
         <div className="google-signin" onClick={handleSignInWithGoogle}>
