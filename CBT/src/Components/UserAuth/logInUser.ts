@@ -30,7 +30,7 @@ export const loginUser = async (email: string, password: string): Promise<void> 
     // Sign in the user with Firebase Auth
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
-    if(auth){
+    if(auth || email || password){
       router.navigate('/dashboard')
     }
     console.log("Sign in success", user.displayName);
@@ -46,7 +46,6 @@ export const loginUser = async (email: string, password: string): Promise<void> 
      
     } else {
       console.error("No user data found in Firestore!");
-      toast.error("No user data found. Please try again.");
     }
   } catch (error: unknown) {
     if (error instanceof FirebaseError) {
