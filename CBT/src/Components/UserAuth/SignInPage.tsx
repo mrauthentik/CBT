@@ -7,6 +7,7 @@ import signInWithGoogle from './GoogleSignUpConfig';
 import { FcGoogle } from 'react-icons/fc';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { ThreeDots } from 'react-loader-spinner'; // Import a loader component
+import User from '../Dashboard/UserName';
 
 const SignInPage: React.FC<{ toggleAuth: () => void }> = ({ toggleAuth }) => {
   const [email, setEmail] = useState('');
@@ -20,8 +21,9 @@ const SignInPage: React.FC<{ toggleAuth: () => void }> = ({ toggleAuth }) => {
     setLoading(true); // Start loading
     try {
       await loginUser(email, password);
-      toast.success('Sign in successful');
-      navigate('/dashboard');
+      
+      toast.success('Welcome back', {autoClose: 5000, position: "top-center"})
+      navigate('/dashboard')   
     } catch (error) {
       toast.error('Sign in failed');
       console.error(error);

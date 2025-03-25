@@ -30,27 +30,31 @@ export const loginUser = async (email: string, password: string): Promise<void> 
     // Sign in the user with Firebase Auth
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
-    if(auth || email || password){
-      router.navigate('/dashboard')
-    }
-    console.log("Sign in success", user.displayName);
-    localStorage.setItem("userdetails",JSON.stringify(user))
 
     // Fetch user details from Firestore
     const userDoc = await getDoc(doc(db, 'users', user.uid));
-
     if (userDoc.exists()) {
       const userData = userDoc.data();
       console.log("Welcome, " + userData.fullName);
-      // Navigate to the dashboard
-     
+
+      localStorage.setItem("userdetails",JSON.stringify(user))
+
+      toast.success("Login Successful", {autoClose: 5000, position: "top-center"});
+      console.log("Sign in success", user.displayName);
+          
     } else {
       console.error("No user data found in Firestore!");
     }
+
+    
+    
+    
+    
+
   } catch (error: unknown) {
     if (error instanceof FirebaseError) {
       const errorMessage = getFriendlyErrorMessage(error.code)
-  
+       
       toast.error(errorMessage, {autoClose: 5000, position: "top-center"});
       
     } else {
