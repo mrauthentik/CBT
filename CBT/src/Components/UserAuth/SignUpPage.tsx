@@ -1,138 +1,117 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { ThreeDots } from 'react-loader-spinner'; // Import loader component
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate, Link } from 'react-router-dom';
+import { ThreeDots } from 'react-loader-spinner';
+import { FcGoogle } from 'react-icons/fc';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
-const SignUpPage: React.FC = () => {
+const SignUpPage: React.FC<{ toggleAuth: () => void }> = ({ toggleAuth }) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
-  const [department, setDepartment] = useState('');
   const [password, setPassword] = useState('');
-  const [agreedToTerms, setAgreedToTerms] = useState(false);
-  const [loading, setLoading] = useState(false); // Add loading state
-  const [isModalOpen, setIsModalOpen] = useState(true); // Modal state
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [department, setDepartment] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!agreedToTerms) {
-      alert('Please agree to the Terms of Service and Privacy Policy');
+    if (password !== confirmPassword) {
+      toast.error('Passwords do not match');
       return;
     }
-
-    setLoading(true); // Start loading
+    setLoading(true);
     try {
-      // Simulate signup logic (replace with actual signup logic)
-      await new Promise((resolve) => setTimeout(resolve, 2000)); // Simulate a delay
-      console.log({ firstName, lastName, email, department, password });
-      alert('Sign up successful!');
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+      toast.success('Account created successfully');
       navigate('/dashboard');
     } catch (error) {
-      console.error('Sign up failed:', error);
-      alert('Sign up failed. Please try again.');
+      toast.error('Sign up failed. Try again.');
+      console.log(error)
     } finally {
-      setLoading(false); // Stop loading
+      setLoading(false);
     }
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-    navigate('/'); // Redirect to home or another page
   };
 
   return (
-    <>
-      {isModalOpen && (
-        <div
-          className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
-          onClick={closeModal} // Close modal when clicking outside
-        >
-          <div
-            className="bg-white p-8 rounded-lg shadow-md w-full max-w-md relative"
-            onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside the modal
-          >
-            <button
-              className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
-              onClick={closeModal}
-            >
-              ✖
-            </button>
-            <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">Sign Up</h2>
-            <form onSubmit={handleSignUp} className="space-y-4">
-              <input
-                type="text"
-                placeholder="First Name"
-                value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
-                required
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
-              />
-              <input
-                type="text"
-                placeholder="Last Name"
-                value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
-                required
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
-              />
-              <input
-                type="email"
-                placeholder="Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
-              />
-              <select
-                value={department}
-                onChange={(e) => setDepartment(e.target.value)}
-                required
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
-              >
-                <option value="">Select Department</option>
-                <option value="engineering">Computer Science</option>
-              </select>
-              <input
-                type="password"
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
-              />
-              <div className="flex items-center space-x-2">
-                <input
-                  type="checkbox"
-                  checked={agreedToTerms}
-                  onChange={(e) => setAgreedToTerms(e.target.checked)}
-                  className="w-4 h-4 text-teal-500 border-gray-300 rounded focus:ring-teal-500"
-                />
-                <label className="text-sm text-gray-600">
-                  I agree to the Terms of Service and Privacy Policy
-                </label>
-              </div>
-              <button
-                type="submit"
-                className="w-full bg-teal-600 text-white py-2 px-4 rounded-md hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500 flex justify-center items-center"
-                disabled={loading}
-              >
-                {loading ? (
-                  <ThreeDots color="#fff" height={20} width={20} />
-                ) : (
-                  'Sign Up'
-                )}
-              </button>
-              <p
-                onClick={() => navigate('/login')}
-                className="text-center text-sm text-teal-600 hover:underline cursor-pointer"
-              >
-                ALREADY A MEMBER?
-              </p>
-            </form>
+    <div className="signin">
+      <div className="signin-container">
+        <h2>Sign Up</h2>
+        <p className='text-center'>Create your account</p>
+        <ToastContainer />
+        <form onSubmit={handleSignUp}>
+          <div className="flex gap-3">
+            <input
+              type="text"
+              placeholder="First Name"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+              required
+            />
+            <input
+              type="text"
+              placeholder="Last Name"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+              required
+            />
           </div>
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+          <select
+            value={department}
+            onChange={(e) => setDepartment(e.target.value)}
+            required
+          >
+            <option value="">Select Department</option>
+            <option value="info_tech">Information Technology</option>
+            <option value="comp_sci">Computer Science</option>
+          </select>
+          <div className="password-container">
+            <input
+              type={showPassword ? "text" : "password"}
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+            <div onClick={() => setShowPassword(!showPassword)} className="password-toggle">
+              {showPassword ? <FaEye /> : <FaEyeSlash />}
+            </div>
+          </div>
+          <div className="password-container">
+            <input
+              type={showConfirmPassword ? "text" : "password"}
+              placeholder="Confirm Password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              required
+            />
+            <div onClick={() => setShowConfirmPassword(!showConfirmPassword)} className="password-toggle">
+              {showConfirmPassword ? <FaEye /> : <FaEyeSlash />}
+            </div>
+          </div>
+          <button type="submit" className="signin-btn bg-teal-600" disabled={loading}>
+            {loading ? <ThreeDots color="#fff" height={20} width={20} /> : "Sign Up"}
+          </button>
+        </form>
+        <div className="google-signin">
+          <FcGoogle /> Sign in with Google
         </div>
-      )}
-    </>
+        <div className="link-container">
+          <Link to="" type="button" onClick={toggleAuth}>Already have an account? Sign in</Link>
+        </div>
+      </div>
+    </div>
   );
 };
 
