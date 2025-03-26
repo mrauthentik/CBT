@@ -53,7 +53,7 @@ const SignInPage: React.FC<{ toggleAuth: () => void }> = ({ toggleAuth }) => {
     <div className="signin">
       <div className="signin-container">
         <h2>Sign In</h2>
-        <p>Welcome back!</p>
+        <p className='text-center'>Welcome back!</p>
         <ToastContainer />
         <form onSubmit={handleSignIn}>
           <input
