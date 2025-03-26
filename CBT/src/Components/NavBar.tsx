@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import  { useState, useEffect } from 'react';
 import logoImage from './logo/logo.jpeg';
 import Modal from '../pages/Modal'; // Import the modal component
 import SignUpPage from './UserAuth/SignUpPage'; // Import sign-up form
@@ -36,23 +36,23 @@ export const Navbar = () => {
   return (
     <>
       <div
-        className={`navbar fixed top-0 left-0 w-full z-50  ${
+        className={`navbar fixed top-0 left-0 w-full z-50 ${
           scrolled ? 'bg-teal-600 shadow-md' : 'bg-transparent'
         } transition-all duration-300`}
       >
-        <div className="container mx-auto flex justify-between items-center px-4 py-3">
+        <div className="container mx-auto flex justify-between items-center px-4 py-3 relative">
           {/* Logo */}
           <div className="logo">
             <img src={logoImage} alt="Logo" className="h-10" />
           </div>
 
           {/* Hamburger Menu for Small Screens */}
-          <div className="lg:hidden">
+          <div className="lg:hidden absolute right-4">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="text-white text-2xl  focus:outline-none"
+              className="text-white text-2xl focus:outline-none"
             >
-              {isMenuOpen ? <FaTimes /> : <FaBars  />}
+              {isMenuOpen ? <FaTimes /> : <FaBars />}
             </button>
           </div>
 
@@ -73,7 +73,7 @@ export const Navbar = () => {
             </li>
             <li className="text-center py-2 lg:py-0">
               <button
-                className="nav-button text-white"
+                className=" text-white cursor-pointer "
                 onClick={() => openModal('signin')}
               >
                 Sign in
@@ -81,7 +81,7 @@ export const Navbar = () => {
             </li>
             <li className="text-center py-2 lg:py-0">
               <button
-                className="nav-button text-white"
+                className=" text-white cursor-pointer"
                 onClick={() => openModal('signup')}
               >
                 Sign up
@@ -89,7 +89,7 @@ export const Navbar = () => {
             </li>
             <li className="text-center py-2 lg:py-0">
               <button
-                className="nav-button text-white"
+                className=" text-white cursor-pointer"
                 onClick={() => navigate('/admin')}
               >
                 Admin
