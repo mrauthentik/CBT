@@ -71,7 +71,8 @@ const SignInPage: React.FC<{ toggleAuth: () => void }> = ({ toggleAuth }) => {
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
               required
             />
-            <div onClick={() => setShowPassword(!showPassword)} className="toggle-password">
+            <div onClick={() => setShowPassword(!showPassword)} 
+            className="absolute bottom-89 right-18 flex items-center text-gray-400 cursor-pointer ">
               {showPassword ? <FaEye /> : <FaEyeSlash />}
             </div>
           </div>
