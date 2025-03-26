@@ -29,7 +29,7 @@ const ForgetPsw = () => {
         <p className="text-center text-gray-600 mb-8 leading-relaxed">
           Enter your registered email, and we'll send you a password reset link.
         </p>
-        <form className="space-y-6">
+        <form className="space-y-6 space-x-8 p-8">
           <input
             type="email"
             placeholder="Enter your email"
