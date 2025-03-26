@@ -22,28 +22,28 @@ const ForgetPsw = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100 px-4">
-      <div className="bg-white p-12 md:p-12 rounded-lg shadow-md w-full max-w-md ">
+    <div className="flex justify-center items-center min-h-screen bg-gray-50 px-6">
+      <div className="bg-white p-8 md:p-10 rounded-lg shadow-lg w-full max-w-md">
         <ToastContainer />
-        <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">Forget Password</h2>
-        <p className="text-center text-gray-600 mb-8">
-          Input your valid email to get a password reset link.
+        <h2 className="text-2xl font-semibold text-center text-gray-800 mb-4">Reset Your Password</h2>
+        <p className="text-center text-gray-600 mb-6">
+          Enter your email address, and we'll send you a reset link.
         </p>
-        <form className="space-y-6">
+        <form className="space-y-4">
           <input
             type="email"
             placeholder="Enter your email"
             required
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
             value={email}
-            className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
+            className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500 transition duration-200"
           />
           <button
             type="submit"
             onClick={handleForgetPassword}
-            className="w-full bg-teal-600 text-white py-3 px-4 rounded-md hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500"
+            className="w-full bg-teal-600 text-white py-3 rounded-md hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500 transition duration-200"
           >
-            Get Reset Link
+            Send Reset Link
           </button>
         </form>
       </div>
