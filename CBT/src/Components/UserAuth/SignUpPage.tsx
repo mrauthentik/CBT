@@ -72,9 +72,10 @@ const SignUpPage: React.FC<{ toggleAuth: () => void }> = ({ toggleAuth }) => {
             onChange={(e) => setDepartment(e.target.value)}
             required
           >
-            <option value="">Select Department</option>
-            <option value="info_tech">Information Technology</option>
-            <option value="comp_sci">Computer Science</option>
+            
+            <option value="" className='password-container'>Select Department</option>
+            <option value="info_tech" className='password-container' >Information Technology</option>
+            <option value="comp_sci" className='password-container'>Computer Science</option>
           </select>
           <div className="password-container">
             <input
@@ -96,7 +97,7 @@ const SignUpPage: React.FC<{ toggleAuth: () => void }> = ({ toggleAuth }) => {
               onChange={(e) => setConfirmPassword(e.target.value)}
               required
             />
-            <div onClick={() => setShowConfirmPassword(!showConfirmPassword)} className="password-toggle">
+            <div onClick={() => setShowConfirmPassword(!showConfirmPassword)} className="password-toggle absolute bottom-89 right-18 flex items-center text-gray-400 cursor-pointer ">
               {showConfirmPassword ? <FaEye /> : <FaEyeSlash />}
             </div>
           </div>
