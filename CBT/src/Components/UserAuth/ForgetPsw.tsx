@@ -22,26 +22,26 @@ const ForgetPsw = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-50 px-6">
-      <div className="bg-white p-8 md:p-10 rounded-lg shadow-lg w-full max-w-md">
+    <div className="flex justify-center items-center min-h-screen bg-gray-100 px-6 py-12">
+      <div className="bg-white p-10 md:p-12 rounded-xl shadow-xl w-full max-w-lg">
         <ToastContainer />
-        <h2 className="text-2xl font-semibold text-center text-gray-800 mb-4">Reset Your Password</h2>
-        <p className="text-center text-gray-600 mb-6">
-          Enter your email address, and we'll send you a reset link.
+        <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">Reset Your Password</h2>
+        <p className="text-center text-gray-600 mb-8 leading-relaxed">
+          Enter your registered email, and we'll send you a password reset link.
         </p>
-        <form className="space-y-4">
+        <form className="space-y-6">
           <input
             type="email"
             placeholder="Enter your email"
             required
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
             value={email}
-            className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500 transition duration-200"
+            className="w-full px-5 py-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 transition duration-200 shadow-sm"
           />
           <button
             type="submit"
             onClick={handleForgetPassword}
-            className="w-full bg-teal-600 text-white py-3 rounded-md hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500 transition duration-200"
+            className="w-full bg-teal-600 text-white py-4 rounded-lg text-lg font-semibold hover:bg-teal-700 focus:outline-none focus:ring-4 focus:ring-teal-500 transition duration-200 shadow-md"
           >
             Send Reset Link
           </button>
