@@ -36,7 +36,7 @@ export const Navbar = () => {
   return (
     <>
       <div
-        className={`navbar fixed top-0 left-0 w-full z-50 ${
+        className={`navbar fixed top-0 left-0 w-full z-50  ${
           scrolled ? 'bg-teal-600 shadow-md' : 'bg-transparent'
         } transition-all duration-300`}
       >
