@@ -85,7 +85,7 @@ const SignUpPage: React.FC<{ toggleAuth: () => void }> = ({ toggleAuth }) => {
               onChange={(e) => setPassword(e.target.value)}
               required
             />
-            <div onClick={() => setShowPassword(!showPassword)} className="password-toggle">
+            <div onClick={() => setShowPassword(!showPassword)} className="password-toggle absolute bottom-97 right-18 flex items-center text-gray-400 cursor-pointer">
               {showPassword ? <FaEye /> : <FaEyeSlash />}
             </div>
           </div>
@@ -97,7 +97,7 @@ const SignUpPage: React.FC<{ toggleAuth: () => void }> = ({ toggleAuth }) => {
               onChange={(e) => setConfirmPassword(e.target.value)}
               required
             />
-            <div onClick={() => setShowConfirmPassword(!showConfirmPassword)} className="password-toggle absolute bottom-89 right-18 flex items-center text-gray-400 cursor-pointer ">
+            <div onClick={() => setShowConfirmPassword(!showConfirmPassword)} className="password-toggle absolute bottom-79 right-18 flex items-center text-gray-400 cursor-pointer ">
               {showConfirmPassword ? <FaEye /> : <FaEyeSlash />}
             </div>
           </div>
