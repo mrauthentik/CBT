@@ -13,37 +13,26 @@ import { ThreeDots } from 'react-loader-spinner';
 const Container = styled.div`
   display: flex;
   min-height: 100vh;
-  background: linear-gradient(to bottom, #fff, #008080);
-  background-size: 200% 200%;
-  animation: gradientAnimation 10s ease infinite;
-
-  @keyframes gradientAnimation {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-  }
+  background: linear-gradient(to bottom, #f8fafc, #d1fae5);
+  padding: 1rem;
 `;
 
 const Header = styled.header`
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
   width: 100%;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-  background-color: rgba(255, 255, 255, 0.7);
-`;
-
-const UserInfo = styled.div`
-  display: flex;
-  align-items: center;
+  background-color: #fff;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
 `;
 
 const Content = styled.main`
   flex: 1;
   padding: 2rem;
   overflow-y: auto;
-  margin-left: 250px;
   transition: margin-left 0.3s ease-in-out;
 `;
 
@@ -51,130 +40,84 @@ const Title = styled.h2`
   text-align: center;
   margin-bottom: 2rem;
   color: #333;
-  font-size: 2rem;
+  font-size: 2.2rem;
   font-weight: 700;
 `;
 
-const Welcome = styled.h2`
-  margin-bottom: 1rem;
-  color: #333;
-`;
-
-const ErrorMessage = styled.div`
-  color: red;
-  text-align: center;
-  margin: 1rem 0;
-`;
-
-const LoadingContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  width: 100%;
-`;
-
-const ScoreTable = styled.table`
-  width: 100%;
-  border-collapse: collapse;
+const ChartContainer = styled.div`
+  background: white;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   margin-top: 2rem;
 `;
 
-const ScoreRow = styled.tr`
+const ScoreTable = styled.div`
+  overflow-x: auto;
+  background: white;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  margin-top: 2rem;
+`;
+
+const Table = styled.table`
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 600px;
+`;
+
+const TableHeader = styled.th`
+  background: #008080;
+  color: white;
+  padding: 12px;
+  text-align: left;
+`;
+
+const TableRow = styled.tr`
+  &:nth-of-type(even) {
+    background: #f3f4f6;
+  }
+`;
+
+const TableCell = styled.td`
+  padding: 12px;
   border-bottom: 1px solid #ddd;
 `;
 
-const ScoreCell = styled.td`
-  padding: 0.5rem;
-  text-align: center;
-`;
-
-const ScoreValue = styled.span<{ score: number }>`
-  color: ${({ score }) => {
-    if (score >= 80) return "green";
-    if (score >= 50) return "orange";
-    return "red";
-  }};
-  font-weight: bold;
-`;
-
-interface ProgressData {
-  date: string;
-  score: number;
-  course: string;
-}
-
 const Dashboard: React.FC = () => {
   const [fullName, setFullName] = useState<string>("");
-  const [firstName, setFirstName] = useState<string>("");
-  const [lastName, setLastName] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
-  const [progressLoading, setProgressLoading] = useState<boolean>(false);
-  const [progressData, setProgressData] = useState<ProgressData[]>([]);
-  const [error, setError] = useState<string | null>(null);
+  const [progressData, setProgressData] = useState<{ date: string; score: number; course: string }[]>([]);
   const [userId, setUserId] = useState<string | null>(null);
 
-  // Auth state listener
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setUserId(user.uid);
         setFullName(user.displayName || "User");
-        const nameParts = user.displayName?.split(" ") || ["User"];
-        setFirstName(nameParts[0] || "");
-        setLastName(nameParts.length > 1 ? nameParts[nameParts.length - 1] : "");
-      } else {
-        setError("Please log in to view your dashboard.");
       }
       setLoading(false);
     });
-
     return () => unsubscribe();
   }, []);
 
-  // Real-time listener for progress data
   useEffect(() => {
     if (!userId) return;
-
-    setProgressLoading(true);
     const progressRef = collection(db, `users/${userId}/progress`);
-
-    const unsubscribe = onSnapshot(
-      progressRef,
-      (snapshot) => {
-        const data: ProgressData[] = snapshot.docs
-          .map((doc) => ({
-            date: doc.data().date,
-            score: doc.data().score,
-            course: doc.data().courseId
-          }))
-          .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
-        setProgressData(data);
-        setProgressLoading(false);
-      },
-      (err) => {
-        console.error("Error fetching progress data:", err);
-        setError("Failed to load progress data.");
-        setProgressLoading(false);
-      }
-    );
-
+    const unsubscribe = onSnapshot(progressRef, (snapshot) => {
+      const data = snapshot.docs.map((doc) => doc.data() as { date: string; score: number; course: string })
+        .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+      setProgressData(data);
+    });
     return () => unsubscribe();
   }, [userId]);
 
   if (loading) {
     return (
-      <LoadingContainer>
-        <ThreeDots
-          color="#3B82F6"
-          height={80}
-          width={80}
-          ariaLabel="three-dots-loading"
-          wrapperStyle={{}}
-          wrapperClass=""
-          visible={true}
-        />
-      </LoadingContainer>
+      <Container>
+        <ThreeDots color="#3B82F6" height={80} width={80} />
+      </Container>
     );
   }
 
@@ -183,52 +126,34 @@ const Dashboard: React.FC = () => {
       <SideBar />
       <Content>
         <Header>
-          <UserInfo>
-            <User />
-          </UserInfo>
+          <h2>Welcome, {fullName}!</h2>
+          <User />
         </Header>
         <ToastContainer />
-        <Title>Dashboard</Title>
-        <Welcome>Hello 👋, {fullName || "User"}!</Welcome>
-        <h2>User Progress</h2>
-        {error && <ErrorMessage>{error}</ErrorMessage>}
-        {progressLoading ? (
-          <LoadingContainer>
-            <ThreeDots
-              color="#3B82F6"
-              height={50}
-              width={50}
-              ariaLabel="three-dots-loading"
-              visible={true}
-            />
-          </LoadingContainer>
-        ) : progressData.length > 0 ? (
-          <>
-            <UserProgressChart data={progressData} />
-            <ScoreTable>
-              <thead>
-                <tr>
-                  <th>Date</th>
-                  <th>Course</th>
-                  <th>Score</th>
-                </tr>
-              </thead>
-              <tbody>
-                {progressData.map((entry, index) => (
-                  <ScoreRow key={index}>
-                    <ScoreCell>{entry.date}</ScoreCell>
-                    <ScoreCell>{entry.course} </ScoreCell>
-                    <ScoreCell>
-                      <ScoreValue score={entry.score}>{entry.score}</ScoreValue>
-                    </ScoreCell>
-                  </ScoreRow>
-                ))} 
-              </tbody>
-            </ScoreTable>
-          </>
-        ) : (
-          <p>No progress data available.</p>
-        )}
+        <Title>User Progress</Title>
+        <ChartContainer>
+          <UserProgressChart data={progressData} />
+        </ChartContainer>
+        <ScoreTable>
+          <Table>
+            <thead>
+              <tr>
+                <TableHeader>Date</TableHeader>
+                <TableHeader>Course</TableHeader>
+                <TableHeader>Score</TableHeader>
+              </tr>
+            </thead>
+            <tbody>
+              {progressData.map((entry, index) => (
+                <TableRow key={index}>
+                  <TableCell>{entry.date}</TableCell>
+                  <TableCell>{entry.course}</TableCell>
+                  <TableCell>{entry.score}</TableCell>
+                </TableRow>
+              ))}
+            </tbody>
+          </Table>
+        </ScoreTable>
       </Content>
     </Container>
   );
