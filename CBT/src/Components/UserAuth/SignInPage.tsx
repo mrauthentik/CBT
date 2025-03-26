@@ -72,7 +72,7 @@ const SignInPage: React.FC<{ toggleAuth: () => void }> = ({ toggleAuth }) => {
               required
             />
             <div onClick={() => setShowPassword(!showPassword)} className="toggle-password">
-              {showPassword ? <FaEyeSlash /> : <FaEye />}
+              {showPassword ? <FaEye /> : <FaEyeSlash />}
             </div>
           </div>
           <button type="submit" className="signin-btn bg-teal-600" disabled={loading}>
