@@ -23,7 +23,7 @@ const ForgetPsw = () => {
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100 px-4">
-      <div className="bg-white p-10 md:p-12 rounded-lg shadow-md w-full max-w-md">
+      <div className="bg-white p-12 md:p-12 rounded-lg shadow-md w-full max-w-md ">
         <ToastContainer />
         <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">Forget Password</h2>
         <p className="text-center text-gray-600 mb-8">
