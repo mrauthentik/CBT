@@ -20,8 +20,8 @@ const Container = styled.div`
 const Header = styled.header`
   display: flex;
   justify-content: space-between;
+  tetx-align: center;
   align-items: center;
-  padding: 1rem 2rem;
   width: 100%;
   background-color: #fff;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
@@ -116,7 +116,7 @@ const Dashboard: React.FC = () => {
   if (loading) {
     return (
       <Container>
-        <ThreeDots color="#3B82F6" height={80} width={80} />
+        <ThreeDots color="#3B82F6" height={50} width={80} />
       </Container>
     );
   }
@@ -126,7 +126,7 @@ const Dashboard: React.FC = () => {
       <SideBar />
       <Content>
         <Header>
-          <h2>Welcome, {fullName}!</h2>
+          <h2 className="text-center font-bold ">Welcome, {fullName}! 👋</h2>
           <User />
         </Header>
         <ToastContainer />
