@@ -1,4 +1,4 @@
-import router from "../../Routes/Router";
+// import router from "../../Routes/Router";
 
 import { doc, getDoc } from 'firebase/firestore';
 import { signInWithEmailAndPassword } from "firebase/auth";
@@ -45,11 +45,6 @@ export const loginUser = async (email: string, password: string): Promise<void> 
     } else {
       console.error("No user data found in Firestore!");
     }
-
-    
-    
-    
-    
 
   } catch (error: unknown) {
     if (error instanceof FirebaseError) {
