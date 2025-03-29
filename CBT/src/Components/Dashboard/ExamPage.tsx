@@ -226,7 +226,7 @@ const handleExplanation = async (questionId: string, question:string, correctAns
   const totalQuestions = questions.length
   const answeredQuestions = Object.keys(answers).length
   const unansweredQuestions = totalQuestions - answeredQuestions
-  const progressPercentage = (answeredQuestions / totalQuestions) * 70
+  const progressPercentage = (answeredQuestions / totalQuestions) * 100
 
   return (
     <div>
