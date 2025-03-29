@@ -183,6 +183,7 @@ const handleExplanation = async (questionId: string, question:string, correctAns
       const remark = getRemark(percentage);
 
       toast.success(`Exam submitted! You scored ${finalScore} out of ${questions.length}.`);
+      console.log(remark)
       setShowAnswers(true);
     } catch (error) {
       console.error("Error saving progress data:", error);
