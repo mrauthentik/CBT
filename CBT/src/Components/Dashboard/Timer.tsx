@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import "bootstrap-icons/font/bootstrap-icons.css";
 
 interface TimerProps {
   initialTime: number;
@@ -6,7 +7,7 @@ interface TimerProps {
   stopTimer: boolean;
 }
 
-export const Timer: React.FC<TimerProps> = ({ initialTime, onTimeUp,  }) => {
+export const Timer: React.FC<TimerProps> = ({ initialTime, onTimeUp }) => {
   const [timeLeft, setTimeLeft] = useState(initialTime);
 
   useEffect(() => {
@@ -14,26 +15,29 @@ export const Timer: React.FC<TimerProps> = ({ initialTime, onTimeUp,  }) => {
       onTimeUp();
       return;
     }
-  
-   
 
     const timerId = setInterval(() => {
       setTimeLeft((prevTime) => prevTime - 1);
     }, 1000);
 
     return () => clearInterval(timerId);
-  }, [timeLeft, onTimeUp,]);
+  }, [timeLeft, onTimeUp]);
 
   const minutes = Math.floor(timeLeft / 60);
   const seconds = timeLeft % 60;
-  
+
   const timerStyle = {
     color: timeLeft < 70 ? "red" : "black",
-  }
+  };
 
   return (
-    <div className="timer" style={timerStyle}>
-      Time left: {minutes}:{String(seconds).padStart(2, "0")}
+    <div className="timer flex items-center gap-2" style={timerStyle}>
+      {/* Alarm Clock Icon - color changes with time */}
+      <i
+        className="bi bi-alarm-fill text-2xl"
+        style={{ color: timeLeft < 70 ? "red" : "#008080" }}
+      ></i>
+      {minutes}:{String(seconds).padStart(2, "0")}
     </div>
   );
 };
