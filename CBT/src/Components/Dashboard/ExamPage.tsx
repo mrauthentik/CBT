@@ -105,7 +105,7 @@ const getExplanation = async (questions: string, correctAnswer:string) => {
      const prompt = ` Provide a **short and clear explanation** for why "${correctAnswer}" is the correct answer to "${questions}".
                        Format response in **HTML tags** like <b>bold</b>, <h3>headings</h3>, and <ul><li>lists</li></ul> if necessary. 
                        if the ${correctAnswer} is a fill in the blank and person has fill in the correct thing but probabaly was not case sensitive and his case senstivity for
-                       his ${answers} does not match the ${correctAnswer}
+                       his ${answers} does not match the ${correctAnswer}, 
                        or the user used a different word order,
                         and also the user spelling was not right or the user used a synonym of the correct answer,
                         or the user use punctuation mark when not necessary or at the wrong place, or the user use a space in the wrong place, Please clearly tell
