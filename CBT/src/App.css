@@ -1,31 +1,27 @@
 @import "tailwindcss";
-@tailwind base;
-@tailwind components;
 @tailwind utilities;
 
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins';
-  }
-  :root{
-    --footer-color:#041a1a;
+* {
+  box-sizing: border-box;
+  font-family: "Poppins";
+}
+:root {
+  --footer-color: #041a1a;
 }
 
-  /* style for NavBar */
-  .navbar{
-    width: 100%;
-    height: 70px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px;
-    padding-inline: 150px;
-    position: sticky;
-    background-color: teal;
-  }
-  /*
+/* style for NavBar */
+.navbar {
+  width: 100%;
+  height: 70px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px;
+  padding-inline: 150px;
+  position: sticky;
+  background-color: teal;
+}
+/*
   .links{
     display: flex;
     gap: 16px;
@@ -40,7 +36,7 @@
     color:white;
 }
 */
-.nav-button{
+.nav-button {
   border: none;
   background-color: teal;
   color: white;
@@ -52,20 +48,20 @@
   transition: transform o.5s eaes;
   cursor: pointer;
 }
-.nav-button{
+.nav-button {
   transform: scale(1.1);
 }
-@media (max-width:760px) {
-  .navbar{
+@media (max-width: 760px) {
+  .navbar {
     display: flex;
     gap: 10px;
     justify-content: space-between;
   }
-  .nav-button{
+  .nav-button {
     width: 100%;
     margin-left: 2rem;
   }
-  .logo{
+  .logo {
     margin-left: -3rem;
   }
 }
@@ -76,19 +72,19 @@
   color: black;
 }
 
-.dashboard{
-    background-color: teal;
-    color: black;
+.dashboard {
+  background-color: teal;
+  color: black;
 }
 /* HERO section styling */
 /* HERO section styling */
-.main{
+.main {
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 32px;  
+  gap: 32px;
 }
-.hero{
+.hero {
   width: 100%;
   height: 40vh;
   display: flex;
@@ -98,111 +94,107 @@
   gap: 12px;
   background-color: teal;
 }
-.wave{
+.wave {
   margin-top: 17rem;
   position: absolute;
   z-index: -1;
 }
-@media (max-width:2000px) {
-  .wave{
+@media (max-width: 2000px) {
+  .wave {
     margin-top: 15rem;
     position: absolute;
     z-index: -1;
   }
-  
 }
-@media (max-width:720px) {
-     .wave{
-      display: none;
-     }
-     .hero{
-      width: 60vh;
-     }
+@media (max-width: 720px) {
+  .wave {
+    display: none;
+  }
+  .hero {
+    width: 60vh;
+  }
 }
-  .heading{
-    text-align: center;
-    color: white;
-    font-size: 50px;
+.heading {
+  text-align: center;
+  color: white;
+  font-size: 50px;
+}
+.para {
+  text-align: center;
+  color: white;
+}
+
+.feat {
+  width: 100%;
+  padding-inline: 150px;
+  display: flex;
+  align-items: center;
+  gap: 50px;
+  justify-content: center;
+  margin-bottom: 0;
+}
+.features {
+  width: 100%;
+  padding-inline: 150px;
+  display: flex;
+  align-items: center;
+  gap: 50px;
+  justify-content: center;
+  margin-top: 0;
+}
+.box {
+  width: 400px;
+  height: 200px;
+  padding: 16px;
+  box-shadow: 0 0 2px 0 rgb(11, 70, 11);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  border-radius: 4px;
+  background-color: whitesmoke;
+  transition: trasform o.5s linear;
+  margin-top: 30px;
+}
+
+@media (max-width: 760px) {
+  .feat {
+    display: block;
+    width: 100%;
   }
-  .para{
-    text-align: center;
-    color: white;
+  .box {
+    width: 300%;
+    margin-left: -2rem;
   }
+}
+.box:hover {
+  transform: scale(1.1);
+  background-color: teal;
+  color: white;
+  transition: 0.8s;
+}
+.box:hover p,
+.box:hover small,
+.box:hover i {
+  color: white;
+}
 
-  .feat{
-          width: 100%;
-          padding-inline: 150px;
-          display: flex;
-          align-items: center;
-          gap: 50px;
-          justify-content: center;
-          margin-bottom: 0;
-        }
-        .features{
-          width: 100%;
-          padding-inline: 150px;
-          display: flex;
-          align-items: center;
-          gap: 50px;
-          justify-content: center;
-          margin-top: 0;
-        }
-            .box{
-                width: 400px;
-                height: 200px;
-                padding: 16px;
-                box-shadow: 0 0 2px 0 rgb(11, 70, 11);
-                display: flex;
-                flex-direction: column;
-                gap: 20px;
-                border-radius: 4px;
-                background-color: whitesmoke;
-                transition: trasform o.5s linear;
-                margin-top: 30px;
-            }
-            
-                
-                
-            
-    @media (max-width:760px) {
-          .feat{
-            display: block;
-            width: 100%;
-          } 
-          .box{
-            width: 300%;
-            margin-left: -2rem;
-          }     
-    }
-            .box:hover {
-              transform: scale(1.1);
-              background-color: teal;
-              color: white;
-              transition: 0.8s;
-            }
-            .box:hover p,
-            .box:hover small,
-            .box:hover i{
-              color: white;
-            }
-            
-            .box p{
-              font-size: 20px;
-              font-weight: bold;
-              color: teal;
-          }
-          
-          .box small {
-            font-size: 15px;
-            color: teal;
-          }
+.box p {
+  font-size: 20px;
+  font-weight: bold;
+  color: teal;
+}
 
-            .box i{
-                color: teal;
-                font-size: 15px;
-            }
+.box small {
+  font-size: 15px;
+  color: teal;
+}
 
-       /* ABOUT CONTAINER */
+.box i {
+  color: teal;
+  font-size: 15px;
+}
+
+/* ABOUT CONTAINER */
 .about {
   margin-top: 15rem;
   padding: 2rem 5rem;
@@ -219,11 +211,10 @@
   position: relative;
   display: flex;
   align-items: center;
-  
 }
 
 .img-box {
-  border:  4px solid teal;
+  border: 4px solid teal;
   position: absolute;
   width: 25rem;
   height: 8rem;
@@ -235,7 +226,6 @@
 .img-container {
   position: relative;
   width: 100%;
-  
 }
 
 .img-container::before {
@@ -246,13 +236,12 @@
   width: 100%;
   height: 100%;
   background: linear-gradient(
-        rgba(0, 100, 100, 0.8),  /* Darker teal at the top */
-        rgba(0, 100, 100, 0.5)  /* Lighter teal at the bottom */
+    rgba(0, 100, 100, 0.8),
+    /* Darker teal at the top */ rgba(0, 100, 100, 0.5)
+      /* Lighter teal at the bottom */
   );
   /* opacity: 0.2; */
-
 }
-
 
 .about-img {
   width: 400px; /* Adjust based on actual image size */
@@ -271,10 +260,10 @@
   padding: 2rem;
   padding-left: 8rem;
   background: white; /* Ensures contrast with the shadow */
-    border-radius: 15px; /* Rounded corners */
-    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2); /* Soft shadow */
-    text-align: left;
-    z-index: -2;
+  border-radius: 15px; /* Rounded corners */
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2); /* Soft shadow */
+  text-align: left;
+  z-index: -2;
 }
 
 .about h2 {
@@ -295,9 +284,7 @@
   margin-top: 10px;
   font-size: 16px;
   line-height: 1.6;
-
 }
-
 
 .sigin {
   display: flex;
@@ -386,7 +373,7 @@
   text-decoration: underline;
 }
 
- /* Team Section */
+/* Team Section */
 .team {
   padding: 50px 20px;
   text-align: center;
@@ -480,7 +467,7 @@
     width: 120px;
     height: 120px;
   }
-}         
+}
 /* FAQ Section */
 .faq {
   padding: 50px 20px;
@@ -534,7 +521,7 @@
 }
 
 .faq-question::after {
-  content: '+';
+  content: "+";
   position: absolute;
   right: 20px;
   font-size: 1.5rem;
@@ -542,7 +529,7 @@
 }
 
 .faq-toggle:checked + .faq-question::after {
-  content: '−';
+  content: "−";
   transform: rotate(180deg);
 }
 
@@ -699,136 +686,138 @@
   }
 }
 
-  .logoOut-btn{
-    background-color: rgb(114, 13, 8);
-    color: rgb(252, 252, 235);
-    border: none;
-    padding: 5px;
-    width: 60%;
-    border-radius: 10px;
-    cursor: pointer;
-  }
-  .logoOut-btn:hover{
-     background-color: red;
-     color: white;
-     transition: 0.3s;
-  }
+.logoOut-btn {
+  background-color: rgb(114, 13, 8);
+  color: rgb(252, 252, 235);
+  border: none;
+  padding: 5px;
+  width: 60%;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.logoOut-btn:hover {
+  background-color: red;
+  color: white;
+  transition: 0.3s;
+}
 
-  .user{
-    font-size: 2rem;
-    color: grey;
-    display: block;
-     margin-left: 50rem;
-     p{
-      margin-top: -10px;
-      font-size: 15px;
-     }
+.user {
+  font-size: 2rem;
+  color: grey;
+  display: block;
+  margin-left: 50rem;
+  p {
+    margin-top: -10px;
+    font-size: 15px;
   }
-  
-  .courses-container,.settings,.user-info{
-    background: linear-gradient(to bottom, #fff, #008080); 
-    background-size: 200% 200%;
-    min-height: 100vh;
-    animation: gradientAnimation 10s ease infinite; 
-  
-    @keyframes gradientAnimation {
-      0% {
-        background-position: 0% 50%;
-      }
-      50% {
-        background-position: 100% 50%;
-      }
-      100% {
-        background-position: 0% 50%;
-      }
+}
+
+.courses-container,
+.settings,
+.user-info {
+  background: linear-gradient(to bottom, #fff, #008080);
+  background-size: 200% 200%;
+  min-height: 100vh;
+  animation: gradientAnimation 10s ease infinite;
+
+  @keyframes gradientAnimation {
+    0% {
+      background-position: 0% 50%;
     }
-  
-  }
-  .courses{
-    padding-left: 20rem;
-    padding: 20px;
-    overflow-y: auto;
-    flex: 1;
-  }
-  .courses{
-    padding-top: 5rem;
-    h2{
-      color: teal;
-      padding: 1rem 0rem;
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
     }
   }
-  .course-container,.settings-container,.user-info-container{
-    margin-left:20rem;
+}
+.courses {
+  padding-left: 20rem;
+  padding: 20px;
+  overflow-y: auto;
+  flex: 1;
+}
+.courses {
+  padding-top: 5rem;
+  h2 {
+    color: teal;
+    padding: 1rem 0rem;
   }
-  .courses-container {
-    display: flex;
-    min-height: 100vh;
-    /* Add any additional styling you want for the container */
-  }
-  
-  .loading-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    width: 100%;
-  }
+}
+.course-container,
+.settings-container,
+.user-info-container {
+  margin-left: 20rem;
+}
+.courses-container {
+  display: flex;
+  min-height: 100vh;
+  /* Add any additional styling you want for the container */
+}
 
- fieldset{
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  width: 100%;
+}
+
+fieldset {
   padding: 2rem;
   border-radius: 10px;
-  li{
+  li {
     margin-top: 10px;
     cursor: pointer;
     text-decoration: underline;
-    span{
+    span {
       color: brown;
     }
   }
-  li:hover{
+  li:hover {
     text-transform: uppercase;
     font-size: 18px;
     transition: 0.2s;
   }
- }
- .search-input{
+}
+.search-input {
   padding: 10px;
   width: 100%;
   margin-bottom: 10px;
   outline: none;
   caret-color: green;
- }
+}
 
- .Sidebar{
+.Sidebar {
   width: 250px;
-  height:100vh;
-  background-color: rgba(255, 255, 255, 0.7); 
+  height: 100vh;
+  background-color: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(5px);
   padding: 20px;
   display: flex;
   flex-direction: column;
-  position:fixed;
- }
+  position: fixed;
+}
 
-.logo-container{
+.logo-container {
   display: flex;
   align-items: center;
-  margin-bottom: 20px; 
+  margin-bottom: 20px;
   justify-content: center;
 }
 
-.logo{
+.logo {
   width: 80px;
   height: auto;
 }
 
-.nav-links{
+.nav-links {
   display: flex;
   flex-direction: column;
 }
 
-
-.style-nav{
+.style-nav {
   text-decoration: none;
   color: #333;
   padding: 10px;
@@ -847,16 +836,11 @@
   }
 }
 
-
-.exam-container{
-  padding-top: 4rem;
-  padding-left: 20rem;
-}
-.user-name{
+.user-name {
   padding-left: 70rem;
   padding-top: 1rem;
 }
-.option{
+.option {
   display: block;
 }
 .progress-container {
@@ -876,53 +860,44 @@
   background-color: #4caf50;
   transition: width 0.3s ease-in-out;
 }
-.instruction-container{
-  margin:auto;
+.instruction-container {
+  margin: auto;
   background-color: white;
   width: 50%;
   padding: 3rem;
-  border-radius:20px ;
-  box-shadow: 10px 2px 182px -73px rgba(0,0,0,0.97);
+  border-radius: 20px;
+  box-shadow: 10px 2px 182px -73px rgba(0, 0, 0, 0.97);
 
-  ul{
+  ul {
     list-style-type: none;
     font-size: 13px;
-    
-    
-
-    
   }
-  h2{
+  h2 {
     color: teal;
     margin-bottom: 20px;
-    
   }
-  button{
-   padding: 8px;
-   border: none;
-   border-radius: 4px; 
-   margin-top: 2rem;
-   background-color: teal;
-   color: white;
-   
+  button {
+    padding: 8px;
+    border: none;
+    border-radius: 4px;
+    margin-top: 2rem;
+    background-color: teal;
+    color: white;
   }
-  button:hover{
-    border:solid 1px teal;
+  button:hover {
+    border: solid 1px teal;
     background-color: transparent;
-  font-weight: bold;
+    font-weight: bold;
     color: teal;
-   }  
-   span{
+  }
+  span {
     color: teal;
     font-size: 15px;
-   }
-  li{
+  }
+  li {
     margin-bottom: 10px;
   }
-  
 }
-
-
 
 /* AI Styling */
 /* AI Explanation Container */
@@ -939,7 +914,7 @@
   color: green;
 }
 
-.remark{
+.remark {
   font-size: 1.2rem;
   font-weight: bold;
   margin-top: 10px;
@@ -992,7 +967,6 @@
   margin-top: 5px;
 }
 
-
 /* Side bar hambuger styling */
 .Sidebar {
   position: fixed;
@@ -1026,8 +1000,6 @@
   margin: 10px;
   align-self: flex-start;
 }
-
-
 
 .logo-container {
   text-align: center;
@@ -1084,7 +1056,4 @@
   display: none;
 }
 
-
-
 /* Progress Styling*/
-

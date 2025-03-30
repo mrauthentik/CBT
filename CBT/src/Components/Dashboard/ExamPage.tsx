@@ -249,10 +249,12 @@ const handleExplanation = async (questionId: string, question:string, correctAns
           </button>
       </div>
     ):(
-       <div className="exam-container">
-        <div className="flex justify-between items-center bg-white py-5 px-5 center rounded-lg">
+       <div className="exam-container  pt-[4rem] pl-[20rem]  min-h-screen bg-gray-100  ">
+
+        <div className="exam-header flex justify-between items-center bg-white py-5 px-5 center rounded-lg shadow-md w-full">
+
           <h2>Exam for {courseId}</h2>
-          <Timer stopTimer initialTime={questionLoaded ? examTime : 600} onTimeUp={handleSubmit} />
+          <Timer stopTimer initialTime={examTime} onTimeUp={handleSubmit} />
         </div>
      {loading ?(
          <p> loading questions .... </p>
@@ -261,7 +263,7 @@ const handleExplanation = async (questionId: string, question:string, correctAns
      ): (
  
  
-       <div className="question-list py-5 px-5 mt-5 center rounded-lg bg-white">
+       <div className="question-list py-5 px-5 mt-5 center rounded-lg bg-white shadow-lg">
          <div className="progress-container">
            <p>
              <strong>{answeredQuestions}</strong> answered | <strong>{unansweredQuestions}</strong> 
@@ -282,7 +284,7 @@ const handleExplanation = async (questionId: string, question:string, correctAns
              <div className="options">
                  
                {question?.options?.map((option, index) => (
-                 <label key={index} className="option mb-3">
+                 <label key={index} className="option mb-1">
                    
                    <input
                      type="radio"
@@ -364,9 +366,10 @@ const handleExplanation = async (questionId: string, question:string, correctAns
      {/* This code show score and retake button */}
 
        {score === null ? (
-         <button onClick={handleSubmit} className="submit-btn max-h-fit bg-[#008080] text-white px-4 py-2 rounded-md hover:bg-[#006666] cursor-pointer mt-5 mb-5">
+         <button onClick={handleSubmit} className="submit-btn  max-h-fit bg-[#008080] text-white px-4 py-2 rounded-md hover:bg-[#006666] cursor-pointer mt-5 mb-5">
            Submit Exam
          </button>
+        
        ) : (
          <>
          <h3>Your Score: {score} / {questions.length}</h3>
