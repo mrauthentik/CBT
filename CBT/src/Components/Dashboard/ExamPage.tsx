@@ -120,7 +120,7 @@ const ExamPage: React.FC = () => {
       const prompt = ` Provide a **short and clear explanation** for why "${correctAnswer}" is the correct answer to "${questions}".
                        Format response in **HTML tags** like <b>bold</b>, <h3>headings</h3>, and <ul><li>lists</li></ul> if necessary. 
                        if the ${correctAnswer} is a fill in the blank and person has fill in the correct thing but probabaly was not case sensitive and his case senstivity for
-                       his ${answers} does not match the ${correctAnswer}
+                       his ${answers} does not match the ${correctAnswer}, 
                        or the user used a different word order,
                         and also the user spelling was not right or the user used a synonym of the correct answer,
                         or the user use punctuation mark when not necessary or at the wrong place, or the user use a space in the wrong place, Please clearly tell
@@ -211,6 +211,9 @@ const ExamPage: React.FC = () => {
       toast.success(
         `Exam submitted! You scored ${finalScore} out of ${questions.length}.`
       );
+
+      console.log(remark)
+
       setShowAnswers(true);
     } catch (error) {
       console.error("Error saving progress data:", error);
@@ -248,10 +251,11 @@ const ExamPage: React.FC = () => {
   };
 
   //this code is to caclulate Exam Progress
-  const totalQuestions = questions.length;
-  const answeredQuestions = Object.keys(answers).length;
-  const unansweredQuestions = totalQuestions - answeredQuestions;
-  const progressPercentage = (answeredQuestions / totalQuestions) * 70;
+
+  const totalQuestions = questions.length
+  const answeredQuestions = Object.keys(answers).length
+  const unansweredQuestions = totalQuestions - answeredQuestions
+  const progressPercentage = (answeredQuestions / totalQuestions) * 100
 
   return (
     <div>
