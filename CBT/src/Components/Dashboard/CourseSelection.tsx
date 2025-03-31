@@ -52,7 +52,7 @@ const CourseSelection: React.FC = () =>{
                     placeholder="Search courses by name or course code.."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="search-input"
+                    className="search-input border border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500 rounded-md p-2 w-full"
                 />
 
             <ul>
