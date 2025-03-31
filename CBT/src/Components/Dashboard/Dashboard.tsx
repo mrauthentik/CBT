@@ -15,6 +15,10 @@ const Container = styled.div`
   min-height: 100vh;
   background: linear-gradient(to bottom, #f8fafc, #d1fae5);
   padding: 1rem;
+
+   @media (max-width: 1024px) {
+    flex-direction: column; /* Stack sidebar & content on smaller screens */
+  }
 `;
 
 const Header = styled.header`
@@ -27,6 +31,8 @@ const Header = styled.header`
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   margin-bottom: 1.5rem;
+
+  
 `;
 
 const Content = styled.main`
@@ -34,6 +40,19 @@ const Content = styled.main`
   padding: 2rem;
   overflow-y: auto;
   transition: margin-left 0.3s ease-in-out;
+
+  @media (min-width: 1024px) {
+    padding-left: 16rem; /* Adjust based on sidebar width */
+  }
+
+  @media (max-width: 1024px) {
+    padding-left: 2rem; /* Reduce padding on tablets */
+  }
+
+  @media (max-width: 768px) {
+    padding-left: 1rem; /* Minimal padding on mobile */
+  }
+
 `;
 
 const Title = styled.h2`

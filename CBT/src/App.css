@@ -750,6 +750,7 @@
 .user-info-container {
   margin-left: 20rem;
 }
+
 .courses-container {
   display: flex;
   min-height: 100vh;
@@ -837,9 +838,13 @@ fieldset {
 }
 
 .user-name {
-  padding-left: 70rem;
-  padding-top: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 1rem;
+  width: 100%; 
 }
+
 .option {
   display: block;
 }
