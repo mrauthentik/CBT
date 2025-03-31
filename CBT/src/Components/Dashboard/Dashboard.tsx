@@ -9,6 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import UserProgressChart from "./UserProgressChart";
 import User from "./UserName";
 import { ThreeDots } from 'react-loader-spinner';
+import { BiNoEntry } from "react-icons/bi";
 
 const Container = styled.div`
   display: flex;
@@ -107,7 +108,7 @@ const TableCell = styled.td`
 const Dashboard: React.FC = () => {
   const [fullName, setFullName] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
-  const [progressData, setProgressData] = useState<{ date: string; score: number; course: string }[]>([]);
+  const [progressData, setProgressData] = useState<{ date: string; score: number; courseId: string }[]>([]);
   const [userId, setUserId] = useState<string | null>(null);
 
   useEffect(() => {
@@ -128,6 +129,7 @@ const Dashboard: React.FC = () => {
       const data = snapshot.docs.map((doc) => doc.data() as { date: string; score: number; course: string })
         .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
       setProgressData(data);
+      console.log('Fetched Progress Data are: ', data)
     });
     return () => unsubscribe();
   }, [userId]);
@@ -157,6 +159,7 @@ const Dashboard: React.FC = () => {
           <Table>
             <thead>
               <tr>
+                <TableHeader>S/N</TableHeader>
                 <TableHeader>Date</TableHeader>
                 <TableHeader>Course</TableHeader>
                 <TableHeader>Score</TableHeader>
@@ -165,11 +168,13 @@ const Dashboard: React.FC = () => {
             <tbody>
               {progressData.map((entry, index) => (
                 <TableRow key={index}>
+                  <TableCell>{index + 1}</TableCell>
                   <TableCell>{entry.date}</TableCell>
-                  <TableCell>{entry.course}</TableCell>
+                  <TableCell>{entry.courseId ?? 'N/A'}</TableCell>
                   <TableCell>{entry.score}</TableCell>
                 </TableRow>
-              ))}
+                
+              )) }
             </tbody>
           </Table>
         </ScoreTable>
