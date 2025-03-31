@@ -61,8 +61,9 @@ const CourseSelection: React.FC = () =>{
                 {filteredCourses.map((course, index) => {
                     console.log("Rendering:", course.CourseName)
                     return( 
+
                     <li title="Click to take Exam" key={course.id|| index}  onClick={()=> handleCourseSelect(course.id)}> 
-                    
+                      <span className="p-4"> {index + 1}</span>
                     {course.CourseName} <span>{course.CourseCode}</span> 
                       {/* <button onClick={()=> handleCourseSelect(course.id)}> Start</button> */}
                      </li>
