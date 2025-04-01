@@ -18,6 +18,7 @@ export const createUser = async (email: string, password: string, fullName:strin
           throw new Error('This email is already in use.')
         }
 
+        //Check authentication system for exisiting email
         
 
         //Create New user Account
