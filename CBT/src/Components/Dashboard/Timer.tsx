@@ -21,7 +21,7 @@ export const Timer: React.FC<TimerProps> = ({ initialTime, onTimeUp, stopTimer }
     }, 1000);
 
     return () => clearInterval(timerId);
-  }, [timeLeft, stopTimer,onTimeUp]);
+  }, [timeLeft, onTimeUp]);
 
   const minutes = Math.floor(timeLeft / 60);
   const seconds = timeLeft % 60;
@@ -29,8 +29,6 @@ export const Timer: React.FC<TimerProps> = ({ initialTime, onTimeUp, stopTimer }
   const timerStyle = {
     color: timeLeft < 70 ? "red" : "black",
   };
-
-  
 
   return (
     <div className="timer flex items-center gap-2" style={timerStyle}>
