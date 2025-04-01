@@ -3,12 +3,12 @@ import { onAuthStateChanged } from "firebase/auth";
 import { collection, onSnapshot } from "firebase/firestore";
 import { auth, db } from "../firebase";
 import SideBar from "../SideBar";
-import styled from '@emotion/styled';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import styled from "@emotion/styled";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import UserProgressChart from "./UserProgressChart";
 import User from "./UserName";
-import { ThreeDots } from 'react-loader-spinner';
+import { ThreeDots } from "react-loader-spinner";
 import { BiNoEntry } from "react-icons/bi";
 
 const Container = styled.div`
@@ -16,10 +16,6 @@ const Container = styled.div`
   min-height: 100vh;
   background: linear-gradient(to bottom, #f8fafc, #d1fae5);
   padding: 1rem;
-
-   @media (max-width: 1024px) {
-    flex-direction: column; /* Stack sidebar & content on smaller screens */
-  }
 `;
 
 const Header = styled.header`
@@ -32,28 +28,25 @@ const Header = styled.header`
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   margin-bottom: 1.5rem;
-
-  
 `;
 
 const Content = styled.main`
   flex: 1;
-  padding: 2rem;
+  padding: 2rem 0;
   overflow-y: auto;
   transition: margin-left 0.3s ease-in-out;
 
   @media (min-width: 1024px) {
-    padding-left: 16rem; /* Adjust based on sidebar width */
+    padding-left: 16rem;
   }
 
   @media (max-width: 1024px) {
-    padding-left: 2rem; /* Reduce padding on tablets */
+    padding-left: 10rem;
   }
 
   @media (max-width: 768px) {
-    padding-left: 1rem; /* Minimal padding on mobile */
+    padding-left: 3rem;
   }
-
 `;
 
 const Title = styled.h2`
@@ -108,7 +101,9 @@ const TableCell = styled.td`
 const Dashboard: React.FC = () => {
   const [fullName, setFullName] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
-  const [progressData, setProgressData] = useState<{ date: string; score: number; courseId: string }[]>([]);
+  const [progressData, setProgressData] = useState<
+    { date: string; score: number; courseId: string }[]
+  >([]);
   const [userId, setUserId] = useState<string | null>(null);
 
   useEffect(() => {
@@ -126,10 +121,15 @@ const Dashboard: React.FC = () => {
     if (!userId) return;
     const progressRef = collection(db, `users/${userId}/progress`);
     const unsubscribe = onSnapshot(progressRef, (snapshot) => {
-      const data = snapshot.docs.map((doc) => doc.data() as { date: string; score: number; course: string })
-        .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+      const data = snapshot.docs
+        .map(
+          (doc) => doc.data() as { date: string; score: number; course: string }
+        )
+        .sort(
+          (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+        );
       setProgressData(data);
-      console.log('Fetched Progress Data are: ', data)
+      console.log("Fetched Progress Data are: ", data);
     });
     return () => unsubscribe();
   }, [userId]);
@@ -147,8 +147,10 @@ const Dashboard: React.FC = () => {
       <SideBar />
       <Content>
         <Header>
-          <h2 className="text-center font-bold ">Welcome, {fullName}! 👋</h2>
-          <User />
+          <h2 className="text-center px-3 py-3 font-bold ">
+            Welcome, {fullName}! 👋
+          </h2>
+          <User className="hide-username-on-mobile" />
         </Header>
         <ToastContainer />
         <Title>User Progress</Title>
@@ -170,11 +172,10 @@ const Dashboard: React.FC = () => {
                 <TableRow key={index}>
                   <TableCell>{index + 1}</TableCell>
                   <TableCell>{entry.date}</TableCell>
-                  <TableCell>{entry.courseId ?? 'N/A'}</TableCell>
+                  <TableCell>{entry.courseId ?? "N/A"}</TableCell>
                   <TableCell>{entry.score}</TableCell>
                 </TableRow>
-                
-              )) }
+              ))}
             </tbody>
           </Table>
         </ScoreTable>
