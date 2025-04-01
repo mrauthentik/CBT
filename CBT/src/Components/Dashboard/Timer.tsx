@@ -7,11 +7,11 @@ interface TimerProps {
   stopTimer: boolean;
 }
 
-export const Timer: React.FC<TimerProps> = ({ initialTime, onTimeUp }) => {
+export const Timer: React.FC<TimerProps> = ({ initialTime, onTimeUp, stopTimer }) => {
   const [timeLeft, setTimeLeft] = useState(initialTime);
 
   useEffect(() => {
-    if (timeLeft <= 0) {
+    if (stopTimer || timeLeft <= 0) {
       onTimeUp();
       return;
     }
@@ -21,7 +21,7 @@ export const Timer: React.FC<TimerProps> = ({ initialTime, onTimeUp }) => {
     }, 1000);
 
     return () => clearInterval(timerId);
-  }, [timeLeft, onTimeUp]);
+  }, [timeLeft, stopTimer,onTimeUp]);
 
   const minutes = Math.floor(timeLeft / 60);
   const seconds = timeLeft % 60;
@@ -29,6 +29,8 @@ export const Timer: React.FC<TimerProps> = ({ initialTime, onTimeUp }) => {
   const timerStyle = {
     color: timeLeft < 70 ? "red" : "black",
   };
+
+  
 
   return (
     <div className="timer flex items-center gap-2" style={timerStyle}>
