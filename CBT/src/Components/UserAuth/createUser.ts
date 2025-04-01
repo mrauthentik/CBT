@@ -1,6 +1,6 @@
 
 import {auth,db} from '../firebase';
-import {createUserWithEmailAndPassword} from 'firebase/auth';
+import {createUserWithEmailAndPassword, fetchSignInMethodsForEmail} from 'firebase/auth';
 import {collection, doc, serverTimestamp, setDoc, getDocs, where, query} from "firebase/firestore"
 import router from '../../Routes/Router';
 import { updateProfile } from 'firebase/auth';
@@ -19,7 +19,10 @@ export const createUser = async (email: string, password: string, fullName:strin
         }
 
         //Check authentication system for exisiting email
-        
+        const signInMethods = await fetchSignInMethodsForEmail(auth, email)
+        if(signInMethods.length > 0){
+          toast.error('')
+        }
 
         //Create New user Account
         const userCredential =  await createUserWithEmailAndPassword (auth, email , password )
