@@ -228,7 +228,7 @@ const ExamPage: React.FC = () => {
     setScore(null);
     setShowAnswers(false);
     setExplanations({});
-    setExamTime(0)
+    setExamTime((prevState) => prevState)
     // setExamTime()
   };
 
