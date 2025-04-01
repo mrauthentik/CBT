@@ -212,7 +212,7 @@ const ExamPage: React.FC = () => {
         `Exam submitted! You scored ${finalScore} out of ${questions.length}.`
       );
 
-      console.log(remark)
+      console.log(remark);
 
       setShowAnswers(true);
     } catch (error) {
@@ -252,10 +252,10 @@ const ExamPage: React.FC = () => {
 
   //this code is to caclulate Exam Progress
 
-  const totalQuestions = questions.length
-  const answeredQuestions = Object.keys(answers).length
-  const unansweredQuestions = totalQuestions - answeredQuestions
-  const progressPercentage = (answeredQuestions / totalQuestions) * 100
+  const totalQuestions = questions.length;
+  const answeredQuestions = Object.keys(answers).length;
+  const unansweredQuestions = totalQuestions - answeredQuestions;
+  const progressPercentage = (answeredQuestions / totalQuestions) * 100;
 
   return (
     <div>
@@ -303,9 +303,12 @@ const ExamPage: React.FC = () => {
           </button>
         </div>
       ) : (
-        <div className="exam-container flex flex-col justify-center items-center  pt-[4rem] pl-[5rem] md:pl-[7rem] lg:pl-[12rem] xl:pl-[20rem] min-h-screen bg-gray-100 ">
-
-          <div className="w-full px-3">
+        <div
+          className="exam-container flex flex-col justify-center items-center 
+    pt-[4rem] pl-[4rem] md:pl-[7rem] lg:pl-[12rem] xl:pl-[20rem] 
+    pr-4 md:pr-10 min-h-screen bg-gray-100"
+        >
+          <div className="w-full">
             <div className="flex justify-between items-center w-full bg-white py-5 px-5 rounded-lg shadow-md">
               <h2 className="text-xl font-semibold">Exam for {courseId}</h2>
               <Timer stopTimer initialTime={examTime} onTimeUp={handleSubmit} />
@@ -438,29 +441,29 @@ const ExamPage: React.FC = () => {
           {/* This code show score and retake button */}
 
           {score === null ? (
-           <div className="w-full px-3">
-           <button
-              onClick={handleSubmit}
-              className="submit-btn  max-h-fit bg-[#008080] text-white px-4 py-2 rounded-md hover:bg-[#006666] cursor-pointer mt-5 mb-5"
-            >
-              Submit Exam
-            </button>
+            <div className="w-full">
+              <button
+                onClick={handleSubmit}
+                className="submit-btn  max-h-fit bg-[#008080] text-white px-4 py-2 rounded-md hover:bg-[#006666] cursor-pointer mt-5 mb-5"
+              >
+                Submit Exam
+              </button>
             </div>
           ) : (
             <>
-            <div className="w-full px-4">
-              <h3 className="text-2xl font-semibold text-gray-800 mt-5">
-                Your Score: {score} / {questions.length}
-              </h3>
-              <p className="remark">
-                {getRemark((score / totalQuestions) * questions.length)}
-              </p>
-              <button
-                onClick={handleRetakeExam}
-                className="retake-btn bg-[#008080] text-white p-4 py-2 px-4 rounded-md hover:bg-[#006666] transition duration-300 mt-5 mb-5 cursor-pointer"
-              >
-                Retake Exam
-              </button>
+              <div className="w-full px-4">
+                <h3 className="text-2xl font-semibold text-gray-800 mt-5">
+                  Your Score: {score} / {questions.length}
+                </h3>
+                <p className="remark">
+                  {getRemark((score / totalQuestions) * questions.length)}
+                </p>
+                <button
+                  onClick={handleRetakeExam}
+                  className="retake-btn bg-[#008080] text-white p-4 py-2 px-4 rounded-md hover:bg-[#006666] transition duration-300 mt-5 mb-5 cursor-pointer"
+                >
+                  Retake Exam
+                </button>
               </div>
             </>
           )}
