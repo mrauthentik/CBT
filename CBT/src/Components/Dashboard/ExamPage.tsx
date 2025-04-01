@@ -39,7 +39,7 @@ const ExamPage: React.FC = () => {
     }[]
   >([]);
   const [answers, setAnswers] = useState<{ [key: string]: string }>({});
-  const [examTime, setExamTime] = useState(600);
+  const [examTime, setExamTime] = useState<number | null>(null);
   const [score, setScore] = useState<number | null>(null);
   const [loading, setLoading] = useState(true);
   const [showAnswers, setShowAnswers] = useState(false);
@@ -60,9 +60,12 @@ const ExamPage: React.FC = () => {
         if (settingsDoc.exists()) {
           setExamTime(settingsDoc.data().duration);
         }
-        console.log("Timer settings fetched successfully 🚀🚀");
+        console.log("Timer settings fetched successfully 🚀🚀", settingsDoc.data());
       } catch (error) {
+        setExamTime(600)
         console.log("Error fetching timer settings", error);
+      } finally{
+        setLoading(false)
       }
     };
 
@@ -105,6 +108,7 @@ const ExamPage: React.FC = () => {
     fetchQuestions();
 
     // Timer logic
+    fetchTimerSettings().then(fetchQuestions)
   }, []);
 
   //AI Intetegration
@@ -212,28 +216,52 @@ const ExamPage: React.FC = () => {
         `Exam submitted! You scored ${finalScore} out of ${questions.length}.`
       );
 
-      console.log(remark);
-
       setShowAnswers(true);
     } catch (error) {
       console.error("Error saving progress data:", error);
       toast.error("Failed to save progress data.");
     }
     // setExamTime{[]}
-    setExamTime(0);
+    setExamTime(600);
   };
 
-  const handleRetakeExam = () => {
+  const handleRetakeExam = async() => {
     setAnswers({});
     setScore(null);
     setShowAnswers(false);
     setExplanations({});
-    setExamTime((prevState) => prevState)
+   
+    try{
+      const settingsDoc =  await getDoc(doc(db, 'settings', 'global'))
+      if(settingsDoc.exists()){
+        setExamTime(settingsDoc.data().duration)
+      }else{
+        setExamTime(600)
+      }
+    } catch(error){
+      console.log('Error Fetching timer settings on retake:', error)
+      setExamTime(600)
+    } 
+
     // setExamTime()
   };
 
-  const handleStartExam = () => {
+  const handleStartExam = async() => {
     setShowInstructions(false);
+    
+    try{
+      if(examTime === null){
+        
+      
+      const settingsDoc = await getDoc(doc(db,"settings", "global"))
+      if(settingsDoc.exists()){
+        setExamTime(settingsDoc.data().duration)
+      }
+    }
+    }catch(err){
+      console.log(err)
+    }
+    
   };
 
   //This logic gives students remark
@@ -312,11 +340,14 @@ const ExamPage: React.FC = () => {
           <div className="w-full">
             <div className="flex justify-between items-center w-full bg-white py-5 px-5 rounded-lg shadow-md">
               <h2 className="text-xl font-semibold">Exam for {courseId}</h2>
+               {examTime !== null && (
+
               <Timer 
                   stopTimer={score !=null}
-                  initialTime={questionLoaded ? examTime : 0} 
+                  initialTime={examTime} 
                   onTimeUp={handleSubmit} 
                 />
+               )}
             </div>
           </div>
 
