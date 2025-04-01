@@ -238,6 +238,7 @@ const ExamPage: React.FC = () => {
       if(!user) throw new Error('')
       const settingsDoc =  await getDoc(doc(db, `users/${user.uid}/settings/timer`))
       if(settingsDoc.exists()){
+        console.log('your timer should be this in the database:', settingsDoc.data().duration)
         setExamTime(settingsDoc.data().duration)
       }else{
         setExamTime(600)
