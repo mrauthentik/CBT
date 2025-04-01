@@ -21,7 +21,8 @@ export const createUser = async (email: string, password: string, fullName:strin
         //Check authentication system for exisiting email
         const signInMethods = await fetchSignInMethodsForEmail(auth, email)
         if(signInMethods.length > 0){
-          toast.error('')
+          toast.error('This email is already registered. Try logging instead')
+          
         }
 
         //Create New user Account
