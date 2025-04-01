@@ -16,6 +16,7 @@ export const createUser = async (email: string, password: string, fullName:strin
         if(!querySnapshot.empty){
           toast.error('This email is already in use. Try logging in instead')
           throw new Error('This email is already in use.')
+          console.log('User existed already, duplicated accounted suspected')
         }
 
         //Check authentication system for exisiting email
