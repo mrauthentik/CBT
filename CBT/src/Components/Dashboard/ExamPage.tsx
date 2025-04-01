@@ -56,11 +56,13 @@ const ExamPage: React.FC = () => {
     const fetchTimerSettings = async () => {
       try {
         setLoading(true);
-        const settingsDoc = await getDoc(doc(db, "settings", "global"));
+        const user = auth.currentUser
+        if(!user) throw new Error('You are not signed in')
+        const settingsDoc = await getDoc(doc(db, `users/${user.uid}/settings/timer`));
         if (settingsDoc.exists()) {
           setExamTime(settingsDoc.data().duration);
         }
-        console.log("Timer settings fetched successfully 🚀🚀", settingsDoc.data());
+        console.log("User-specific timer settings fetched successfully 🚀🚀", settingsDoc.data());
       } catch (error) {
         setExamTime(600)
         console.log("Error fetching timer settings", error);
@@ -232,7 +234,9 @@ const ExamPage: React.FC = () => {
     setExplanations({});
    
     try{
-      const settingsDoc =  await getDoc(doc(db, 'settings', 'global'))
+      const user = auth.currentUser
+      if(!user) throw new Error('')
+      const settingsDoc =  await getDoc(doc(db, `users/${user.uid}/settings/timer`))
       if(settingsDoc.exists()){
         setExamTime(settingsDoc.data().duration)
       }else{

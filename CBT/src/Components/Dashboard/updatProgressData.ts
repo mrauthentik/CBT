@@ -29,3 +29,4 @@ export const updateProgressData = async (date: string, newScore: number, courseI
     throw error;
   }
 };
+//
