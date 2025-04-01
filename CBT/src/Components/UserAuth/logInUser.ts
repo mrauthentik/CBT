@@ -44,6 +44,7 @@ export const loginUser = async (email: string, password: string): Promise<void> 
           
     } else {
       console.error("No user data found in Firestore!");
+      throw new Error('No user data found. Please sign up first')
     }
 
   } catch (error: unknown) {
@@ -51,9 +52,11 @@ export const loginUser = async (email: string, password: string): Promise<void> 
       const errorMessage = getFriendlyErrorMessage(error.code)
        
       toast.error(errorMessage, {autoClose: 5000, position: "top-center"});
+      throw new Error(errorMessage)
       
     } else {
       toast.error("An unknown error occurred.");
+      throw new Error('An unknown error occurred')
     }
   }
  
