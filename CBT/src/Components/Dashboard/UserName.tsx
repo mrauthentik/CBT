@@ -1,11 +1,9 @@
-import React from 'react'
-import styled from '@emotion/styled';
-import { useState, useEffect } from 'react';
+import React from "react";
+import styled from "@emotion/styled";
+import { useState, useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
-import {  doc, getDoc } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 import { auth, db } from "../firebase";
-
-
 
 const Initials = styled.div`
   width: 40px;
@@ -26,21 +24,25 @@ const UserName = styled.span`
   color: #333;
 `;
 
+interface UserProps {
+  className?: string;
+}
 
-
-const User: React.FC = () => {
- const [fullName, setFullName] = useState("");
+const User: React.FC<UserProps> = ({ className }) => {
+  const [fullName, setFullName] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [loading, setLoading] = useState(true)
-  
-  useEffect(() =>{
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
         setFullName(user.displayName || "User");
         const nameParts = user.displayName?.split(" ") || ["User"];
         setFirstName(nameParts[0] || "");
-        setLastName(nameParts.length > 1 ? nameParts[nameParts.length - 1] : "");
+        setLastName(
+          nameParts.length > 1 ? nameParts[nameParts.length - 1] : ""
+        );
 
         try {
           const userDoc = await getDoc(doc(db, "users", user.uid));
@@ -58,21 +60,21 @@ const User: React.FC = () => {
       setLoading(false);
     });
     return () => unsubscribe();
-  
-}, []);
-const getInitials = () =>{
-    return (firstName ? firstName.charAt(0).toUpperCase() : "") +
-           (lastName ? lastName.charAt(0).toUpperCase(): "")
-}
-if(loading){
-    return <p>Loading</p>
-}
+  }, []);
+  const getInitials = () => {
+    return (
+      (firstName ? firstName.charAt(0).toUpperCase() : "") +
+      (lastName ? lastName.charAt(0).toUpperCase() : "")
+    );
+  };
+  if (loading) {
+    return <p>Loading</p>;
+  }
   return (
-    <div className='user-name'>
-      
-                    <Initials >{getInitials()} </Initials>
-                    <UserName> {fullName}</UserName>
-               
-         </div>
-)}
-export default User
+    <div className={`user-name ${className || ""}`.trim()}>
+      <Initials>{getInitials()} </Initials>
+      <UserName> {fullName}</UserName>
+    </div>
+  );
+};
+export default User;
