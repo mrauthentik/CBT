@@ -311,7 +311,11 @@ const ExamPage: React.FC = () => {
           <div className="w-full">
             <div className="flex justify-between items-center w-full bg-white py-5 px-5 rounded-lg shadow-md">
               <h2 className="text-xl font-semibold">Exam for {courseId}</h2>
-              <Timer stopTimer initialTime={examTime} onTimeUp={handleSubmit} />
+              <Timer 
+                  stopTimer={score !=null}
+                  initialTime={questionLoaded ? examTime : 0} 
+                  onTimeUp={handleSubmit} 
+                />
             </div>
           </div>
 
