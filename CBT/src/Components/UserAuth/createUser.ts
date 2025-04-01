@@ -1,7 +1,7 @@
 
 import {auth,db} from '../firebase';
 import {createUserWithEmailAndPassword} from 'firebase/auth';
-import {doc, serverTimestamp, setDoc} from "firebase/firestore"
+import {collection, doc, serverTimestamp, setDoc, getDocs, where, query} from "firebase/firestore"
 import router from '../../Routes/Router';
 import { updateProfile } from 'firebase/auth';
 import { toast } from 'react-toastify';
@@ -9,6 +9,18 @@ import { toast } from 'react-toastify';
 export const createUser = async (email: string, password: string, fullName:string) => {  
       
     try {
+        //This logic is check if email has already been used to sign up before
+        const q = query(collection(db, "users"), where("email", "==", email))
+        const querySnapshot =await getDocs(q)
+        
+        if(!querySnapshot.empty){
+          toast.error('This email is already in use. Try logging in instead')
+          throw new Error('This email is already in use.')
+        }
+
+        
+
+        //Create New user Account
         const userCredential =  await createUserWithEmailAndPassword (auth, email , password )
         const user = userCredential.user
         await updateProfile(user, {displayName: fullName})
