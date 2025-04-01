@@ -220,7 +220,7 @@ const ExamPage: React.FC = () => {
       toast.error("Failed to save progress data.");
     }
     // setExamTime{[]}
-    setExamTime(100);
+    setExamTime(0);
   };
 
   const handleRetakeExam = () => {
