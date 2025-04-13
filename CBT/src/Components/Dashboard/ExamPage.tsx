@@ -51,6 +51,7 @@ const ExamPage: React.FC = () => {
   const [loadingExplanation, setLoadingExplanation] = useState<string | null>(
     null
   );
+  const [questionCount, setQuestionCount] = useState<number>(10)
 
   useEffect(() => {
     const fetchTimerSettings = async () => {
@@ -71,47 +72,51 @@ const ExamPage: React.FC = () => {
       }
     };
 
-    const fetchQuestions = async () => {
-      try {
-        const questionsCollection = collection(db, "questions");
-        const q = query(questionsCollection, where("courseId", "==", courseId));
-        const questionSnapshot = await getDocs(q);
-        const questionList = questionSnapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        })) as {
-          id: string;
-          question: string;
-          options: string[];
-          correctAnswer: string;
-          type: string;
-        }[];
-
-        //This Logic is to shuffle questions using Fisher-Yates algorithm
-
-        for (let i = questionList.length - 1; i > 0; i--) {
-          const j = Math.floor(Math.random() * (i + 1));
-          [questionList[i], questionList[j]] = [
-            questionList[j],
-            questionList[i],
-          ];
-        }
-
-        setQuestions(questionList);
-        setQuestionsLoaded(true);
-      } catch (err) {
-        console.error("Error fetching questions", err);
-        toast.error("Failed to load questions.");
-      } finally {
-        setLoading(false);
-      }
-    };
+   
     fetchTimerSettings();
-    fetchQuestions();
 
     // Timer logic
     fetchTimerSettings().then(fetchQuestions)
   }, []);
+
+
+
+
+  const fetchQuestions = async () => {
+    try {
+      const questionsCollection = collection(db, "questions");
+      const q = query(questionsCollection, where("courseId", "==", courseId));
+      const questionSnapshot = await getDocs(q);
+      const questionList = questionSnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      })) as {
+        id: string;
+        question: string;
+        options: string[];
+        correctAnswer: string;
+        type: string;
+      }[];
+
+      //This Logic is to shuffle questions using Fisher-Yates algorithm
+
+      for (let i = questionList.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [questionList[i], questionList[j]] = [
+          questionList[j],
+          questionList[i],
+        ];
+      }
+
+      setQuestions(questionList.slice(0, questionCount));
+      setQuestionsLoaded(true);
+    } catch (err) {
+      console.error("Error fetching questions", err);
+      toast.error("Failed to load questions.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   //AI Intetegration
   const apiKey = import.meta.env.VITE_GOOGLE_AI_API_KEY;
@@ -263,6 +268,7 @@ const ExamPage: React.FC = () => {
         setExamTime(settingsDoc.data().duration)
       }
     }
+    await fetchQuestions()
     }catch(err){
       console.log(err)
     }
@@ -332,6 +338,25 @@ const ExamPage: React.FC = () => {
               answers once you submit.
             </li>
           </ul>
+
+            <div className="my-4">
+              <label htmlFor="questionCount" className="font-medium block mb-2">
+                Choose number of questions
+              </label>
+              <select 
+               id="questionCount"
+               value={questionCount}
+               onChange={(e) => setQuestionCount(Number(e.target.value))}
+               className="border px-4 py-2 rounded"
+               >
+                {Array.from({length: 61}, (_,i) => i + 10).map((n)=> (
+                  <option key={n} value={n}>
+                    {n}
+                  </option>
+                ))}
+               </select>
+            </div>
+
           <button className="start-exam-btn" onClick={handleStartExam}>
             Start Exam
           </button>
