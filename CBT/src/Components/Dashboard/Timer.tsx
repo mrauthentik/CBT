@@ -21,7 +21,7 @@ export const Timer: React.FC<TimerProps> = ({ initialTime, onTimeUp, stopTimer }
     }, 1000);
 
     return () => clearInterval(timerId);
-  }, [timeLeft, onTimeUp]);
+  }, [stopTimer,timeLeft, onTimeUp]);
 
   const minutes = Math.floor(timeLeft / 60);
   const seconds = timeLeft % 60;

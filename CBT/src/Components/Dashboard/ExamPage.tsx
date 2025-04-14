@@ -41,6 +41,7 @@ const ExamPage: React.FC = () => {
   >([]);
   const [answers, setAnswers] = useState<{ [key: string]: string }>({});
   const [examTime, setExamTime] = useState<number | null>(null);
+  const [timer, setTimer] = useState<number>(0)
   const [score, setScore] = useState<number | null>(null);
   const [loading, setLoading] = useState(true);
   const [showAnswers, setShowAnswers] = useState(false);
@@ -309,7 +310,10 @@ const ExamPage: React.FC = () => {
        <InstructionPage 
          questionCount={ questionCount}
          setQuestionCount={setQuestionCount}
+         timer={timer}
+         setTimer={setTimer}
          onStart={handleStartExam}
+         
        />
       ) : (
         <div
