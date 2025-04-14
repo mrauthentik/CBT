@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { db, auth } from "../firebase";
 import { toast } from "react-toastify";
-import "/Users/Kenzy/Desktop/CBT/CBT/src/App.css";
+
 
 const Settings: React.FC = () => {
   const [firstName, setFirstName] = useState<string>("");
