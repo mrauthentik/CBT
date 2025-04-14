@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import InstructionPage from "./InstructionPage";
 import {
   collection,
   getDocs,
@@ -219,7 +220,7 @@ const ExamPage: React.FC = () => {
       const percentage = (finalScore / totalQuestions) * 100; // Calculate percentage
       const remark = getRemark(percentage);
 
-      
+
       toast.success(
         `Exam submitted! You scored ${finalScore} out of ${questions.length}.`
       );
@@ -305,63 +306,11 @@ const ExamPage: React.FC = () => {
 
       {/* Show instruction condition */}
       {showInstructions ? (
-        <div className="instruction-container">
-          <h2>Exam Instructions</h2>
-          <ul>
-            <li>
-              {" "}
-              <span className="bx bxs-check-circle"></span> Read all questions
-              carefully before answering.
-            </li>
-            <li>
-              {" "}
-              <span className="bx bxs-check-circle"></span> Choose the best
-              answer for each question.
-            </li>
-            <li>
-              {" "}
-              <span className="bx bxs-check-circle"></span>The exam will be
-              timed. Ensure you manage your time wisely.
-            </li>
-            <li>
-              {" "}
-              <span className="bx bxs-check-circle"></span>Once you submit, you
-              cannot change your answers.
-            </li>
-            <li>
-              {" "}
-              <span className="bx bxs-check-circle"></span>Your progress will be
-              tracked in real-time.
-            </li>
-            <li>
-              {" "}
-              <span className="bx bxs-check-circle"></span>You can view your
-              answers once you submit.
-            </li>
-          </ul>
-
-            <div className="my-4">
-              <label htmlFor="questionCount" className="font-medium block mb-2">
-                Choose number of questions
-              </label>
-              <select 
-               id="questionCount"
-               value={questionCount}
-               onChange={(e) => setQuestionCount(Number(e.target.value))}
-               className="border px-4 py-2 rounded"
-               >
-                {Array.from({length: 61}, (_,i) => i + 10).map((n)=> (
-                  <option key={n} value={n}>
-                    {n}
-                  </option>
-                ))}
-               </select>
-            </div>
-
-          <button className="start-exam-btn" onClick={handleStartExam}>
-            Start Exam
-          </button>
-        </div>
+       <InstructionPage 
+         questionCount={ questionCount}
+         setQuestionCount={setQuestionCount}
+         onStart={handleStartExam}
+       />
       ) : (
         <div
           className="exam-container flex flex-col justify-center items-center 
