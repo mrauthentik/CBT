@@ -5,14 +5,20 @@ type Props = {
   setQuestionCount: (value: number) => void;
   onStart: () => void;
   timer: number;
-  setTimer: (value:number) => void;
+  setTimer: (value: number) => void;
 };
 
-const InstructionPage: React.FC<Props> = ({ questionCount, setQuestionCount, onStart, timer, setTimer }) => {
+const InstructionPage: React.FC<Props> = ({
+  questionCount,
+  setQuestionCount,
+  onStart,
+  timer,
+  setTimer,
+}) => {
   return (
-    <div className="instruction-container">
-      <h2>Exam Instructions</h2>
-      <ul>
+    <div className="instruction-container max-w-xl mx-auto p-4 sm:p-6 md:p-8">
+      <h2 className="text-2xl sm:text-3xl font-semibold mb-4 text-center">Exam Instructions</h2>
+      <ul className="list-disc pl-5 space-y-2 text-sm sm:text-base">
         <li>📌 Read all questions carefully before answering.</li>
         <li>📌 Choose the best answer for each question.</li>
         <li>📌 The exam will be timed. Ensure you manage your time wisely.</li>
@@ -21,7 +27,7 @@ const InstructionPage: React.FC<Props> = ({ questionCount, setQuestionCount, onS
         <li>📌 You can view your answers once you submit.</li>
       </ul>
 
-      <div className="my-4">
+      <div className="my-6">
         <label htmlFor="questionCount" className="font-medium block mb-2">
           Choose number of questions
         </label>
@@ -29,7 +35,7 @@ const InstructionPage: React.FC<Props> = ({ questionCount, setQuestionCount, onS
           id="questionCount"
           value={questionCount}
           onChange={(e) => setQuestionCount(Number(e.target.value))}
-          className="border px-4 py-2 rounded"
+          className="w-full border px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
         >
           {Array.from({ length: 61 }, (_, i) => i + 10).map((n) => (
             <option key={n} value={n}>
@@ -39,7 +45,7 @@ const InstructionPage: React.FC<Props> = ({ questionCount, setQuestionCount, onS
         </select>
       </div>
 
-      <div className="my-4">
+      <div className="my-6">
         <label htmlFor="timer" className="font-medium block mb-2">
           Select Timer Duration
         </label>
@@ -47,7 +53,7 @@ const InstructionPage: React.FC<Props> = ({ questionCount, setQuestionCount, onS
           id="timer"
           value={timer}
           onChange={(e) => setTimer(Number(e.target.value))}
-          className="border px-4 py-2 rounded"
+          className="w-full border px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
         >
           <option value={0}>No Timer</option>
           <option value={5 * 60}>5 minutes</option>
@@ -58,7 +64,10 @@ const InstructionPage: React.FC<Props> = ({ questionCount, setQuestionCount, onS
         </select>
       </div>
 
-      <button className="start-exam-btn" onClick={onStart}>
+      <button
+        className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded transition duration-200"
+        onClick={onStart}
+      >
         Start Exam
       </button>
     </div>

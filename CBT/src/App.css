@@ -910,6 +910,13 @@ fieldset {
   }
 }
 
+@media (orientation: portrait) {
+  .instruction-container {
+    width: 100%;
+    padding-left:4rem ;
+  }
+}
+
 /* AI Styling */
 /* AI Explanation Container */
 .ai-container {
