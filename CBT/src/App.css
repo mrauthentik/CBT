@@ -744,6 +744,9 @@
     color: teal;
     padding: 1rem 0rem;
   }
+  span{
+    color: black;
+  }
 }
 .course-container,
 .settings-container,
@@ -790,9 +793,8 @@ fieldset {
     }
   }
   li:hover {
-    text-transform: uppercase;
-    font-size: 18px;
-    transition: 0.2s;
+   scale:1.09 ;
+   transition: 0.4s;
   }
 }
 .search-input {
