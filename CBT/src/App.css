@@ -1254,6 +1254,7 @@ fieldset {
 @media (max-width: 480px) {
   .settings-container {
     padding: 12px;
+    margin-left: 3rem;
   }
 
   .settings-card {
@@ -1280,5 +1281,6 @@ fieldset {
     font-size: 14px;
   }
 }
+
 
 /* Progress Styling*/
