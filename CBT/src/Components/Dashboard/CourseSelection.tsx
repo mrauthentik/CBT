@@ -42,40 +42,44 @@ const CourseSelection: React.FC = () =>{
     )
 
     return (
-        <div className="courses">
-            <div className="course-container">
+        <div className="courses px-4 sm:px-6 md:px-8 py-6">
+  <div className="course-container max-w-4xl mx-auto">
+    <h2 className="text-xl sm:text-2xl font-semibold mb-4 text-center">SELECT A COURSE</h2>
 
-            <h2>SELECT A COURSE</h2>
-            <fieldset>
-                <input 
-                    type="text" 
-                    placeholder="Search courses by name or course code.."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className="search-input border border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500 rounded-md p-2 w-full"
-                />
+    <fieldset className="space-y-4">
+      <input
+        type="text"
+        placeholder="Search courses by name or course code.."
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        className="search-input border border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500 rounded-md p-2 w-full"
+      />
 
-            <ul>
-                
-                {filteredCourses.length == 0 && <p> No courses found</p>}
-                {filteredCourses.map((course, index) => {
-                    console.log("Rendering:", course.CourseName)
-                    return( 
+      <ul className="space-y-2">
+        {filteredCourses.length === 0 && <p>No courses found</p>}
 
-                    <li title="Click to take Exam" key={course.id|| index}  onClick={()=> handleCourseSelect(course.id)}> 
-                      <span className="p-4"> {index + 1}</span>
-                    {course.CourseName} <span>{course.CourseCode}</span> 
-                      {/* <button onClick={()=> handleCourseSelect(course.id)}> Start</button> */}
-                     </li>
-                  
-                );
-            })}
-               
-            </ul>
-            {/* <button type="submit" onClick={handleCourseSelect} >Start Exam</button> */}
-            </fieldset>
-            </div>
-        </div>
+        {filteredCourses.map((course, index) => {
+          console.log("Rendering:", course.CourseName);
+          return (
+            <li
+              key={course.id || index}
+              onClick={() => handleCourseSelect(course.id)}
+              title="Click to take Exam"
+              className="cursor-pointer hover:bg-teal-100 p-3 rounded-md flex items-center justify-between flex-wrap text-sm sm:text-base border border-gray-200"
+            >
+              <span className="mr-2 font-semibold course-numbering">{index + 1}.</span>
+              <div className="flex flex-col sm:flex-row sm:gap-4">
+                <span>{course.CourseName}</span>
+                <span className="text-gray-500">{course.CourseCode}</span>
+              </div>
+            </li>
+          );
+        })}
+      </ul>
+    </fieldset>
+  </div>
+</div>
+
     )
 }
 

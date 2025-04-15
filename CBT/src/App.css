@@ -757,6 +757,19 @@
   /* Add any additional styling you want for the container */
 }
 
+@media (orientation:portrait) {
+  .courses{
+    width: 100%;
+    .course-container{
+      width: 100%;
+      padding-left: 0;
+      margin-left: 0;
+      .course-numbering{
+        display: none;
+      }
+    }
+  }
+}
 .loading-container {
   display: flex;
   justify-content: center;
