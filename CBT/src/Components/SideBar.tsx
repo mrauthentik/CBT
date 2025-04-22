@@ -12,6 +12,12 @@ const SideBar = () => {
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
+ // Inside your SideBar component
+
+// Add this handler
+const handleLinkClick = () => {
+  setIsOpen(false);
+};
 
   // Close sidebar when clicking outside
   useEffect(() => {
@@ -39,20 +45,20 @@ const SideBar = () => {
 
       {/* Navigation Links */}
       <div className="nav-links">
-        <NavLink className="style-nav" to="/dashboard">
+        <NavLink className="style-nav" to="/dashboard" onClick={handleLinkClick}>
           <BiHome /> {isOpen && "Dashboard"}
         </NavLink>
-        <NavLink className="style-nav" to="/courses">
+        <NavLink className="style-nav" to="/courses" onClick={handleLinkClick}>
           <BiLaptop /> {isOpen && "CBT Mode"}
         </NavLink>
         {/* <NavLink className="style-nav" to="/exampage">
           <FaPen /> {isOpen && "Exams"}
         </NavLink> */}
-        <NavLink className="style-nav" to="/userinfo">
+        <NavLink className="style-nav" to="/userinfo" onClick={handleLinkClick}>
           <BiUser /> {isOpen && "User Info"}
         </NavLink>
-        <NavLink className="style-nav" to="/settings">
-          <FaCog className="bot" /> {isOpen && "Settings"}
+        <NavLink className="style-nav" to="/settings" onClick={handleLinkClick}>
+          <FaCog className="bot"  /> {isOpen && "Settings"}
         </NavLink>
         <button onClick={logOutUser} className="logoOut-btn">
           <BiDoorOpen /> {isOpen && "Log Out"}
