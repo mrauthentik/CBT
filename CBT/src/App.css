@@ -610,6 +610,31 @@ html {
     height: 120px;
   }
 }
+
+.carousel-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.carousel-btn {
+  background-color: teal;
+  color: white;
+  font-size: 2rem;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.carousel-btn:hover {
+  background-color: darkslategray;
+}
+
 /* FAQ Section */
 .faq {
   padding: 50px 10px 0px;

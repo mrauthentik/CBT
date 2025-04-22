@@ -4,7 +4,61 @@ import "../App.css"
 import uche_img from '../assets/uche.jpg'
 import maggie from "../../src/Components/Team-images/maggie.jpeg";
 import "../App.css";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
 const Hero = () => {
+
+  const [index, setIndex] = useState(0);
+
+  const next = () => setIndex((prev) => (prev + 1) % teamMembers.length);
+  const prev = () => setIndex((prev) => (prev - 1 + teamMembers.length) % teamMembers.length);
+
+  const teamMembers = [
+    {
+      name: "Uche",
+      role: "Lead Developer",
+      img: logo,
+      bio: "Provides technical leadership, reviews code, and ensures project success."
+    },
+    {
+      name: "Prince Paul",
+      role: "Front-End Developer",
+      img: uche_img,
+      bio: "Builds sleek, interactive UI components that enhance user experience.",
+      socials: ["facebook", "twitter", "github", "linkedin"]
+    },
+    {
+      name: "Muna",
+      role: "Content Specialist",
+      img: logo,
+      bio: "Develops accurate and helpful content tailored to exam preparation."
+    },
+    {
+      name: "Maggie",
+      role: "Front-End Developer",
+      img: maggie,
+      bio: "Translates design into performant front-end code with seamless UI."
+    },
+    {
+      name: "Ifeanyi",
+      role: "Project Manager",
+      img: logo,
+      bio: "Coordinates team efforts and ensures timely feature delivery."
+    },
+    {
+      name: "Paul Nuel",
+      role: "Designer",
+      img: logo,
+      bio: "Designs user-friendly interfaces and maintains the visual brand identity."
+    },
+    {
+      name: "Joel",
+      role: "Nexa Support",
+      img: logo,
+      bio: "Offers responsive support to users and ensures smooth operation."
+    }
+  ];
+  
   return (
     <div className="cbt">
       <div className="main">
@@ -90,148 +144,44 @@ const Hero = () => {
         </div>
 
 
-        {/* Team Section */}
-        <div className="team" id="team">
-          <h2 className="team-heading">
-            OUR TEAM <span className="underline"></span>
-          </h2>
-          <div className="team-grid">
-            {/* Team Member 1 */}
-            <div className="team-member">
-              <div className="team-img-container">
-                <img src={logo} alt="Team Member 1" className="team-img" />
-              </div>
-              <h3 className="team-name">Paul Prince</h3>
-              <p className="team-role">Lead Developer</p>
-              <p className="team-bio">
-                John spearheads the development of NEXA, ensuring a seamless
-                user experience.
-              </p>
-            </div>
+     {/* Team Section */}
+     <div className="team" id="team">
+        <h2 className="team-heading">
+          OUR TEAM <span className="underline"></span>
+        </h2>
 
-            {/* Team Member 2 */}
-            <div className="team-member">
-              <div className="team-img-container">
-                <img src={uche_img} alt="Team Member 2" className="team-img" />
-              </div>
-              <h3 className="team-name">Uche</h3>
-              <p className="team-role">UI/UX Designer</p>
-              <p className="team-bio">
-                Jane designs intuitive interfaces to make exam prep engaging and
-                user-friendly.
-              </p>
-              <div className="socials">
-                <i className='bx bxl-twitter'></i>
-                <i className='bx bxl-facebook'></i>
-                <i className='bx bxl-github'></i>
-                <i className='bx bxl-linkedin'></i>
-              </div>
-            </div>
+        <div className="carousel-controls">
+          <button onClick={prev} className="carousel-btn">⟨</button>
 
-            {/* Team Member 3 */}
-            <div className="team-member">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={index}
+              className="team-member"
+              initial={{ x: 300, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              exit={{ x: -300, opacity: 0 }}
+              transition={{ duration: 0.4 }}
+            >
               <div className="team-img-container">
-                <img src={logo} alt="Team Member 3" className="team-img" />
+                <img src={teamMembers[index].img} alt={teamMembers[index].name} className="team-img" />
               </div>
-              <h3 className="team-name">Muna</h3>
-              <p className="team-role">Content Specialist</p>
-              <p className="team-bio">
-                Alex curates high-quality study materials tailored for exam
-                success.
-              </p>
-            </div>
+              <h3 className="team-name">{teamMembers[index].name}</h3>
+              <p className="team-role">{teamMembers[index].role}</p>
+              <p className="team-bio">{teamMembers[index].bio}</p>
 
-            {/* Team Member 4 */}
-            <div className="team-member">
-              <div className="team-img-container">
-                <img src={maggie} alt="Team Member 4" className="team-img" />
-              </div>
-              <h3 className="team-name">Maggie</h3>
-              <p className="team-role">Project Manager</p>
-              <p className="team-bio">
-                Emily keeps the team on track, ensuring timely delivery of
-                features.
-              </p>
-            </div>
-
-            {/* Team Member 5 */}
-            <div className="team-member">
-              <div className="team-img-container">
-                <img src={logo} alt="Team Member 4" className="team-img" />
-              </div>
-              <h3 className="team-name">Ifeanyi Funds</h3>
-              <p className="team-role">Project Manager</p>
-              <p className="team-bio">
-                Emily keeps the team on track, ensuring timely delivery of
-                features.
-              </p>
-            </div>
-          </div>
-
-          {/* FAQ Section */}
-          <div className="faq" id="faq">
-            <h2 className="faq-heading">
-              FREQUENTLY ASKED QUESTIONS <span className="underline"></span>
-            </h2>
-            <div className="faq-container">
-              <div className="faq-item">
-                <input type="checkbox" id="faq1" className="faq-toggle" />
-                <label htmlFor="faq1" className="faq-question">
-                  What is NEXA?
-                </label>
-                <div className="faq-answer">
-                  <p>
-                    NEXA (NOUN Exam Experience Assistant) is a computer-based
-                    training platform designed to help students prepare for
-                    exams with practice tests, study materials, and timers.
-                  </p>
+              {teamMembers[index].socials && (
+                <div className="socials">
+                  {teamMembers[index].socials.map((icon) => (
+                    <i key={icon} className={`bx bxl-${icon}`}></i>
+                  ))}
                 </div>
-              </div>
+              )}
+            </motion.div>
+          </AnimatePresence>
 
-              <div className="faq-item">
-                <input type="checkbox" id="faq2" className="faq-toggle" />
-                <label htmlFor="faq2" className="faq-question">
-                  How do I access the course materials?
-                </label>
-                <div className="faq-answer">
-                  <p>
-                    You can access course materials by logging into your account
-                    and navigating to the "Course Materials" section on the
-                    dashboard.
-                  </p>
-                </div>
-              </div>
-
-              <div className="faq-item">
-                <input type="checkbox" id="faq3" className="faq-toggle" />
-                <label htmlFor="faq3" className="faq-question">
-                  Are the practice exams timed?
-                </label>
-                <div className="faq-answer">
-                  <p>
-                    Yes, our practice exams include timers to simulate a real
-                    exam environment, helping you manage your time effectively.
-                  </p>
-                </div>
-              </div>
-
-              <div className="faq-item">
-                <input type="checkbox" id="faq4" className="faq-toggle" />
-                <label htmlFor="faq4" className="faq-question">
-                  How can I track my progress?
-                </label>
-                <div className="faq-answer">
-                  <p>
-                    Your progress is tracked automatically after each practice
-                    exam, and you can view detailed reports in the "Tracks"
-                    section.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
+          <button onClick={next} className="carousel-btn">⟩</button>
         </div>
-
+      </div>
         <div>
           {/* Footer Section */}
           <footer className="footer">
