@@ -23,7 +23,6 @@ export const updateProgressData = async (date: string, newScore: number, courseI
       courseId,
       updatedAt: new Date().toISOString(), // Optional: for auditing
     });
-    console.log("Progress data updated successfully!");
   } catch (error) {
     console.error("Error updating progress data:", error);
     throw error;

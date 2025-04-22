@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import resetPassword from './resetPassword';
 import { toast, ToastContainer } from 'react-toastify';
 
-const ForgetPsw = () => {
+ const ForgetPsw = () => {
   const [email, setEmail] = useState('');
 
   const handleForgetPassword = async (e: React.MouseEvent) => {
@@ -51,4 +51,4 @@ const ForgetPsw = () => {
   );
 };
 
-export default ForgetPsw;
+export default ForgetPsw

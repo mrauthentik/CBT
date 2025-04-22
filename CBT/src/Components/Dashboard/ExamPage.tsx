@@ -65,10 +65,9 @@ const ExamPage: React.FC = () => {
         if (settingsDoc.exists()) {
           setExamTime(settingsDoc.data().duration);
         }
-        console.log("User-specific timer settings fetched successfully 🚀🚀", settingsDoc.data());
       } catch (error) {
         setExamTime(600)
-        console.log("Error fetching timer settings", error);
+        console.error("Error fetching timer settings", error, questionLoaded);
       } finally{
         setLoading(false)
       }
@@ -141,7 +140,7 @@ const ExamPage: React.FC = () => {
       const result = await model.generateContent(prompt);
       return result.response.text();
     } catch (error: unknown) {
-      console.log("Could not fetch response", error);
+      console.error("Could not fetch response", error);
       return "Could not fetch response";
     }
   };
@@ -186,8 +185,6 @@ const ExamPage: React.FC = () => {
     // Save or update progress data in Firestore
     const today = new Date().toISOString().split("T")[0]; // Format: "2023-10-01"
     try {
-      console.log("Submitting score:", finalScore, "for date:", today); // Debug log
-
       // Check if progress data for today already exists
       const user = auth.currentUser;
       if (!user) {
@@ -205,22 +202,15 @@ const ExamPage: React.FC = () => {
       if (querySnapshot.empty) {
         // No entry exists, so add a new one
         await addProgressData(today, finalScore, userCourseId);
-        console.log("Progress data added successfully:", {
-          date: today,
-          score: finalScore,
-        });
+       
       } else {
         // Entry exists, so update it
         await updateProgressData(today, finalScore, userCourseId);
-        console.log("Progress data updated successfully:", {
-          date: today,
-          score: finalScore,
-        });
       }
 
       const percentage = (finalScore / totalQuestions) * 100; // Calculate percentage
       const remark = getRemark(percentage);
-
+      console.error(remark)
 
       toast.success(
         `Exam submitted! You scored ${finalScore} out of ${questions.length}.`
@@ -246,13 +236,13 @@ const ExamPage: React.FC = () => {
       if(!user) throw new Error('')
       const settingsDoc =  await getDoc(doc(db, `users/${user.uid}/settings/timer`))
       if(settingsDoc.exists()){
-        console.log('your timer should be this in the database:', settingsDoc.data().duration)
+       
         setExamTime(settingsDoc.data().duration)
       }else{
         setExamTime(600)
       }
     } catch(error){
-      console.log('Error Fetching timer settings on retake:', error)
+     console.error(error)
       setExamTime(600)
     } 
 
@@ -273,7 +263,7 @@ const ExamPage: React.FC = () => {
     }
     await fetchQuestions()
     }catch(err){
-      console.log(err)
+      console.error(err)
     }
     
   };

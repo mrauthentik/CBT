@@ -17,7 +17,6 @@ const addQuestions = async ()=>{
             correctAnswer: "5"
 
         });
-        console.log('question added successfully')
     }
     catch (err){
         console.log(err)

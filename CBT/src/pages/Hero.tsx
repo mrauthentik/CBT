@@ -1,5 +1,6 @@
 import logo from '../../src/Components/logo/logo.jpeg'
 import "../App.css"
+import uche_img from '../assets/uche.jpg'
 const Hero = () => {
   return (
     <div className="cbt">
@@ -27,22 +28,24 @@ const Hero = () => {
       </div>
 
       {/* Text Section */}
-      <div className="about-text">
+      <div className="about-text" id='about'>
         <h2>ABOUT US <span className="underline"></span></h2>
         <p>
           <strong>NEXA:</strong> NOUN Exam Experience Assistant
         </p>
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit quisquam at rem
-          beatae debitis, eos amet quis similique cumque mollitia ut dignissimos a
-          accusantium ipsum ab laborum eveniet corporis! Quis!
+          A computer-based training platform.
+                  As freshers find it difficult to understand the school
+                  exam standard, NEXA is here to help to abrest yourself to the school exam standard.
+                 Take a test in practice Mode, Track your progress and see how well you can perform,
+                  and get ready for the main Exam. Success is your Nickname 🚀
         </p>
       </div>
     </div>
 
 
 
-        <div className="feat">
+        <div className="feat" id='features'>
             <div className="box">
                 <i className='bx bx-book-open' ></i>
                 <p>Course Materials</p>
@@ -70,7 +73,7 @@ const Hero = () => {
         </div>
 
              {/* Team Section */}
-             <div className="team">
+             <div className="team" id='team'>
           <h2 className="team-heading">OUR TEAM <span className="underline"></span></h2>
           <div className="team-grid">
             {/* Team Member 1 */}
@@ -88,13 +91,19 @@ const Hero = () => {
             {/* Team Member 2 */}
             <div className="team-member">
               <div className="team-img-container">
-                <img src={logo} alt="Team Member 2" className="team-img" />
+                <img src={uche_img} alt="Team Member 2" className="team-img" />
               </div>
-              <h3 className="team-name">Uche Firelord</h3>
+              <h3 className="team-name">Uche</h3>
               <p className="team-role">UI/UX Designer</p>
               <p className="team-bio">
                 Jane designs intuitive interfaces to make exam prep engaging and user-friendly.
               </p>
+              <div className="socials">
+                <i className='bx bxl-twitter'></i>
+                <i className='bx bxl-facebook'></i>
+                <i className='bx bxl-github'></i>
+                <i className='bx bxl-linkedin'></i>
+              </div>
             </div>
 
             {/* Team Member 3 */}
@@ -122,7 +131,7 @@ const Hero = () => {
             </div>
           </div>
            {/* FAQ Section */}
-        <div className="faq">
+        <div className="faq" id='faq'>
           <h2 className="faq-heading">
             FREQUENTLY ASKED QUESTIONS <span className="underline"></span>
           </h2>
@@ -144,12 +153,12 @@ const Hero = () => {
             <div className="faq-item">
               <input type="checkbox" id="faq2" className="faq-toggle" />
               <label htmlFor="faq2" className="faq-question">
-                How do I access the course materials?
+                How do I access the Exam CBT test?
               </label>
               <div className="faq-answer">
                 <p>
-                  You can access course materials by logging into your account and navigating
-                  to the "Course Materials" section on the dashboard.
+                  You can access Exam CBT by logging into your account and navigating
+                  to the "Course" section on the dashboard.
                 </p>
               </div>
             </div>
@@ -175,7 +184,7 @@ const Hero = () => {
               <div className="faq-answer">
                 <p>
                   Your progress is tracked automatically after each practice exam, and you can
-                  view detailed reports in the "Tracks" section.
+                  view detailed reports on the Dashboard.
                 </p>
               </div>
             </div>

@@ -28,13 +28,13 @@ const db = getFirestore(app)
 const vertexAI = getVertexAI(app)
 const model = getGenerativeModel(vertexAI, {model: "gemini-1.0-flash"})
 
-async function run() {
-  const prompt = "write something"
-  const result = await model.generateContent(prompt)
-  const response = result.response
-  const text = response.text()
-  console.log(text)
-}
-run()
+// async function run() {
+//   const prompt = "write something"
+//   const result = await model.generateContent(prompt)
+//   const response = result.response
+//   const text = response.text()
+//   console.log(text)
+// }
+// run()
 
 export {auth, db, analytics,app, model}

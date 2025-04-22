@@ -254,7 +254,7 @@
 /* TEXT SECTION */
 .about-text {
   width: 40%;
-  height: 60%;
+  height: 70%;
   margin-left: 5rem;
   border: 1px solid black;
   padding: 2rem;
@@ -411,6 +411,19 @@
   padding: 20px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); /* Subtle shadow for depth */
   transition: transform 0.3s ease;
+  .socials{
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    color: #333;
+  }
+  .socials i:hover{
+    scale: 1.51;
+    transition: 0.3s;
+    transform: rotateZ(360deg);
+    animation: ease-in;
+    color: teal;
+  }
 }
 
 .team-member:hover {
@@ -451,6 +464,7 @@
   color: #666;
   line-height: 1.5;
 }
+
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
@@ -651,6 +665,10 @@
 
 .social-icons a:hover {
   opacity: 1;
+  scale: 1.51;
+  transition: 0.3s;
+  transform: rotateZ(360deg);
+  animation: ease-out;
 }
 
 .footer-bottom {
@@ -1116,7 +1134,7 @@ fieldset {
   background-color: #f1f5f9;
 }
 
-.settings-container {
+.settings-container,.user-info-container {
   flex: 1;
   max-width: 400px;
   margin: 0 auto;
@@ -1284,3 +1302,24 @@ fieldset {
 
 
 /* Progress Styling*/
+
+/* User info styling */
+
+.user-info{
+
+ .user-info-container{
+    background-color: white;
+    padding: 2rem;
+    border-radius: 10px;
+    margin-top: 5rem;
+    box-shadow:2px 1px 3px 4px rgba(0, 0, 0, 0.05);
+
+ }
+}
+
+.bot:hover{
+  scale: 1.21;
+  transition: 0.9s;
+  transform: rotateZ(360deg);
+  animation: ease-out;
+}

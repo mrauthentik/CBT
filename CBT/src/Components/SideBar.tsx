@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import logOutUser from "./UserAuth/LogOut";
 import logoImage from "./logo/NEXA_LOGO-removebg-preview.png";
-import { BiBook, BiExit } from "react-icons/bi";
-import { FaCog, FaHome, FaPen, FaUser, FaBars, FaTimes } from "react-icons/fa";
+import {  BiDoorOpen, BiHome, BiLaptop, BiUser,  } from "react-icons/bi";
+import { FaCog,  FaBars, FaTimes } from "react-icons/fa";
 
 const SideBar = () => {
   const [isOpen, setIsOpen] = useState(true); // Sidebar open state
@@ -40,22 +40,22 @@ const SideBar = () => {
       {/* Navigation Links */}
       <div className="nav-links">
         <NavLink className="style-nav" to="/dashboard">
-          <FaHome /> {isOpen && "Dashboard"}
+          <BiHome /> {isOpen && "Dashboard"}
         </NavLink>
         <NavLink className="style-nav" to="/courses">
-          <BiBook /> {isOpen && "Courses"}
+          <BiLaptop /> {isOpen && "CBT Mode"}
         </NavLink>
-        <NavLink className="style-nav" to="/exampage">
+        {/* <NavLink className="style-nav" to="/exampage">
           <FaPen /> {isOpen && "Exams"}
-        </NavLink>
+        </NavLink> */}
         <NavLink className="style-nav" to="/userinfo">
-          <FaUser /> {isOpen && "User Info"}
+          <BiUser /> {isOpen && "User Info"}
         </NavLink>
         <NavLink className="style-nav" to="/settings">
-          <FaCog /> {isOpen && "Settings"}
+          <FaCog className="bot" /> {isOpen && "Settings"}
         </NavLink>
         <button onClick={logOutUser} className="logoOut-btn">
-          <BiExit /> {isOpen && "Log Out"}
+          <BiDoorOpen /> {isOpen && "Log Out"}
         </button>
       </div>
     </div>
