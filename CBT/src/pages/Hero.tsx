@@ -145,7 +145,7 @@ const Hero = () => {
 
 
      {/* Team Section */}
-     <div className="team" id="team">
+      <div className="team" id="team">
         <h2 className="team-heading">
           OUR TEAM <span className="underline"></span>
         </h2>
@@ -183,6 +183,68 @@ const Hero = () => {
         </div>
       </div>
         <div>
+              {/* FAQ Section */}
+              <div className="faq" id="faq">
+            <h2 className="faq-heading">
+              FREQUENTLY ASKED QUESTIONS <span className="underline"></span>
+            </h2>
+            <div className="faq-container">
+              <div className="faq-item">
+                <input type="checkbox" id="faq1" className="faq-toggle" />
+                <label htmlFor="faq1" className="faq-question">
+                  What is NEXA?
+                </label>
+                <div className="faq-answer">
+                  <p>
+                    NEXA (NOUN Exam Experience Assistant) is a computer-based
+                    training platform designed to help students prepare for
+                    exams with practice tests, study materials, and timers.
+                  </p>
+                </div>
+              </div>
+
+              <div className="faq-item">
+                <input type="checkbox" id="faq2" className="faq-toggle" />
+                <label htmlFor="faq2" className="faq-question">
+                  How do I access the course materials?
+                </label>
+                <div className="faq-answer">
+                  <p>
+                    You can access course materials by logging into your account
+                    and navigating to the "Course Materials" section on the
+                    dashboard.
+                  </p>
+                </div>
+              </div>
+
+              <div className="faq-item">
+                <input type="checkbox" id="faq3" className="faq-toggle" />
+                <label htmlFor="faq3" className="faq-question">
+                  Are the practice exams timed?
+                </label>
+                <div className="faq-answer">
+                  <p>
+                    Yes, our practice exams include timers to simulate a real
+                    exam environment, helping you manage your time effectively.
+                  </p>
+                </div>
+              </div>
+
+              <div className="faq-item">
+                <input type="checkbox" id="faq4" className="faq-toggle" />
+                <label htmlFor="faq4" className="faq-question">
+                  How can I track my progress?
+                </label>
+                <div className="faq-answer">
+                  <p>
+                    Your progress is tracked automatically after each practice
+                    exam, and you can view detailed reports in the "Tracks"
+                    section.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
           {/* Footer Section */}
           <footer className="footer">
             <div className="footer-container">
