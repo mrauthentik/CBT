@@ -66,6 +66,7 @@ const Settings: React.FC = () => {
       toast.error("Failed to save profile");
     } finally {
       setIsSaving(false);
+      console.log('Saving button clicked')
     }
   };
 
