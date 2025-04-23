@@ -1,14 +1,14 @@
-import { useState, useEffect } from 'react';
-import logoImage from './logo/logo.jpeg';
-import Modal from '../pages/Modal';
-import SignUpPage from './UserAuth/SignUpPage';
-import SignInPage from './UserAuth/SignInPage';
-import { useNavigate } from 'react-router-dom';
-import { FaBars, FaTimes } from 'react-icons/fa';
+import { useState, useEffect } from "react";
+import logoImage from "./logo/logo.jpeg";
+import Modal from "../pages/Modal";
+import SignUpPage from "./UserAuth/SignUpPage";
+import SignInPage from "./UserAuth/SignInPage";
+import { useNavigate } from "react-router-dom";
+import { FaBars, FaTimes } from "react-icons/fa";
 
 export const Navbar = () => {
   const [showModal, setShowModal] = useState(false);
-  const [modalType, setModalType] = useState<'signin' | 'signup' | null>(null);
+  const [modalType, setModalType] = useState<"signin" | "signup" | null>(null);
   const [scrolled, setScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
@@ -18,11 +18,11 @@ export const Navbar = () => {
       setScrolled(window.scrollY > 50);
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const openModal = (type: 'signin' | 'signup') => {
+  const openModal = (type: "signin" | "signup") => {
     setModalType(type);
     setShowModal(true);
   };
@@ -35,14 +35,16 @@ export const Navbar = () => {
   return (
     <>
       <div
-        className={`navbar fixed top-0 left-0 w-full z-50 ${
-          scrolled ? 'bg-teal-600 shadow-md' : 'bg-transparent'
+        className={`navbar sticky top-0 w-full z-50 ${
+          scrolled ? "bg-teal-600 shadow-md" : "bg-transparent"
         } transition-all duration-300`}
       >
         <div className="container mx-auto flex justify-between items-center px-5 py-4 relative">
           {/* Logo */}
           <div className="logo">
+          <a href="#home">
             <img src={logoImage} alt="Logo" className="h-12" />
+            </a>
           </div>
 
           {/* Hamburger Menu for Small Screens */}
@@ -57,35 +59,45 @@ export const Navbar = () => {
 
           {/* Navigation Links */}
           <ul
-            className={`lg:flex gap-6 items-center absolute lg:static top-16 left-0 w-full lg:w-auto bg-teal-700 lg:bg-transparent transition-all duration-300 ease-in-out ${
-              isMenuOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-5 pointer-events-none'
-            } lg:opacity-100 lg:pointer-events-auto flex flex-col lg:flex-row py-4 lg:py-0`}
+            className={`lg:flex gap-3 items-center transition-all duration-300 ease-in-out
+            ${
+              isMenuOpen
+                ? "absolute top-20 left-0 w-full bg-teal-700 flex flex-col py-4"
+                : "absolute top-20 left-0 w-full bg-teal-700 opacity-0 -translate-y-5 pointer-events-none flex flex-col py-4"
+            }
+            lg:static lg:w-auto lg:bg-transparent lg:opacity-100 lg:pointer-events-auto lg:flex-row lg:translate-y-0
+          `}
           >
-            {['Home', 'About', 'Team'].map((item, index) => (
-              <li key={index} className="text-white text-lg py-2 px-6 hover:bg-teal-800 transition rounded-lg">
+            {["Home", "About", "Team"].map((item, index) => (
+              <li
+                key={index}
+                className="text-white text-lg py-2 px-6 hover:bg-teal-800 transition rounded-lg"
+              >
                 <a href="#">{item}</a>
               </li>
             ))}
             <li className="py-2 px-6">
               <button
-                className="text-white text-lg hover:bg-teal-800 px-4 py-2 rounded-md transition"
-                onClick={() => openModal('signin')}
+                className="text-white text-lg hover:bg-teal-800 px-1 py-2 rounded-md transition"
+                onClick={() => openModal("signin")}
               >
                 Sign in
               </button>
             </li>
+
             <li className="py-2 px-6">
               <button
-                className="text-white text-lg hover:bg-teal-800 px-4 py-2 rounded-md transition"
-                onClick={() => openModal('signup')}
+                className="text-white text-lg hover:bg-teal-800 rounded-md transition"
+                onClick={() => openModal("signup")}
               >
                 Sign up
               </button>
             </li>
+
             <li className="py-2 px-6">
               <button
-                className="text-white text-lg hover:bg-teal-800 px-4 py-2 rounded-md transition"
-                onClick={() => navigate('/admin')}
+                className="text-white text-lg hover:bg-teal-800 rounded-md transition"
+                onClick={() => navigate("/admin")}
               >
                 Admin
               </button>
@@ -97,7 +109,7 @@ export const Navbar = () => {
       {/* Modal */}
       {showModal && (
         <Modal onClose={closeModal}>
-          {modalType === 'signin' ? (
+          {modalType === "signin" ? (
             <SignInPage toggleAuth={closeModal} />
           ) : (
             <SignUpPage toggleAuth={closeModal} />

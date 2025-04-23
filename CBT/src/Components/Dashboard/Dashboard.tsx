@@ -9,7 +9,6 @@ import "react-toastify/dist/ReactToastify.css";
 import UserProgressChart from "./UserProgressChart";
 import User from "./UserName";
 import { ThreeDots } from "react-loader-spinner";
-import { BiNoEntry } from "react-icons/bi";
 
 const Container = styled.div`
   display: flex;
@@ -99,7 +98,7 @@ const TableCell = styled.td`
 `;
 
 const Dashboard: React.FC = () => {
-  const [fullName, setFullName] = useState<string>("");
+  const [fullName, setFullName] = useState<string>("User");
   const [loading, setLoading] = useState<boolean>(true);
   const [progressData, setProgressData] = useState<
     { date: string; score: number; courseId: string }[]
@@ -134,6 +133,13 @@ const Dashboard: React.FC = () => {
     return () => unsubscribe();
   }, [userId]);
 
+  const getGreeting = () => {
+    const hour = new Date().getHours();
+    if (hour < 12) return '🌻 Good Morning';
+    if (hour <= 15) return '🌤️ Good Afternoon';
+    return '🌙 Good Evening';
+  };
+
   if (loading) {
     return (
       <Container>
@@ -148,7 +154,7 @@ const Dashboard: React.FC = () => {
       <Content>
         <Header>
           <h2 className="text-center px-3 py-3 font-bold ">
-            Welcome, {fullName}! 👋
+             {getGreeting()} {fullName} 
           </h2>
           <User className="hide-username-on-mobile" />
         </Header>

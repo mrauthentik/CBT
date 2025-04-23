@@ -63,7 +63,7 @@ const User: React.FC<UserProps> = ({ className }) => {
   }, []);
   const getInitials = () => {
     return (
-      (firstName ? firstName.charAt(0).toUpperCase() : "") +
+      (firstName ? firstName.charAt(0).toUpperCase() : '😔') +
       (lastName ? lastName.charAt(0).toUpperCase() : "")
     );
   };

@@ -12,11 +12,11 @@ const CourseSelection: React.FC = () =>{
    const navigate = useNavigate ()
    const handleCourseSelect = (courseId:string)=>{
       navigate(`/exampage/${courseId}`)
-      console.log(`${courseId} has been clicked`)
+      
    }
     useEffect(() => {
         const fetchCourses = async()=>{
-            console.log("Courses state updated", courses)
+            
             try{
                 const coursesCollection = collection(db, "courses");
                 const courseSnapshot = await getDocs(coursesCollection);
@@ -27,9 +27,9 @@ const CourseSelection: React.FC = () =>{
                     CourseCode: docs.data().CourseCode
                 })) as { id:string; CourseName: string; CourseCode: string;} [];
                 setCourses(courseList)
-                console.log("Course List",courseList)
+               
             }catch (err){
-                console.log("Error fectching courses",err)
+                console.error("Error fectching courses",err)
             }
         };
         fetchCourses();
@@ -59,7 +59,7 @@ const CourseSelection: React.FC = () =>{
         {filteredCourses.length === 0 && <p>No courses found</p>}
 
         {filteredCourses.map((course, index) => {
-          console.log("Rendering:", course.CourseName);
+         
           return (
             <li
               key={course.id || index}
