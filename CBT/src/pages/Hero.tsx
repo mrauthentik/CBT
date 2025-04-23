@@ -163,7 +163,7 @@ const Hero = () => {
               initial={{ x: 300, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
               exit={{ x: -300, opacity: 0 }}
-              transition={{ duration: 0.4 }}
+              transition={{ duration: 0.1 }}
             >
               <div className="team-img-container">
                 <img src={teamMembers[index].img} alt={teamMembers[index].name} className="team-img" />
