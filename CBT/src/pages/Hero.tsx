@@ -3,6 +3,9 @@ import logo from '../../src/Components/logo/logo.jpeg'
 import "../App.css"
 import uche_img from '../assets/uche.jpg'
 import maggie from "../../src/Components/Team-images/maggie.jpeg";
+import prince from '../../src/assets/profile.jpg'
+import joel from '../../src/assets/profile (2).jpeg'
+import nuel from '../../src/assets/profile (1).jpeg'
 import "../App.css";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
@@ -17,13 +20,13 @@ const Hero = () => {
     {
       name: "Uche",
       role: "Lead Developer",
-      img: logo,
+      img: uche_img,
       bio: "Provides technical leadership, reviews code, and ensures project success."
     },
     {
       name: "Prince Paul",
       role: "Front-End Developer",
-      img: uche_img,
+      img: prince,
       bio: "Builds sleek, interactive UI components that enhance user experience.",
       socials: ["facebook", "twitter", "github", "linkedin"]
     },
@@ -48,13 +51,13 @@ const Hero = () => {
     {
       name: "Paul Nuel",
       role: "Designer",
-      img: logo,
+      img: nuel,
       bio: "Designs user-friendly interfaces and maintains the visual brand identity."
     },
     {
       name: "Joel",
       role: "Nexa Support",
-      img: logo,
+      img: joel,
       bio: "Offers responsive support to users and ensures smooth operation."
     }
   ];
