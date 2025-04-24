@@ -91,6 +91,7 @@ const ExamPage: React.FC = () => {
       const questionList = questionSnapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
+        // correctAnswer: doc.data().correctAnswer || "",
       })) as {
         id: string;
         question: string;
@@ -168,14 +169,21 @@ const ExamPage: React.FC = () => {
   const handleSubmit = async () => {
     let correctCount = 0;
 
+    //This logic here is to normalize text, to remove case sensitivty and extra spacing
+    const normalizeText = (text: string) => {
+      text 
+      .trim()
+      .toLowerCase()
+      .replace(/[^\w\s]/gi, "") // Remove punctuation
+    }
+
     // Calculate the score
     questions.forEach((question) => {
-      if (
-        answers[question.id]?.trim().toLowerCase() ===
-        question.correctAnswer.toLowerCase()
-      ) {
-        correctCount++;
-      }
+      const userAnswer = normalizeText(answers[question.id] || "");
+      const correctAnswer = normalizeText(question.correctAnswer || "");
+    if(userAnswer === correctAnswer){
+       correctCount ++
+    }
     });
 
     const finalScore = correctCount;
