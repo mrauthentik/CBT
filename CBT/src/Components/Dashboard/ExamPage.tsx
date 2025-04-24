@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import InstructionPage from "./InstructionPage";
 import {
   collection,
@@ -23,6 +24,8 @@ import { Timer } from "./Timer";
 import SideBar from "../SideBar";
 import User from "./UserName";
 import { BiCheck } from "react-icons/bi";
+
+import Modal from "react-modal";
 
 const ExamPage: React.FC = () => {
   const { courseId } = useParams(); // Get courseId from URL
@@ -54,6 +57,10 @@ const ExamPage: React.FC = () => {
     null
   );
   const [questionCount, setQuestionCount] = useState<number>(10)
+  const [showConfirmationModal, setShowConfirmationModal] = useState(false); // State for the confirmation modal
+  const [exitWithoutSubmitting, setExitWithoutSubmitting] = useState(false); // State to track if the user is trying to exit
+  const [pendingNavigation, setPendingNavigation] = useState<string | null>(null); // Store the pending Navigation path
+const navigate = useNavigate()
 
   useEffect(() => {
     const fetchTimerSettings = async () => {
@@ -91,7 +98,6 @@ const ExamPage: React.FC = () => {
       const questionList = questionSnapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
-        // correctAnswer: doc.data().correctAnswer || "",
       })) as {
         id: string;
         question: string;
@@ -119,6 +125,23 @@ const ExamPage: React.FC = () => {
       setLoading(false);
     }
   };
+
+  useEffect(()=>{
+    //this logic will warn users if they try to exit the page without submitting the exam
+    const handleBeforeUnload = (event: BeforeUnloadEvent) => {
+      if(score === null ) {
+        event.preventDefault();
+        return
+
+      }
+    }
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    }
+
+  }, [score])
 
   //AI Intetegration
   const apiKey = import.meta.env.VITE_GOOGLE_AI_API_KEY;
@@ -181,9 +204,9 @@ const ExamPage: React.FC = () => {
     questions.forEach((question) => {
       const userAnswer = normalizeText(answers[question.id] || "");
       const correctAnswer = normalizeText(question.correctAnswer || "");
-    if(userAnswer === correctAnswer){
-       correctCount ++
-    }
+      if (userAnswer === correctAnswer) {
+        correctCount++;
+      }
     });
 
     const finalScore = correctCount;
@@ -223,7 +246,7 @@ const ExamPage: React.FC = () => {
       toast.success(
         `Exam submitted! You scored ${finalScore} out of ${questions.length}.`
       );
-
+      setShowConfirmationModal(false)
       setShowAnswers(true);
     } catch (error) {
       console.error("Error saving progress data:", error);
@@ -233,11 +256,31 @@ const ExamPage: React.FC = () => {
     setExamTime(600);
   };
 
+
+  //this logic handles exiting the modal
+  // usePrompt('You have not submitted your exam. Are you sure you want to leave?', score === null)
+  const handleCancelExit = () => {
+    setExitWithoutSubmitting(false);
+    setShowConfirmationModal(false)
+  }
+
+const handleConfirmExit = () => {
+  if(exitWithoutSubmitting && pendingNavigation){
+    setShowConfirmationModal(false)
+    navigate(pendingNavigation)
+  }else{
+    handleSubmit()
+  }
+}
+
+
+
   const handleRetakeExam = async() => {
     setAnswers({});
     setScore(null);
     setShowAnswers(false);
     setExplanations({});
+    setShowInstructions(true)
    
     try{
       const user = auth.currentUser
@@ -302,6 +345,39 @@ const ExamPage: React.FC = () => {
     <div>
       <SideBar />
       <User />
+
+      {/* Confirmation Modal */}
+      <Modal 
+        isOpen = {showConfirmationModal}
+        onRequestClose={() => setShowConfirmationModal(false)}
+        contentLabel="Confirmation Modal"
+        className="modal"
+        overlayClassName="modal-overlay"
+      >
+        <h2 className="text-lg font-semibold">Are you sure?</h2>
+        <p className="text-gray-600">
+          {exitWithoutSubmitting
+            ? "You have not submitted your exam. Are you sure you want to leave?"
+            : "Are you sure you want to submit your exam?"}
+        </p>
+        <div className="flex justify-end mt-4">
+          <button
+            onClick={handleCancelExit}
+            className="bg-gray-300 text-gray-800 px-4 py-2 rounded-md mr-2"
+          >
+            No
+          </button>
+          <button
+            onClick={handleConfirmExit}
+            className="bg-teal-600 text-white px-4 py-2 rounded-md"
+          >
+            Yes
+          </button>
+        </div>
+      </Modal>
+         
+      
+
 
       {/* Show instruction condition */}
       {showInstructions ? (
@@ -461,7 +537,7 @@ const ExamPage: React.FC = () => {
           {score === null ? (
             <div className="w-full">
               <button
-                onClick={handleSubmit}
+                onClick={()=> setShowConfirmationModal(true)}
                 className="submit-btn  max-h-fit bg-[#008080] text-white px-4 py-2 rounded-md hover:bg-[#006666] cursor-pointer mt-5 mb-5"
               >
                 Submit Exam

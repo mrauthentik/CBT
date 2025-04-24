@@ -1454,3 +1454,26 @@ fieldset {
   transform: rotateZ(360deg);
   animation: ease-out;
 }
+
+
+/* Exam Page Modal Styling */
+.modal {
+  background: white;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  max-width: 500px;
+  margin: auto;
+  position: relative;
+}
+
+.modal-overlay {
+  background: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
