@@ -40,6 +40,8 @@ const SignUpPage: React.FC<{ toggleAuth: () => void }> = ({ toggleAuth }) => {
   };
 
   const handleSignUpwithGoogle = async () => {
+    if(loading) return // this will prevent multiple clicks on the button
+    setLoading(true);
     const provider = new GoogleAuthProvider();
 
     try{
@@ -51,6 +53,9 @@ const SignUpPage: React.FC<{ toggleAuth: () => void }> = ({ toggleAuth }) => {
     }catch (error:unknown){
       toast.error('Google sign-in failed. Try again.');
       console.log(error)
+    }finally{
+      setLoading(false);
+
     }
   }
 
@@ -122,9 +127,14 @@ const SignUpPage: React.FC<{ toggleAuth: () => void }> = ({ toggleAuth }) => {
             {loading ? <ThreeDots color="#fff" height={20} width={20} /> : "Sign Up"}
           </button>
         </form>
-        <div className="google-signin" onClick={handleSignUpwithGoogle}>
-          <FcGoogle /> Sign up with Google
-        </div>
+        <div
+        className={`google-signin flex items-center justify-center gap-2 cursor-pointer mt-4 ${
+          loading ? 'opacity-50 cursor-not-allowed' : ''
+        }`}
+        onClick={handleSignUpwithGoogle}
+      >
+  <FcGoogle size={24} /> {loading ? 'Signing in...' : 'Sign up with Google'}
+</div>
         <div className="link-container">
           <Link to="" type="button" onClick={toggleAuth}>Already have an account? Sign in</Link>
         </div>
