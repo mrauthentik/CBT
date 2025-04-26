@@ -1,11 +1,12 @@
 import { useNavigate } from 'react-router-dom';
 import logo from '../../src/Components/logo/logo.jpeg'
 import "../App.css"
-import uche_img from '../assets/uche.jpg'
+import uche_img from '../assets/uche1.jpg'
 import maggie from "../../src/Components/Team-images/maggie.jpeg";
 import prince from '../../src/assets/profile.jpg'
 import joel from '../../src/assets/profile (2).jpeg'
 import nuel from '../../src/assets/profile (1).jpeg'
+import ifeanyi from '../../src/assets/ifeanyi.jpeg'
 import "../App.css";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
@@ -45,7 +46,7 @@ const Hero = () => {
     {
       name: "Ifeanyi",
       role: "Project Manager",
-      img: logo,
+      img: ifeanyi,
       bio: "Coordinates team efforts and ensures timely feature delivery."
     },
     {
