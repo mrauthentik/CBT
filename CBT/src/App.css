@@ -555,8 +555,8 @@ html {
 }
 
 .team-img-container {
-  width: 150px;
-  height: 150px;
+  width: 170px;
+  height: 170px;
   margin: 0 auto 20px;
   overflow: hidden;
   border-radius: 50%; /* Circular image */
