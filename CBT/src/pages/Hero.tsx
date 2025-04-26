@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 import logo from '../../src/Components/logo/logo.jpeg'
 import "../App.css"
 import uche_img from '../assets/uche1.jpg'
@@ -64,6 +65,17 @@ const Hero = () => {
   ];
 
   //this logic auto slides the team members every 5 seconds
+
+  useEffect(()=> {
+    const interval =  setInterval (()=> {
+      next()
+    }, 5000)
+    return () => clearInterval(interval)
+  }, [])
+
+  const goToSlide = (slideIndex:number) => {
+    setIndex(slideIndex);
+  }
   
   return (
     <div className="cbt">
@@ -188,6 +200,21 @@ const Hero = () => {
           <button onClick={next} className="carousel-btn">⟩</button>
         </div>
       </div>
+
+              {/* dotted pagination */}
+              <div className="pagination-dots">
+                {teamMembers.map((_, slideIndex)=>(
+                  <span 
+                    key={slideIndex}
+                    className={`dot ${index === slideIndex ? "active" : ""}`}
+                    onClick={() => goToSlide(slideIndex)}
+
+                  ></span>
+                ))
+
+                }
+              </div>
+
         <div>
               {/* FAQ Section */}
               <div className="faq" id="faq">
