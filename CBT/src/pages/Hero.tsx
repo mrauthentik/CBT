@@ -62,6 +62,8 @@ const Hero = () => {
       bio: "Offers responsive support to users and ensures smooth operation."
     }
   ];
+
+  //this logic auto slides the team members every 5 seconds
   
   return (
     <div className="cbt">

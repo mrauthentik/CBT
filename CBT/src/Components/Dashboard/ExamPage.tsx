@@ -473,7 +473,7 @@ const handleConfirmExit = () => {
                   {showAnswers && (
                     <div className="answer-feedback">
                       {answers[question.id]?.trim().toLowerCase() ===
-                      question.correctAnswer.toLowerCase() ? (
+                      question.correctAnswer.trim().toLowerCase() ? (
                         <span className="correct-icon">
                           <BiCheck size={24} color="green" /> Correct
                         </span>
