@@ -194,7 +194,7 @@ const navigate = useNavigate()
 
     //This logic here is to normalize text, to remove case sensitivty and extra spacing
     const normalizeText = (text: string) => {
-      text 
+     return text 
       .trim()
       .toLowerCase()
       .replace(/[^\w\s]/gi, "") // Remove punctuation
