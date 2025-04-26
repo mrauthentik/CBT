@@ -5,6 +5,8 @@ import { useNavigate, Link } from 'react-router-dom';
 import { ThreeDots } from 'react-loader-spinner';
 import { FcGoogle } from 'react-icons/fc';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { auth } from '../firebase';// Adjust the import path as necessary
+import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 
 const SignUpPage: React.FC<{ toggleAuth: () => void }> = ({ toggleAuth }) => {
   const [firstName, setFirstName] = useState('');
@@ -36,6 +38,21 @@ const SignUpPage: React.FC<{ toggleAuth: () => void }> = ({ toggleAuth }) => {
       setLoading(false);
     }
   };
+
+  const handleSignUpwithGoogle = async () => {
+    const provider = new GoogleAuthProvider();
+
+    try{
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      navigate('/dashboard');
+     toast.success('Google sign-in successful');
+      console.log(user);
+    }catch (error:unknown){
+      toast.error('Google sign-in failed. Try again.');
+      console.log(error)
+    }
+  }
 
   return (
     <div className="signin">
@@ -105,8 +122,8 @@ const SignUpPage: React.FC<{ toggleAuth: () => void }> = ({ toggleAuth }) => {
             {loading ? <ThreeDots color="#fff" height={20} width={20} /> : "Sign Up"}
           </button>
         </form>
-        <div className="google-signin">
-          <FcGoogle /> Sign in with Google
+        <div className="google-signin" onClick={handleSignUpwithGoogle}>
+          <FcGoogle /> Sign up with Google
         </div>
         <div className="link-container">
           <Link to="" type="button" onClick={toggleAuth}>Already have an account? Sign in</Link>

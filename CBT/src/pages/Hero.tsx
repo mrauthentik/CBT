@@ -1,4 +1,4 @@
-
+import { useNavigate } from 'react-router-dom';
 import logo from '../../src/Components/logo/logo.jpeg'
 import "../App.css"
 import uche_img from '../assets/uche.jpg'
@@ -10,7 +10,7 @@ import "../App.css";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 const Hero = () => {
-
+    const navigate = useNavigate();
   const [index, setIndex] = useState(0);
 
   const next = () => setIndex((prev) => (prev + 1) % teamMembers.length);
@@ -312,7 +312,7 @@ const Hero = () => {
               </div>
             </div>
             <div className="footer-bottom">
-              <p>
+              <p onClick={()=> navigate('/admin')}>
                 &copy; {new Date().getFullYear()} NEXA. All Rights Reserved.
               </p>
             </div>

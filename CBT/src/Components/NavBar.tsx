@@ -3,7 +3,6 @@ import logoImage from "./logo/logo.jpeg";
 import Modal from "../pages/Modal";
 import SignUpPage from "./UserAuth/SignUpPage";
 import SignInPage from "./UserAuth/SignInPage";
-import { useNavigate } from "react-router-dom";
 import { FaBars, FaTimes } from "react-icons/fa";
 
 export const Navbar = () => {
@@ -11,7 +10,6 @@ export const Navbar = () => {
   const [modalType, setModalType] = useState<"signin" | "signup" | null>(null);
   const [scrolled, setScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -94,14 +92,14 @@ export const Navbar = () => {
               </button>
             </li>
 
-            <li className="py-2 px-6">
+            {/* <li className="py-2 px-6">
               <button
                 className="text-white text-lg hover:bg-teal-800 rounded-md transition"
                 onClick={() => navigate("/admin")}
               >
                 Admin
               </button>
-            </li>
+            </li> */}
           </ul>
         </div>
       </div>
