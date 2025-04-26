@@ -8,9 +8,11 @@ import prince from '../../src/assets/profile.jpg'
 import joel from '../../src/assets/profile (2).jpeg'
 import nuel from '../../src/assets/profile (1).jpeg'
 import ifeanyi from '../../src/assets/ifeanyi.jpeg'
+import muna from '../../src/assets/muna.jpeg'
 import "../App.css";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
+
 const Hero = () => {
     const navigate = useNavigate();
   const [index, setIndex] = useState(0);
@@ -23,26 +25,38 @@ const Hero = () => {
       name: "Uche",
       role: "Lead Developer",
       img: uche_img,
-      bio: "Provides technical leadership, reviews code, and ensures project success."
+      bio: "Provides technical leadership, reviews code, and ensures project success.",
+      socials: [
+      {platform: "github", url:" https://github.com/mrauthentik"},
+      {platform: "linkedin", url:"https://www.linkedin.com/in/uchenna-umoke-34006123b/"},
+      {platform: "twitter", url:" https://twitter.com/umokeuchenna"},
+    ],
     },
     {
       name: "Prince Paul",
       role: "Front-End Developer",
       img: prince,
       bio: "Builds sleek, interactive UI components that enhance user experience.",
-      socials: ["facebook", "twitter", "github", "linkedin"]
+      socials: [
+        {platform: "github", url:" https://github.com/Theprogrammingprince"},
+      ],
     },
     {
       name: "Muna",
       role: "Content Specialist",
-      img: logo,
+      img: muna,
       bio: "Develops accurate and helpful content tailored to exam preparation."
     },
     {
       name: "Maggie",
       role: "Front-End Developer",
       img: maggie,
-      bio: "Translates design into performant front-end code with seamless UI."
+      bio: "Translates design into performant front-end code with seamless UI.",
+      socials: [
+        {platform: "github", url:" https://github.com/Margaret-Egbe"},
+        {platform: "linkedin", url:" https://www.linkedin.com/in/margaret-egbe/"},
+
+      ],
     },
     {
       name: "Ifeanyi",
@@ -189,8 +203,16 @@ const Hero = () => {
 
               {teamMembers[index].socials && (
                 <div className="socials">
-                  {teamMembers[index].socials.map((icon) => (
-                    <i key={icon} className={`bx bxl-${icon}`}></i>
+                  {teamMembers[index].socials.map((social) => (
+                    <a
+                      key={social.platform}
+                      href={social.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="social-link"
+                    >
+                      <i className={`bx bxl-${social.platform}`}></i>
+                    </a>
                   ))}
                 </div>
               )}
