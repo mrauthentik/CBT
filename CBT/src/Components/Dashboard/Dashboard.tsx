@@ -128,7 +128,7 @@ const Dashboard: React.FC = () => {
           (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
         );
       setProgressData(data);
-      console.log("Fetched Progress Data are: ", data);
+      
     });
     return () => unsubscribe();
   }, [userId]);
