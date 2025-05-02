@@ -252,6 +252,9 @@ const navigate = useNavigate()
       console.error("Error saving progress data:", error);
       toast.error("Failed to save progress data.");
     }
+    finally{
+      setShowConfirmationModal(false)
+    }
     // setExamTime{[]}
     setExamTime(600);
   };
@@ -270,6 +273,7 @@ const handleConfirmExit = () => {
     navigate(pendingNavigation)
   }else{
     handleSubmit()
+    setShowConfirmationModal(false)
   }
 }
 
@@ -363,13 +367,13 @@ const handleConfirmExit = () => {
         <div className="flex justify-end mt-4">
           <button
             onClick={handleCancelExit}
-            className="bg-gray-300 text-gray-800 px-4 py-2 rounded-md mr-2"
+            className="bg-gray-300 text-gray-800 px-4 py-2 rounded-md mr-2 cursor-pointer"
           >
             No
           </button>
           <button
             onClick={handleConfirmExit}
-            className="bg-teal-600 text-white px-4 py-2 rounded-md"
+            className="bg-teal-600 text-white px-4 py-2 rounded-md cursor-pointer"
           >
             Yes
           </button>

@@ -1461,9 +1461,13 @@ fieldset {
   background: white;
   padding: 2rem;
   border-radius: 0.5rem;
-  max-width: 500px;
+  width: 500px;
+  max-width: 90%;
   margin: auto;
   position: relative;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: relative;
+  text-align: center;
 }
 
 .modal-overlay {
@@ -1476,6 +1480,47 @@ fieldset {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .modal {
+    padding: 1.5rem;
+    width: 90%; /* Take up most of the screen width */
+  }
+
+  .modal h2 {
+    font-size: 1.25rem;
+  }
+
+  .modal p {
+    font-size: 0.95rem;
+  }
+
+  .modal button {
+    font-size: 0.9rem;
+    padding: 0.4rem 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .modal {
+    padding: 1rem;
+    width: 95%; /* Take up almost the full screen width */
+  }
+
+  .modal h2 {
+    font-size: 1.1rem;
+  }
+
+  .modal p {
+    font-size: 0.9rem;
+  }
+
+  .modal button {
+    font-size: 0.85rem;
+    padding: 0.3rem 0.6rem;
+  }
 }
 
 /* Pagination Dots */
