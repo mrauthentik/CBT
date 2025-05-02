@@ -1,7 +1,7 @@
 
 import {auth,db} from '../firebase';
 import {createUserWithEmailAndPassword, fetchSignInMethodsForEmail} from 'firebase/auth';
-import {collection, doc, serverTimestamp, setDoc, getDocs, where, query} from "firebase/firestore"
+import { doc, serverTimestamp, setDoc, } from "firebase/firestore"
 import router from '../../Routes/Router';
 import { updateProfile } from 'firebase/auth';
 import { toast } from 'react-toastify';
@@ -9,15 +9,7 @@ import { toast } from 'react-toastify';
 export const createUser = async (email: string, password: string, fullName:string) => {  
       
     try {
-        //This logic is check if email has already been used to sign up before
-        const q = query(collection(db, "users"), where("email", "==", email))
-        const querySnapshot =await getDocs(q)
-        
-        if(!querySnapshot.empty){
-          toast.error('This email is already in use. Try logging in instead')
-          throw new Error('This email is already in use.')
-          console.log('User existed already, duplicated accounted suspected')
-        }
+       
 
         //Check authentication system for exisiting email
         const signInMethods = await fetchSignInMethodsForEmail(auth, email)
@@ -48,6 +40,8 @@ export const createUser = async (email: string, password: string, fullName:strin
           } else {
             toast.error("An unknown error occurred.", { autoClose: 3000, position: "top-center" });
           }
+          console.log('Error saving to firestore', error)
+          throw new Error('Failed to save user data')
     }
 }
 

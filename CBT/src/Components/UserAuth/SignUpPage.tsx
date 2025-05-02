@@ -8,6 +8,8 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { auth } from '../firebase';// Adjust the import path as necessary
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 
+import { createUser } from './createUser';
+
 const SignUpPage: React.FC<{ toggleAuth: () => void }> = ({ toggleAuth }) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -28,14 +30,19 @@ const SignUpPage: React.FC<{ toggleAuth: () => void }> = ({ toggleAuth }) => {
     }
     setLoading(true);
     try {
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-      toast.success('Account created successfully');
+      const fullName = `${firstName} ${lastName}`;
+      await createUser(email, password, fullName);
       navigate('/dashboard');
-    } catch (error) {
-      toast.error('Sign up failed. Try again.');
-      console.log(error)
-    } finally {
-      setLoading(false);
+      toast.success('User signed up successfully', { autoClose: 3000, position: "top-center" });
+    }catch (error) {
+      if (error instanceof Error) {
+        toast.error(error.message, { autoClose: 3000, position: "top-center" });
+      } else {
+        toast.error("An unknown error occurred.", { autoClose: 3000, position: "top-center" });
+      }
+    }
+    finally{
+      setLoading(false)
     }
   };
 

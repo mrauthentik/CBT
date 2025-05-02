@@ -35,12 +35,10 @@ export const loginUser = async (email: string, password: string): Promise<void> 
     const userDoc = await getDoc(doc(db, 'users', user.uid));
     if (userDoc.exists()) {
       const userData = userDoc.data();
-      console.log("Welcome, " + userData.fullName);
 
       localStorage.setItem("userdetails",JSON.stringify(user))
 
       toast.success("Login Successful", {autoClose: 5000, position: "top-center"});
-      console.log("Sign in success", user.displayName);
           
     } else {
       console.error("No user data found in Firestore!");
