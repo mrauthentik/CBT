@@ -1486,7 +1486,8 @@ fieldset {
 @media (max-width: 768px) {
   .modal {
     padding: 1.5rem;
-    width: 90%; /* Take up most of the screen width */
+    width: 80%; /* Take up most of the screen width */
+  margin: auto;
   }
 
   .modal h2 {
@@ -1506,7 +1507,8 @@ fieldset {
 @media (max-width: 480px) {
   .modal {
     padding: 1rem;
-    width: 95%; /* Take up almost the full screen width */
+    width: 70%; 
+    margin: auto;/* Take up almost the full screen width */
   }
 
   .modal h2 {
