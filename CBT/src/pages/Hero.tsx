@@ -66,7 +66,7 @@ const Hero = () => {
     },
     {
       name: "Paul Nuel",
-      role: "Designer",
+      role: "Graphics Designer",
       img: nuel,
       bio: "Designs user-friendly interfaces and maintains the visual brand identity."
     },

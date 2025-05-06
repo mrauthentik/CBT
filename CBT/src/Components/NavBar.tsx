@@ -71,7 +71,7 @@ export const Navbar = () => {
                 key={index}
                 className="text-white text-lg py-2 px-6 hover:bg-teal-800 transition rounded-lg"
               >
-                <a href="#">{item}</a>
+                <a href={`#${item.toLowerCase()}`}>{item}</a>
               </li>
             ))}
             <li className="py-2 px-6">
