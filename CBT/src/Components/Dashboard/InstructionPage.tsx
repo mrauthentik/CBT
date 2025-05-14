@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 type Props = {
   questionCount: number;
@@ -15,6 +15,18 @@ const InstructionPage: React.FC<Props> = ({
   timer,
   setTimer,
 }) => {
+  // const [customTimer, setCustomTimer] = useState<number | null>(timer)
+  // const handleCustomTimerChange = (e: React.ChangeEvent<HTMLInputElement>) =>{
+  //   const value = parseInt(e.target.value, 10)
+  //   if(!NaN(value) && value > 0){
+  //     setCustomTimer(value)
+  //   }
+  // }
+  // const handleSetTimer = () =>{
+  //   if(customTimer !== null && customTimer > 0){
+  //     setTimer(customTimer)
+  //   }
+  // }
   return (
     <div className="instruction-container max-w-xl mx-auto p-4 sm:p-6 md:p-8">
       <h2 className="text-2xl sm:text-3xl font-semibold mb-4 text-center">Exam Instructions</h2>

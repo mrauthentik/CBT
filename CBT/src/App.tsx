@@ -3,6 +3,7 @@ import { RouterProvider } from 'react-router-dom';
 import { useEffect } from 'react';
 import "react-toastify/dist/ReactToastify.css"
 import "boxicons/css/boxicons.min.css"
+import {Analytics } from '@vercel/analytics/react'
 // import addQuestions from './Components/Dashboard/addQuestions';
 
 import './App.css'
@@ -18,7 +19,7 @@ const App: React.FC = () => {
       <ToastContainer />
       {/* <p> Question data added</p> */}
       <RouterProvider  router={router}/>
-
+    <Analytics />
     </div>
   );
 }
